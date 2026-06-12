@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dashboard Procesos Naranjas 2026 — Agrícola Yoye SPA</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+<style>
+:root{--azul:#1c3f64;--verde:#276221;--amari:#7a5800;--mora:#5b2d8e;--mora2:#4472c4}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;background:#f0f4f8;color:#1a1a2e}
+.nav{display:flex;gap:6px;padding:10px 16px;background:#1c3f64;flex-wrap:wrap}
+.nav button{background:transparent;color:#fff;border:none;padding:6px 14px;border-radius:16px;cursor:pointer;font-size:12px;font-weight:700}
+.nav button.active{background:#fff;color:#1c3f64}
+.page{display:none;padding:16px}.page.active{display:block}
+.hdr{background:linear-gradient(135deg,#1c3f64,#2E75B6);color:#fff;border-radius:10px;padding:16px 20px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center}
+.hdr h1{font-size:18px}.meta{font-size:12px;opacity:.8;text-align:right}
+.kpi-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.kpi{flex:1;min-width:150px;background:#fff;border-radius:8px;padding:12px 14px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.kpi .val{font-size:22px;font-weight:700;color:#1c3f64}.kpi .lbl{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}.kpi .sub{font-size:11px;color:#aaa;margin-top:2px}
+.kpi.g .val{color:#276221}.kpi.a .val{color:#7a5800}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:14px}
+.card{background:#fff;border-radius:8px;padding:14px 16px}
+.card h3{font-size:12px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.sec{font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.5px;margin:14px 0 8px}
+table{width:100%;border-collapse:collapse;font-size:11.5px}
+th{background:#1c3f64;color:#fff;padding:7px 8px;white-space:nowrap;text-align:center;font-size:11px}
+td{padding:6px 8px;border-bottom:1px solid #eef;text-align:center;white-space:nowrap}
+tr:last-child td{border-bottom:none}tr:hover td{background:#f5f8ff}td.l{text-align:left}
+.pill{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700}
+.ok{background:#c6efce;color:#276221}.pend{background:#ffeb9c;color:#7a5800}.parcial{background:#e4d5f4;color:#5b2d8e}.com{background:#ffe4b5;color:#7f6000}
+.badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:10px;font-weight:700}
+.badge-g{background:#c6efce;color:#276221}.badge-p{background:#e4d5f4;color:#5b2d8e}.badge-a{background:#ffeb9c;color:#7a5800}
+.warn-box{background:#fff3cd;border:1px solid #ffc107;border-radius:8px;padding:10px 14px;font-size:11px;color:#7a5800;margin-bottom:14px}
+.info-box{background:#e8f4fd;border-left:3px solid var(--azul);padding:10px 14px;border-radius:4px;font-size:12px;margin-bottom:14px}
+.guia-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:14px}
+.guia-card{background:#fff;border-radius:8px;padding:12px;border-left:4px solid #ccc}
+.guia-card.gc-pend{border-left-color:#F4B400}.guia-card.gc-parcial{border-left-color:#2E75B6}.guia-card.gc-proc{border-left-color:#276221}.guia-card.gc-com{border-left-color:#aaa}
+.guia-card .gnum{font-size:13px;font-weight:700;color:var(--azul)}.guia-card .gexp{font-size:11px;color:#666;margin:2px 0}.guia-card .gbins{font-size:11px;color:#888}.guia-card .gstatus{margin-top:6px}
+.exp-tab{padding:5px 14px;border-radius:16px;font-size:11px;font-weight:700;cursor:pointer;border:2px solid transparent}
+.exp-tab.active{border-color:var(--azul)}
+footer{text-align:center;padding:16px;color:#999;font-size:11px}
+@media(max-width:768px){.grid2,.grid3{grid-template-columns:1fr}}
+.tw{overflow-x:auto}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <button class="active" onclick="showPage('overview',this)">&#128202; Resumen</button>
+  <button onclick="showPage('detalle',this)">&#128203; Detalle Procesos</button>
+  <button onclick="showPage('calibres',this)">&#128230; Calibres</button>
+  <button onclick="showPage('guias',this)">&#128193; Estado Gu&#237;as</button>
+  <button onclick="showPage('exportadora',this)">&#127981; Por Exportadora</button>
+</div>
+
+<!-- ═══ OVERVIEW ═══ -->
+<div id="overview" class="page active">
+  <div class="hdr">
+    <div><h1>&#127818; Dashboard Procesos &#8212; Naranjas Temporada 2026</h1>
+    <div style="margin-top:5px;font-size:12px;opacity:.9">Agr&#237;cola Yoye SPA &middot; Semana 24 &middot; 14 gu&#237;as enviadas</div></div>
+    <div class="meta" style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+      <span class="badge badge-g">1 proceso completo</span>
+      <span class="badge badge-p">2 procesos parciales</span>
+      <span class="badge badge-a">9 pendientes</span>
+    </div>
+  </div>
+
+  <div class="grid2" style="margin-bottom:12px">
+    <div style="background:#fff;border:2px solid #c6efce;border-radius:10px;padding:16px 20px">
+      <div style="font-size:11px;font-weight:700;color:#276221;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">% Exportaci&#243;n (sobre Kg procesados)</div>
+      <div style="font-size:42px;font-weight:700;color:#276221;line-height:1">83,5%</div>
+      <div style="font-size:12px;color:#888;margin:4px 0 12px">48.702 kg export / 58.341 kg procesados</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+        <div style="background:#f0faf2;border-radius:6px;padding:8px 10px">
+          <div style="font-size:10px;color:#888;margin-bottom:2px">El Parque P109</div>
+          <div style="font-size:18px;font-weight:700;color:#276221">80,94%</div>
+          <div style="font-size:10px;color:#aaa">11.427 / 14.118 kg</div>
+        </div>
+        <div style="background:#f0faf2;border-radius:6px;padding:8px 10px">
+          <div style="font-size:10px;color:#888;margin-bottom:2px">El Parque L5282&#9733;</div>
+          <div style="font-size:18px;font-weight:700;color:#276221">84,0%</div>
+          <div style="font-size:10px;color:#aaa">17.745 / 21.124 kg</div>
+        </div>
+        <div style="background:#f0faf2;border-radius:6px;padding:8px 10px">
+          <div style="font-size:10px;color:#888;margin-bottom:2px">Monte Alto P301</div>
+          <div style="font-size:18px;font-weight:700;color:#276221">84,55%</div>
+          <div style="font-size:10px;color:#aaa">19.530 / 23.098 kg</div>
+        </div>
+      </div>
+    </div>
+    <div style="background:#fff;border:2px solid #ffeb9c;border-radius:10px;padding:16px 20px">
+      <div style="font-size:11px;font-weight:700;color:#7a5800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">% Nacional / COM (sobre Kg procesados)</div>
+      <div style="font-size:42px;font-weight:700;color:#7a5800;line-height:1">14,9%</div>
+      <div style="font-size:12px;color:#888;margin:4px 0 12px">8.673 kg nac. / 58.341 kg procesados</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+        <div style="background:#fffbeb;border-radius:6px;padding:8px 10px">
+          <div style="font-size:10px;color:#888;margin-bottom:2px">El Parque P109</div>
+          <div style="font-size:18px;font-weight:700;color:#7a5800">18,02%</div>
+          <div style="font-size:10px;color:#aaa">2.543 kg nac.</div>
+        </div>
+        <div style="background:#fffbeb;border-radius:6px;padding:8px 10px">
+          <div style="font-size:10px;color:#888;margin-bottom:2px">El Parque L5282&#9733;</div>
+          <div style="font-size:18px;font-weight:700;color:#7a5800">16,0%</div>
+          <div style="font-size:10px;color:#aaa">3.380 kg nac.</div>
+        </div>
+        <div style="background:#fffbeb;border-radius:6px;padding:8px 10px">
+          <div style="font-size:10px;color:#888;margin-bottom:2px">Monte Alto P301</div>
+          <div style="font-size:18px;font-weight:700;color:#7a5800">11,90%</div>
+          <div style="font-size:10px;color:#aaa">2.749 kg nac.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="warn-box">&#9888;&#65039; <strong>G-2343 El Parque (Proceso 109):</strong> Proceso parcial &#8212; se vaciaron 40 de 60 bins (14.118 kg de 21.178 kg). Se espera segundo proceso para los 20 bins restantes (7.059 kg). &nbsp;|&nbsp; <strong>G-2353 El Parque (L5282):</strong> Recepci&#243;n aprobada, calibres estimados &#8212; pendiente informe final.</div>
+
+  <div class="card" style="margin-bottom:14px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px">
+      <div>
+        <div style="font-size:11px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.5px">Avance de Procesamiento &#8212; Kg (excluye gu&#237;as comerciales)</div>
+        <div style="font-size:11px;color:#888;margin-top:2px">3 procesos recibidos &middot; 9 gu&#237;as pendientes + 20 bins parciales</div>
+      </div>
+      <div style="font-size:18px;font-weight:700;color:#1c3f64">32,6% Kg procesados</div>
+    </div>
+    <div style="background:#eee;border-radius:6px;height:14px;overflow:hidden;display:flex">
+      <div style="width:12.9%;background:#276221;height:100%" title="Completo: 23.098 kg (MA P301)"></div>
+      <div style="width:19.7%;background:#2E75B6;height:100%" title="Parcial: 35.243 kg (EP P109+L5282)"></div>
+      <div style="width:67.4%;background:#f0f0f0;height:100%"></div>
+    </div>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:8px;font-size:11px">
+      <span>&#9632; <strong style="color:#276221">Completo:</strong> 66 bins &middot; 23.098 kg (Monte Alto P301)</span>
+      <span>&#9632; <strong style="color:#2E75B6">Parcial:</strong> 100 bins &middot; 35.243 kg (El Parque P109+L5282)</span>
+      <span>&#9632; <strong style="color:#bbb">Pendiente:</strong> ~572 bins &middot; ~120.766+ kg</span>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px">
+    <div class="kpi" style="flex:1;min-width:120px"><div class="lbl">Kg totales a proceso</div><div class="val">179.107+ kg</div><div class="sub">12 gu&#237;as &middot; 738 bins</div></div>
+    <div class="kpi g" style="flex:1;min-width:120px"><div class="lbl">Kg procesados</div><div class="val">58.341 kg</div><div style="font-size:15px;font-weight:700;color:#276221;margin:2px 0">32,6%</div><div class="sub">3 procesos &middot; 166 bins</div></div>
+    <div class="kpi a" style="flex:1;min-width:120px"><div class="lbl">Kg pendientes</div><div class="val">~120.766 kg</div><div style="font-size:15px;font-weight:700;color:#7a5800;margin:2px 0">67,4%</div><div class="sub">~572 bins &middot; 9 gu&#237;as + parcial</div></div>
+    <div class="kpi g" style="flex:1;min-width:120px"><div class="lbl">Kg exportables</div><div class="val">48.702 kg</div><div style="font-size:15px;font-weight:700;color:#276221;margin:2px 0">83,5% rdto</div><div class="sub">3 procesos combinados</div></div>
+    <div class="kpi" style="flex:1;min-width:120px;border-left:3px solid #e53935"><div class="lbl">Kg no exportables</div><div class="val" style="color:#c62828">~9.640 kg</div><div class="sub">COM + Pre + Merma</div></div>
+    <div class="kpi" style="flex:1;min-width:120px;border-left:3px solid #5b2d8e"><div class="lbl">Cajas exportadas</div><div class="val" style="color:#5b2d8e">2.053 cjs</div><div class="sub">P109 + P301 confirmadas</div></div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>% Rendimiento export por proceso</h3>
+      <canvas id="rdtoChart" style="max-height:160px"></canvas>
+    </div>
+    <div class="card">
+      <h3>Avance por exportadora (bins)</h3>
+      <canvas id="binsChart" style="max-height:160px"></canvas>
+      <div style="font-size:10px;color:var(--mora);margin-top:4px">* P109: 20 bins pendientes 2&#186; proceso &middot; L5282: informe final pendiente</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ DETALLE ═══ -->
+<div id="detalle" class="page">
+  <div class="hdr"><div><h1>&#128203; Detalle de Procesos</h1>
+  <div style="margin-top:5px;font-size:12px;opacity:.9">Resultados por proceso recibido</div></div>
+  <div class="meta">3 procesos &middot; Sem. 24</div></div>
+
+  <div class="tw"><table>
+    <thead><tr>
+      <th>Gu&#237;a</th><th>Exportadora</th><th>Cuartel</th><th>Bins</th>
+      <th>Kg Env.</th><th>Kg Export</th><th>Kg Com.</th><th>Pre-Cal.</th><th>Merma</th>
+      <th>% Rdto</th><th>Cajas</th><th>Kg/Cj</th><th>Proceso</th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td class="l" style="font-weight:700">G-2343</td><td>El Parque</td><td>Mirador</td><td>40*</td>
+        <td>14.118</td><td>11.427</td><td>2.543</td><td>0</td><td>148</td>
+        <td style="font-weight:700;color:#276221">80,9%</td><td>751</td><td>15,2</td>
+        <td><span class="pill parcial">P109 &#9733;parcial</span></td>
+      </tr>
+      <tr>
+        <td class="l" style="font-weight:700">G-2353</td><td>El Parque</td><td>Mirador</td><td>60</td>
+        <td>21.124</td><td>17.745</td><td>3.380</td><td>0</td><td>0</td>
+        <td style="font-weight:700;color:#276221">84,0%&#9733;</td><td>&#8212;</td><td>&#8212;</td>
+        <td><span class="pill parcial">L5282 est.</span></td>
+      </tr>
+      <tr>
+        <td class="l" style="font-weight:700">G-2347</td><td>Monte Alto</td><td>Mirador</td><td>66</td>
+        <td>23.098</td><td>19.530</td><td>2.750</td><td>207</td><td>612</td>
+        <td style="font-weight:700;color:#276221">84,6%</td><td>1.302</td><td>15,0</td>
+        <td><span class="ok pill">P301 &#10003;</span></td>
+      </tr>
+      <tr style="background:#e8f0fb;font-weight:700">
+        <td class="l">TOTAL proceso</td><td colspan="2"></td><td>166*</td>
+        <td>58.341</td><td>48.702</td><td>8.673</td><td>207</td><td>760</td>
+        <td>83,5%</td><td>2.053</td><td>&#8212;</td><td></td>
+      </tr>
+    </tbody>
+  </table></div>
+  <div style="font-size:10px;color:#aaa;margin-top:6px">&#9733; G-2343 parcial: 40/60 bins procesados. G-2353: calibres estimados planilla recepci&#243;n, pendiente informe final.</div>
+
+  <div class="sec">Avance por exportadora (bins)</div>
+  <div class="tw"><table>
+    <thead><tr>
+      <th>Exportadora</th><th>Bins total</th><th>Kg Enviados</th>
+      <th>Kg Procesados</th><th>Kg Pendientes</th><th>Kg Export (real)</th><th>% Avance</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="l" style="font-weight:700;color:#2E75B6">El Parque</td>
+        <td>300</td><td>93.065</td>
+        <td style="color:var(--mora2);font-weight:700">35.243 (P109+L5282)</td>
+        <td>57.822</td><td>29.172</td>
+        <td><span class="pill parcial">37,9%</span></td></tr>
+      <tr><td class="l" style="font-weight:700;color:#70AD47">Crispagold</td>
+        <td>240</td><td>62.820+</td><td style="color:#999">&#8212;</td><td>62.820+</td><td>&#8212;</td>
+        <td><span class="pill pend">0%</span></td></tr>
+      <tr><td class="l" style="font-weight:700;color:#F4B400">Monte Alto</td>
+        <td>198</td><td>23.098+</td>
+        <td style="color:#276221;font-weight:700">23.098 &#10003; (G-2347)</td>
+        <td style="color:#888">66 bins (G-2354)</td>
+        <td>19.530</td>
+        <td><span class="pill parcial">50%</span></td></tr>
+      <tr style="background:#e8f0fb;font-weight:700">
+        <td class="l">TOTAL proceso</td><td>738</td><td>~179.107+</td>
+        <td>58.341</td><td>~120.766</td>
+        <td>48.702</td>
+        <td><span class="pill pend">27,4% bins</span></td></tr>
+    </tbody>
+  </table></div>
+</div>
+
+<!-- ═══ CALIBRES ═══ -->
+<div id="calibres" class="page">
+  <div class="hdr"><div><h1>&#128230; An&#225;lisis de Calibres</h1>
+  <div style="margin-top:5px;font-size:12px;opacity:.9">Total cajas por calibre &middot; Procesos recibidos</div></div>
+  <div class="meta" id="calMeta"></div></div>
+
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px" id="calExpBtns">
+    <button class="exp-tab active" onclick="calSetExp('todas',this)">Todas</button>
+    <button class="exp-tab" onclick="calSetExp('EP',this)" style="border-color:#2E75B6;color:#2E75B6">El Parque</button>
+    <button class="exp-tab" onclick="calSetExp('MA',this)" style="border-color:#F4B400;color:#F4B400">Monte Alto</button>
+  </div>
+
+  <div class="card" style="margin-bottom:14px">
+    <h3 id="calChartTitle">Total cajas por calibre &#8212; Procesos confirmados</h3>
+    <canvas id="barCalDetalle" style="max-height:270px"></canvas>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h3>Distribuci&#243;n % por calibre</h3>
+      <div id="calBarChart"></div>
+    </div>
+    <div class="card">
+      <h3>Total cajas por calibre</h3>
+      <div id="calTableWrap"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ GUIAS ═══ -->
+<div id="guias" class="page">
+  <div class="hdr"><div><h1>&#128193; Estado de Gu&#237;as</h1>
+  <div style="margin-top:5px;font-size:12px;opacity:.9">14 gu&#237;as semana 24 &middot; Seguimiento procesos</div></div>
+  <div class="meta">
+    <span class="badge badge-g">1 completa</span>&nbsp;
+    <span class="badge badge-p">2 parciales</span>&nbsp;
+    <span class="badge badge-a">9 pendientes</span>&nbsp;
+    <span class="badge" style="background:#eee;color:#666">2 comercial</span>
+  </div></div>
+
+  <div class="guia-grid" id="guia-grid"></div>
+
+  <div class="sec">Cuadratura por exportadora</div>
+  <div class="tw"><table>
+    <thead><tr><th>Exportadora</th><th>Bins total</th><th>Kg Enviados</th>
+    <th>Kg Procesados</th><th>Kg Pendientes</th><th>Kg Export (real)</th><th>% Avance</th></tr></thead>
+    <tbody>
+      <tr><td class="l" style="font-weight:700;color:#2E75B6">El Parque</td>
+        <td>300</td><td>93.065</td>
+        <td style="color:var(--mora2);font-weight:700">35.243 (P109+L5282)</td>
+        <td>57.822</td><td>29.172</td>
+        <td><span class="pill parcial">37,9%</span></td></tr>
+      <tr><td class="l" style="font-weight:700;color:#70AD47">Crispagold</td>
+        <td>240</td><td>62.820+</td><td style="color:#999">&#8212;</td><td>62.820+</td><td>&#8212;</td>
+        <td><span class="pill pend">0%</span></td></tr>
+      <tr><td class="l" style="font-weight:700;color:#F4B400">Monte Alto</td>
+        <td>198</td><td>23.098+</td>
+        <td style="color:#276221;font-weight:700">23.098 &#10003; (G-2347)</td>
+        <td style="color:#888">66 bins (G-2354)</td>
+        <td>19.530</td>
+        <td><span class="pill parcial">50%</span></td></tr>
+      <tr style="background:#e8f0fb;font-weight:700">
+        <td class="l">TOTAL proceso</td><td>738</td><td>~179.107+</td>
+        <td>58.341</td><td>~120.766+</td><td>48.702</td>
+        <td><span class="pill pend">22,5% bins</span></td></tr>
+    </tbody>
+  </table></div>
+</div>
+
+<!-- ═══ POR EXPORTADORA ═══ -->
+<div id="exportadora" class="page">
+  <div class="hdr">
+    <div><h1>&#127981; Control por Exportadora</h1>
+    <div style="margin-top:5px;font-size:12px;opacity:.9">Seguimiento de gu&#237;as, bins y rendimiento por exportadora</div></div>
+    <div class="meta">Temporada 2026 &middot; Sem. 24</div>
+  </div>
+
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px" id="procExpBtns">
+    <button class="exp-tab active" onclick="procShowExp('todas',this)">Todas</button>
+    <button class="exp-tab" onclick="procShowExp('EP',this)" style="border-color:#2E75B6;color:#2E75B6">El Parque</button>
+    <button class="exp-tab" onclick="procShowExp('CG',this)" style="border-color:#70AD47;color:#70AD47">Crispagold</button>
+    <button class="exp-tab" onclick="procShowExp('MA',this)" style="border-color:#F4B400;color:#F4B400">Monte Alto</button>
+  </div>
+
+  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #dde4f0">
+    <span style="font-size:11px;color:#888;font-weight:700;text-transform:uppercase;letter-spacing:.5px">Variedad:</span>
+    <div id="procVarBtns" style="display:flex;gap:6px">
+      <button onclick="procSetVar('todas',this)" style="padding:3px 12px;border-radius:12px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid #1c3f64;background:#1c3f64;color:#fff">Todas</button>
+      <button onclick="procSetVar('Fukumoto',this)" style="padding:3px 12px;border-radius:12px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid #e07b39;color:#e07b39;background:transparent">Fukumoto</button>
+      <button onclick="procSetVar('Cara Cara',this)" style="padding:3px 12px;border-radius:12px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid #c0392b;color:#c0392b;background:transparent">Cara Cara</button>
+    </div>
+  </div>
+
+  <div id="procExpContent"></div>
+</div>
+
+<footer>Agr&#237;cola Yoye SPA &middot; Procesos Naranjas 2026 &middot; Se actualiza al recibir cada informe de proceso</footer>
+
+<script>
+const CALS=[36,40,48,56,64,72,88,105,113,138];
+const CAL_COLORS=['#1a6aad','#2E75B6','#4493cc','#5aabde','#70BDE6','#2e7d32','#43a047','#e65100','#ef6c00','#f9a825'];
+
+const EP = {
+  label:'El Parque (P109 — G-2343)', color:'#2E75B6',
+  kg_env:14118.33, kg_exp:11427.20, kg_com:2543.50, pre:0, merma:147.63,
+  rdto:80.94, cajas:751, kgcj:15.22,
+  cals:{36:0,40:471.2,48:486.4,56:2173.6,64:456.0,72:3526.4,88:3207.2,105:0,113:1003.2,138:103.2},
+  pct:{36:0,40:4.12,48:4.26,56:19.02,64:3.99,72:30.86,88:28.07,105:0,113:8.78,138:0.90}
+};
+const EP2 = {
+  label:'El Parque (L5282 — G-2353, est.)', color:'#1565c0',
+  kg_env:21124.5, kg_exp:17744.58, kg_com:3379.92, pre:0, merma:0,
+  rdto:84.0, cajas:null, kgcj:null,
+  cals:{36:0,40:638.8,48:1898.7,56:0,64:6334.8,72:7807.6,88:1064.7,105:0,113:0,138:0},
+  pct:{36:0,40:3.60,48:10.70,56:0,64:35.70,72:44.00,88:6.00,105:0,113:0,138:0}
+};
+const MA = {
+  label:'Monte Alto (P301)', color:'#F4B400',
+  kg_env:23098.02, kg_exp:19530, kg_com:2749.50, pre:206.50, merma:612.02,
+  rdto:84.55, cajas:1302, kgcj:15.0,
+  cals:{36:630,40:0,48:1200,56:2955,64:1680,72:4950,88:4500,105:2505,113:750,138:360},
+  pct:{36:3.23,40:0,48:6.14,56:15.13,64:8.60,72:25.35,88:23.04,105:12.83,113:3.84,138:1.84}
+};
+const TOT_DATA={cals:{},pct:{}};
+const totExp=EP.kg_exp+EP2.kg_exp+MA.kg_exp;
+CALS.forEach(c=>{
+  TOT_DATA.cals[c]=(EP.cals[c]||0)+(EP2.cals[c]||0)+(MA.cals[c]||0);
+  TOT_DATA.pct[c]=totExp>0?((TOT_DATA.cals[c]/totExp)*100).toFixed(2):0;
+});
+
+const GUIAS=[
+  {g:2343,var:'Fukumoto',exp:'El Parque',cuar:'Mirador',bins:60,kg:21177.5,status:'parcial',kg_proc:14118.33,rdto_proc:80.94,proceso:'0109'},
+  {g:2344,var:'Fukumoto',exp:'Crispagold',cuar:'Rinconada',bins:66,kg:23800,status:'pend',rdto_esp:65.33},
+  {g:2345,var:'Fukumoto',exp:'Crispagold',cuar:'Rinconada',bins:62,kg:22960,status:'pend',rdto_esp:65.33},
+  {g:2346,var:'Fukumoto Comercial',exp:'Comerc. CG',cuar:'Comercial',bins:4,kg:null,status:'com'},
+  {g:2347,var:'Fukumoto',exp:'Monte Alto',cuar:'Mirador',bins:66,kg:23098.02,status:'proc',rdto:84.55,kg_exp:19530,proceso:'0301'},
+  {g:2348,var:'Fukumoto',exp:'El Parque',cuar:'Rinconada',bins:60,kg:21362.5,status:'pend',rdto_esp:78.5},
+  {g:2349,var:'Fukumoto',exp:'El Parque',cuar:'Mirador',bins:60,kg:20807,status:'pend',rdto_esp:78.5},
+  {g:2350,var:'Fukumoto',exp:'El Parque',cuar:'Rinconada',bins:60,kg:8593,status:'pend',rdto_esp:69.0},
+  {g:2351,var:'Fukumoto',exp:'Crispagold',cuar:'Mirador',bins:46,kg:16060,status:'pend',rdto_esp:68.0},
+  {g:2352,var:'Fukumoto Comercial',exp:'Comerc. CG',cuar:'Comercial',bins:20,kg:null,status:'com'},
+  {g:2353,var:'Fukumoto',exp:'El Parque',cuar:'Mirador',bins:60,kg:21124.5,status:'parcial',kg_proc:21124.5,rdto_proc:84.0,proceso:'L5282'},
+  {g:2354,var:'Fukumoto',exp:'Monte Alto',cuar:'Rinconada',bins:66,kg:null,status:'pend',rdto_esp:84.5},
+  {g:2355,var:'Fukumoto',exp:'Monte Alto',cuar:'Rinconada',bins:66,kg:null,status:'pend',rdto_esp:84.5},
+  {g:2357,var:'Fukumoto',exp:'Crispagold',cuar:'Rinconada',bins:66,kg:null,status:'pend',rdto_esp:65.33},
+];
+
+// ── CALIBRES — kg y cajas confirmadas ────────────────────────────────────────
+const CAJAS_EP={},CAJAS_MA={};
+CALS.forEach(c=>{
+  CAJAS_EP[c]=EP.kgcj?Math.round((EP.cals[c]||0)/EP.kgcj):0;
+  CAJAS_MA[c]=MA.kgcj?Math.round((MA.cals[c]||0)/MA.kgcj):0;
+});
+const CAJAS_TOT={};
+CALS.forEach(c=>CAJAS_TOT[c]=(CAJAS_EP[c]||0)+(CAJAS_MA[c]||0));
+// kg por calibre por exportadora (EP incluye P109 + L5282 est.)
+const KG_EP={},KG_MA={},KG_TOT={};
+CALS.forEach(c=>{
+  KG_EP[c]=(EP.cals[c]||0)+(EP2.cals[c]||0);
+  KG_MA[c]=(MA.cals[c]||0);
+  KG_TOT[c]=(EP.cals[c]||0)+(EP2.cals[c]||0)+(MA.cals[c]||0);
+});
+
+let calChart=null;
+window._calExpFiltro='todas';
+function calSetExp(key,btn){
+  window._calExpFiltro=key;
+  document.querySelectorAll('#calExpBtns .exp-tab').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  buildCalibresTab();
+}
+function buildCalibresTab(){
+  const key=window._calExpFiltro||'todas';
+  let kgs,cajas,label,color,nota='';
+  if(key==='EP'){
+    kgs=KG_EP; cajas=CAJAS_EP; label='El Parque (P109+L5282 est.)'; color='#2E75B6';
+    nota='★ L5282 (G-2353): kg incluidos (est.), cajas pendiente informe final';
+  } else if(key==='MA'){
+    kgs=KG_MA; cajas=CAJAS_MA; label='Monte Alto (P301)'; color='#F4B400';
+  } else {
+    kgs=KG_TOT; cajas=CAJAS_TOT; label='Todas las exportadoras'; color='#1c3f64';
+    nota='★ EP L5282 (G-2353): kg estimados incluidos, cajas pendiente informe final';
+  }
+  const totKg=CALS.reduce((a,c)=>a+(kgs[c]||0),0);
+  const totCj=CALS.reduce((a,c)=>a+(cajas[c]||0),0);
+  const metaMap={
+    EP:Math.round(KG_EP[36]||0+KG_EP[40]||0+KG_EP[48]||0+KG_EP[56]||0+KG_EP[64]||0+KG_EP[72]||0+KG_EP[88]||0+KG_EP[105]||0+KG_EP[113]||0+KG_EP[138]||0).toLocaleString('es-CL')+' kg · EP P109+L5282',
+    MA:'19.530 kg · MA P301'
+  };
+  document.getElementById('calMeta').textContent=
+    metaMap[key]||Math.round(totKg).toLocaleString('es-CL')+' kg exportados (est.)';
+  document.getElementById('calChartTitle').textContent='Kg exportados por calibre — '+label;
+  const vals=CALS.map(c=>Math.round(kgs[c]||0));
+  if(calChart) calChart.destroy();
+  const bgColors=key==='todas'?CAL_COLORS:vals.map(()=>color);
+  calChart=new Chart(document.getElementById('barCalDetalle'),{
+    type:'bar',
+    data:{labels:CALS.map(c=>'C'+c),datasets:[{label:'Kg',data:vals,backgroundColor:bgColors,borderRadius:4}]},
+    options:{responsive:true,plugins:{legend:{display:false}},
+      scales:{y:{ticks:{callback:function(v){return v>=1000?(v/1000).toFixed(1)+'t':v;}},
+        grid:{color:'#eee'},title:{display:true,text:'Kg'}},x:{grid:{display:false}}}}
+  });
+  const barDiv=document.getElementById('calBarChart');
+  barDiv.innerHTML='';
+  const maxKg=Math.max(...vals)||1;
+  CALS.forEach((c,i)=>{
+    if(!(kgs[c]||0)) return;
+    const pct=totKg>0?((kgs[c]||0)/totKg*100).toFixed(1):0;
+    const w=Math.round((kgs[c]||0)/maxKg*100);
+    const bg=key==='todas'?CAL_COLORS[i]:color;
+    barDiv.innerHTML+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:12px">'
+      +'<span style="min-width:28px;font-weight:700">C'+c+'</span>'
+      +'<div style="flex:1;background:#eee;border-radius:3px;height:8px">'
+      +'<div style="width:'+w+'%;background:'+bg+';height:100%;border-radius:3px"></div></div>'
+      +'<span style="min-width:40px;text-align:right;font-weight:700">'+pct+'%</span></div>';
+  });
+  let rows='';
+  CALS.forEach(c=>{
+    const kg=kgs[c]||0; if(!kg) return;
+    const cj=cajas[c]||0;
+    const pct=totKg>0?(kg/totKg*100).toFixed(1):0;
+    const hi=(c===72||c===88)?'background:#f8f3ff;font-weight:700':'';
+    rows+='<tr style="'+hi+'"><td>C'+c+'</td>'
+      +'<td style="font-weight:700">'+Math.round(kg).toLocaleString('es-CL')+' kg</td>'
+      +'<td style="color:#888">'+( cj?cj.toLocaleString('es-CL')+' cjs':'—')+'</td>'
+      +'<td>'+pct+'%</td></tr>';
+  });
+  rows+='<tr style="background:#e8f0fb;font-weight:700"><td>TOTAL</td>'
+    +'<td>'+Math.round(totKg).toLocaleString('es-CL')+' kg</td>'
+    +'<td style="color:#888">'+totCj.toLocaleString('es-CL')+' cjs</td>'
+    +'<td>100%</td></tr>';
+  let tbl='<table><thead><tr><th>Calibre</th><th>Kg exportados</th><th>Cajas</th><th>%</th></tr></thead><tbody>'
+    +rows+'</tbody></table>';
+  if(nota) tbl+='<div style="font-size:10px;color:#aaa;margin-top:8px">'+nota+'</div>';
+  document.getElementById('calTableWrap').innerHTML=tbl;
+}
+
+// ── GUIAS GRID ───────────────────────────────────────────────────────────────
+function buildGuiaGrid(){
+  const grid=document.getElementById('guia-grid');
+  grid.innerHTML='';
+  GUIAS.forEach(r=>{
+    const cls=r.status==='proc'?'gc-proc':r.status==='parcial'?'gc-parcial':r.status==='com'?'gc-com':'gc-pend';
+    const badge=r.status==='proc'?'<span class="pill ok">✓ Procesado</span>':
+                r.status==='parcial'?`<span class="pill parcial">Parcial ${r.proceso?'· '+r.proceso:''}</span>`:
+                r.status==='com'?'<span class="pill com">Comercial</span>':
+                `<span class="pill pend">Pendiente</span>`;
+    grid.innerHTML+=`<div class="guia-card ${cls}">
+      <div class="gnum">G-${r.g}</div>
+      <div class="gexp">${r.exp}</div>
+      <div class="gexp" style="font-size:10px;color:#999">${r.var||''}</div>
+      <div class="gbins">${r.cuar} · ${r.bins} bins${r.kg?' · '+r.kg.toLocaleString('es-CL',{maximumFractionDigits:0})+' kg':''}</div>
+      <div class="gstatus">${badge}</div>
+      ${r.status==='parcial'?`<div style="font-size:10px;color:var(--mora2);margin-top:3px">${r.proceso} · ${r.rdto_proc}% rdto${r.proceso==='0109'?' · 20 bins pend.':''}</div>`:''}
+    </div>`;
+  });
+}
+
+// ── OVERVIEW CHARTS ──────────────────────────────────────────────────────────
+function buildOverviewCharts(){
+  new Chart(document.getElementById('binsChart'),{
+    type:'bar',
+    data:{
+      labels:['El Parque','Crispagold','Monte Alto'],
+      datasets:[
+        {label:'Bins procesados',data:[100,0,66],backgroundColor:['#2E75B6','#70AD47','#F4B400'],borderRadius:4},
+        {label:'Bins pendientes',data:[200,174,66],backgroundColor:['#2E75B620','#70AD4720','#F4B40020'],borderRadius:4,borderWidth:2,borderColor:['#2E75B6','#70AD47','#F4B400']}
+      ]
+    },
+    options:{responsive:true,plugins:{legend:{position:'bottom',labels:{font:{size:10}}}},
+      scales:{x:{stacked:false,grid:{display:false}},y:{ticks:{stepSize:50},grid:{color:'#eee'},title:{display:true,text:'Bins'}}}}
+  });
+  new Chart(document.getElementById('rdtoChart'),{
+    type:'doughnut',
+    data:{
+      labels:['Kg Export','Kg Nacional/COM','Merma/Pre-Cal'],
+      datasets:[{data:[48702,8673,760],backgroundColor:['#276221','#2E75B6','#ccc'],borderWidth:0}]
+    },
+    options:{responsive:true,cutout:'65%',plugins:{legend:{position:'right',labels:{font:{size:10},boxWidth:12}}}}
+  });
+}
+
+// ── POR EXPORTADORA ──────────────────────────────────────────────────────────
+const PROC_EXP={
+  EP:{nombre:'El Parque SPA',color:'#2E75B6',guias:GUIAS.filter(g=>g.exp==='El Parque')},
+  CG:{nombre:'Crispagold S.A.',color:'#70AD47',guias:GUIAS.filter(g=>g.exp==='Crispagold')},
+  MA:{nombre:'Monte Alto Fruit',color:'#F4B400',guias:GUIAS.filter(g=>g.exp==='Monte Alto')}
+};
+
+function procVarFilter(guias){
+  const vf=window._procVarFiltro||'todas';
+  return vf==='todas'?guias:guias.filter(g=>g.var===vf);
+}
+function procSetVar(v,btn){
+  window._procVarFiltro=v;
+  document.querySelectorAll('#procVarBtns button').forEach(b=>{
+    const bc=b.style.borderColor;b.style.background='transparent';b.style.color=bc;
+  });
+  if(btn){btn.style.background=btn.style.borderColor;btn.style.color='#fff';}
+  procShowExp(window._procExpFiltro||'todas',null);
+}
+function procStatusBadge(s,proc){
+  if(s==='pend') return '<span class="pill pend">Pendiente</span>';
+  if(s==='parcial') return `<span class="pill parcial">Parcial ${proc?'· '+proc:''}</span>`;
+  if(s==='proc') return `<span class="pill ok">Procesado ${proc?'· '+proc:''}</span>`;
+  return '<span class="pill com">Comercial</span>';
+}
+function procExpCard(key,d){
+  const guias=procVarFilter(d.guias);
+  if(!guias.length) return '';
+  const bins=guias.reduce((a,g)=>a+g.bins,0);
+  const kg=guias.filter(g=>g.kg).reduce((a,g)=>a+g.kg,0);
+  const rdtos=guias.filter(g=>g.rdto||g.rdto_proc).map(g=>g.rdto||g.rdto_proc);
+  const rdtoAvg=rdtos.length?(rdtos.reduce((a,v)=>a+v,0)/rdtos.length).toFixed(1):'\u2014';
+  const procBins=guias.filter(g=>g.status==='proc').reduce((a,g)=>a+g.bins,0);
+  const parciBins=guias.filter(g=>g.status==='parcial').reduce((a,g)=>a+g.bins,0);
+  const pendBins=guias.filter(g=>g.status==='pend').reduce((a,g)=>a+g.bins,0);
+  return `<div style="background:#fff;border:1px solid #dde4f0;border-radius:10px;padding:14px 16px;margin-bottom:12px">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+      <div style="width:12px;height:12px;border-radius:50%;background:${d.color}"></div>
+      <span style="font-size:14px;font-weight:700;color:${d.color}">${d.nombre}</span>
+    </div>
+    <div class="grid3" style="gap:10px;margin-bottom:12px">
+      <div style="background:#f5f8ff;border-radius:8px;padding:10px 12px">
+        <div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.5px">Guías / Bins</div>
+        <div style="font-size:20px;font-weight:700;color:#1c3f64">${guias.length} / ${bins}</div>
+      </div>
+      <div style="background:#f5f8ff;border-radius:8px;padding:10px 12px">
+        <div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.5px">Kg enviados</div>
+        <div style="font-size:20px;font-weight:700;color:#1c3f64">${kg>0?Math.round(kg).toLocaleString('es-CL'):'—'}</div>
+      </div>
+      <div style="background:#f5f8ff;border-radius:8px;padding:10px 12px">
+        <div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.5px">Rdto prom.</div>
+        <div style="font-size:20px;font-weight:700;color:${rdtoAvg!=='—'?'#276221':'#888'}">${rdtoAvg}%</div>
+      </div>
+    </div>
+    <div style="margin-bottom:10px;font-size:11px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+        <span style="min-width:72px;color:#888">Procesado</span>
+        <div style="flex:1;background:#eee;border-radius:4px;height:6px"><div style="width:${bins>0?Math.round(procBins/bins*100):0}%;background:#276221;height:100%;border-radius:4px"></div></div>
+        <span style="min-width:32px;text-align:right">${procBins} bins</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+        <span style="min-width:72px;color:#888">Parcial</span>
+        <div style="flex:1;background:#eee;border-radius:4px;height:6px"><div style="width:${bins>0?Math.round(parciBins/bins*100):0}%;background:#2E75B6;height:100%;border-radius:4px"></div></div>
+        <span style="min-width:32px;text-align:right">${parciBins} bins</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="min-width:72px;color:#888">Pendiente</span>
+        <div style="flex:1;background:#eee;border-radius:4px;height:6px"><div style="width:${bins>0?Math.round(pendBins/bins*100):0}%;background:#F4B400;height:100%;border-radius:4px"></div></div>
+        <span style="min-width:32px;text-align:right">${pendBins} bins</span>
+      </div>
+    </div>
+    <table><thead><tr>
+      <th style="text-align:left">Guía</th><th>Variedad</th><th>Cuartel</th><th>Bins</th><th>Kg enviados</th><th>Rdto</th><th>Estado</th>
+    </tr></thead><tbody>
+      ${guias.map(g=>`<tr>
+        <td class="l" style="font-weight:700">G-${g.g}</td>
+        <td style="font-size:10px;background:${g.var==='Cara Cara'?'#fdf2f0':'#f0f4fa'};color:${g.var==='Cara Cara'?'#c0392b':'#2E75B6'};font-weight:700;border-radius:8px;padding:2px 6px">${g.var||'Fukumoto'}</td>
+        <td>${g.cuar}</td><td>${g.bins}</td>
+        <td>${g.kg?g.kg.toLocaleString('es-CL',{maximumFractionDigits:0}):'\u2014'}</td>
+        <td>${(g.rdto||g.rdto_proc)?(g.rdto||g.rdto_proc)+'%':'\u2014'}</td>
+        <td>${procStatusBadge(g.status,g.proceso)}</td>
+      </tr>`).join('')}
+    </tbody></table>
+  </div>`;
+}
+function procShowExp(key,btn){
+  window._procExpFiltro=key;
+  document.querySelectorAll('#procExpBtns .exp-tab').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  const keys=key==='todas'?['EP','CG','MA']:[key];
+  const cont=document.getElementById('procExpContent');
+  if(key==='todas'){
+    const comp=`<div style="background:#fff;border:1px solid #dde4f0;border-radius:10px;padding:14px 16px;margin-bottom:12px">
+      <div style="font-size:12px;font-weight:700;color:#1c3f64;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px">Comparación rendimiento</div>
+      ${['EP','CG','MA'].map(k=>{
+        const d=PROC_EXP[k];
+        const rs=d.guias.filter(g=>g.rdto||g.rdto_proc).map(g=>g.rdto||g.rdto_proc);
+        const avg=rs.length?(rs.reduce((a,v)=>a+v,0)/rs.length).toFixed(1):'—';
+        const bins=d.guias.reduce((a,g)=>a+g.bins,0);
+        return `<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:12px">
+          <span style="min-width:90px;font-weight:700;color:${d.color}">${d.nombre.split(' ').slice(0,2).join(' ')}</span>
+          <div style="flex:1;background:#eee;border-radius:4px;height:8px"><div style="width:${avg!=='—'?avg:0}%;background:${d.color};height:100%;border-radius:4px"></div></div>
+          <span style="min-width:44px;text-align:right;font-weight:700">${avg}%</span>
+          <span style="color:#888;min-width:52px;text-align:right">${bins} bins</span>
+        </div>`;
+      }).join('')}
+    </div>`;
+    cont.innerHTML=comp+keys.map(k=>procExpCard(k,PROC_EXP[k])).join('');
+  } else {
+    cont.innerHTML=keys.map(k=>procExpCard(k,PROC_EXP[k])).join('');
+  }
+}
+
+// ── SHOWPAGE ─────────────────────────────────────────────────────────────────
+function showPage(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  if(id==='calibres') buildCalibresTab();
+}
+
+// ── INIT ───────────────────────────────────────────────────────────────────
+(function(){
+  // Rdto chart
+  var c1=document.getElementById('rdtoChart');
+  if(c1){
+    new Chart(c1,{
+      type:'bar',
+      data:{
+        labels:['EP P109','EP L5282★','MA P301'],
+        datasets:[{
+          label:'% Rdto Export',
+          data:[80.94,84.0,84.55],
+          backgroundColor:['#2E75B6','#2E75B6','#276221'],
+          borderRadius:4
+        }]
+      },
+      options:{
+        indexAxis:'y',responsive:true,maintainAspectRatio:true,
+        plugins:{legend:{display:false}},
+        scales:{x:{min:75,max:90,ticks:{callback:function(v){return v+'%';}}}}
+      }
+    });
+  }
+  // Bins chart
+  var c2=document.getElementById('binsChart');
+  if(c2){
+    new Chart(c2,{
+      type:'bar',
+      data:{
+        labels:['El Parque','Monte Alto'],
+        datasets:[
+          {label:'Procesado',data:[120,66],backgroundColor:'#276221',borderRadius:4},
+          {label:'Pendiente',data:[280,220],backgroundColor:'#e0e0e0',borderRadius:4}
+        ]
+      },
+      options:{
+        responsive:true,maintainAspectRatio:true,
+        plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}},
+        scales:{x:{stacked:true},y:{stacked:true,ticks:{font:{size:10}}}}
+      }
+    });
+  }
+  // Build dynamic sections
+  buildGuiaGrid();
+  procShowExp('todas', document.querySelector('#procExpBtns button'));
+  showPage('overview', document.querySelector('.nav button'));
+})();
+
+</script>
+</body>
+</html>

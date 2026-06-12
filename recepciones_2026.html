@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recepciones Calidad — Naranjas Temporada 2026</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+  :root {
+    --azul: #1F4E79; --azul-claro: #2E75B6; --verde-osc: #375623; --verde: #70AD47;
+    --amarillo: #BF8F00; --rojo-osc: #C00000; --morado: #7030A0;
+    --bg: #f4f6f9; --card: #fff; --borde: #d0d7e3;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); color: #222; font-size: 13px; }
+
+  /* NAV TABS */
+  .nav { background: var(--azul); display: flex; gap: 4px; padding: 0 20px; }
+  .nav button { background: transparent; border: none; color: #aac4e0; padding: 14px 22px; font-size: 14px; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; transition: .2s; }
+  .nav button.active, .nav button:hover { color: #fff; border-bottom-color: #4FC3F7; }
+
+  /* PAGES */
+  .page { display: none; padding: 20px; }
+  .page.active { display: block; }
+
+  /* HEADER CARD */
+  .header-card { background: var(--azul); color: #fff; border-radius: 10px; padding: 18px 24px; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center; }
+  .header-card h1 { font-size: 18px; font-weight: 700; letter-spacing: .3px; }
+  .header-card .meta { font-size: 12px; opacity: .8; text-align: right; line-height: 1.6; }
+  .badge { display: inline-block; background: #4FC3F7; color: #003; border-radius: 12px; padding: 2px 10px; font-size: 11px; font-weight: 700; }
+
+  /* KPI ROW */
+  .kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap: 12px; margin-bottom: 18px; }
+  .kpi { background: var(--card); border-radius: 8px; padding: 14px 16px; border-left: 4px solid var(--azul-claro); box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+  .kpi .val { font-size: 22px; font-weight: 700; color: var(--azul); }
+  .kpi .lbl { font-size: 11px; color: #666; margin-top: 2px; }
+  .kpi.verde { border-left-color: var(--verde); } .kpi.verde .val { color: var(--verde-osc); }
+  .kpi.rojo  { border-left-color: var(--rojo-osc); } .kpi.rojo .val { color: var(--rojo-osc); }
+  .kpi.amari { border-left-color: var(--amarillo); } .kpi.amari .val { color: #7a5800; }
+  .kpi.mora  { border-left-color: var(--morado); } .kpi.mora .val { color: var(--morado); }
+
+  /* SECTION TITLE */
+  .section-title { background: var(--azul); color: #fff; border-radius: 6px 6px 0 0; padding: 8px 14px; font-size: 12px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; }
+
+  /* TABLE */
+  .table-wrap { overflow-x: auto; background: var(--card); border-radius: 0 0 8px 8px; box-shadow: 0 1px 4px rgba(0,0,0,.08); margin-bottom: 18px; }
+  table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+  th { background: #1c3f64; color: #fff; padding: 7px 8px; white-space: nowrap; text-align: center; font-size: 11px; }
+  th.grp { background: #2E75B6; font-size: 10px; letter-spacing: .5px; }
+  td { padding: 6px 8px; border-bottom: 1px solid #eef; text-align: center; white-space: nowrap; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #f0f6ff; }
+  td.left { text-align: left; }
+  .aprob  { background: #e6f4ea; color: #276221; font-weight: 700; border-radius: 4px; padding: 2px 7px; font-size: 10px; }
+  .objet  { background: #fde8e8; color: #9C0006; font-weight: 700; border-radius: 4px; padding: 2px 7px; font-size: 10px; }
+  .comer  { background: #fff3cd; color: #7F6000; font-weight: 700; border-radius: 4px; padding: 2px 7px; font-size: 10px; }
+  .row-ob td { background: #fff5f5 !important; }
+  .row-co td { background: #fffbf0 !important; }
+  td.num { font-variant-numeric: tabular-nums; }
+  .null { color: #bbb; }
+
+  /* COLOR BANDS */
+  .good { color: #276221; font-weight: 700; }
+  .warn { color: #7a5800; font-weight: 700; }
+  .bad  { color: #9C0006; font-weight: 700; }
+  .pct-bar { display: inline-block; width: 36px; height: 8px; border-radius: 4px; vertical-align: middle; margin-right: 4px; }
+
+  /* CHARTS */
+  .charts-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 18px; }
+  .charts-row.three { grid-template-columns: 1fr 1fr 1fr; }
+  .chart-card { background: var(--card); border-radius: 8px; padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+  .chart-card h3 { font-size: 12px; color: #555; font-weight: 600; margin-bottom: 12px; text-transform: uppercase; letter-spacing: .4px; }
+  .chart-card canvas { max-height: 220px; }
+
+  /* DEFECTOS TABLE */
+  .defecto-row-ep  td { border-left: 3px solid #2E75B6; }
+  .defecto-row-cg  td { border-left: 3px solid #70AD47; }
+  .defecto-row-ma  td { border-left: 3px solid #F4B400; }
+  .crit { background: #fde8e8; color: #9C0006; font-weight: 700; font-size: 11px; border-radius: 4px; padding: 2px 6px; }
+  .alto { background: #fff3cd; color: #7a5800; font-weight: 700; font-size: 11px; border-radius: 4px; padding: 2px 6px; }
+  .med  { background: #e8f4fd; color: #1F4E79; font-size: 11px; border-radius: 4px; padding: 2px 6px; }
+
+  /* FOOTER */
+  footer { text-align: center; padding: 20px; color: #999; font-size: 11px; }
+
+  @media (max-width: 768px) {
+    .charts-row, .charts-row.three { grid-template-columns: 1fr; }
+    .kpi-row { grid-template-columns: repeat(2,1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <button class="active" onclick="showPage('dash')">📊 Dashboard</button>
+  <button onclick="showPage('recep')">🔬 Recepciones Calidad</button>
+  <button onclick="showPage('defectos')">⚠️ Análisis Defectos</button>
+  <button onclick="showPage('exportadora')">🏭 Por Exportadora</button>
+</div>
+
+<!-- ═══════════════════ PAGE: DASHBOARD ═══════════════════ -->
+<div id="dash" class="page active">
+  <div class="header-card">
+    <div>
+      <h1>🍊 Agrícola Yoye SPA — Control de Recepciones</h1>
+      <div style="margin-top:6px; font-size:13px; opacity:.9">Temporada 2026 · Naranjas · Semana 24</div>
+    </div>
+    <div class="meta">
+      Actualizado: 11 Jun 2026<br>
+      <span class="badge">9 lotes procesados</span>
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpi-row">
+    <div class="kpi"><div class="val">540</div><div class="lbl">Bins enviados a proceso</div></div>
+    <div class="kpi verde"><div class="val">540</div><div class="lbl">Bins recepcionados</div></div>
+    <div class="kpi mora"><div class="val">178,983 kg</div><div class="lbl">Kg totales recepcionados</div></div>
+    <div class="kpi verde"><div class="val">73.0%</div><div class="lbl">% Exportable promedio</div></div>
+    <div class="kpi rojo"><div class="val">25.9%</div><div class="lbl">% Descarte promedio</div></div>
+    <div class="kpi amari"><div class="val">8 / 1</div><div class="lbl">Lotes OK / Objetados</div></div>
+    <div class="kpi"><div class="val">11.6°</div><div class="lbl">°Brix promedio</div></div>
+    <div class="kpi"><div class="val">1.44</div><div class="lbl">Acidez promedio</div></div>
+  </div>
+
+  <!-- Charts row 1 -->
+  <div class="charts-row">
+    <div class="chart-card">
+      <h3>% Exportable por Exportadora</h3>
+      <canvas id="chartExport"></canvas>
+    </div>
+    <div class="chart-card">
+      <h3>Kg Recepcionados por Exportadora</h3>
+      <canvas id="chartKg"></canvas>
+    </div>
+  </div>
+
+  <!-- Charts row 2 -->
+  <div class="charts-row three">
+    <div class="chart-card">
+      <h3>Distribución % Exportable vs Descarte</h3>
+      <canvas id="chartPie"></canvas>
+    </div>
+    <div class="chart-card">
+      <h3>°Brix y Acidez por Exportadora</h3>
+      <canvas id="chartBrix"></canvas>
+    </div>
+    <div class="chart-card">
+      <h3>Kg Proyectados — Export vs Descarte</h3>
+      <canvas id="chartProyec"></canvas>
+    </div>
+  </div>
+
+  <!-- TABLA EXPORTADORA -->
+  <div class="section-title">RENDIMIENTO POR EXPORTADORA</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Exportadora</th>
+          <th>Bins Env.</th><th>Bins Rec.</th>
+          <th>Kg Recep.</th><th>Kg/Bin</th>
+          <th>% Export</th><th>Kg Export Proy.</th>
+          <th>% Desc.</th><th>Kg Desc. Proy.</th>
+          <th>Lotes OK</th><th>Lotes Obj.</th>
+          <th>°Brix</th><th>Acidez</th><th>SS/Ac</th><th>% Jugo</th>
+          <th>Top Defecto</th><th>%</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="left" style="font-weight:700;color:#2E75B6">El Parque</td>
+          <td>300</td><td>300</td>
+          <td class="num">93,065</td><td class="num">310.2</td>
+          <td><span class="good">81.0%</span></td><td class="num">75,399</td>
+          <td><span class="warn">17.6%</span></td><td class="num">16,384</td>
+          <td style="color:#276221;font-weight:700">4</td><td style="color:#9C0006;font-weight:700">1</td>
+          <td>11.3</td><td>1.52</td><td>7.6</td><td>37.5%</td>
+          <td>Ombligo Rasgado</td><td>5.4%</td>
+        </tr>
+        <tr>
+          <td class="left" style="font-weight:700;color:#375623">Crispagold</td>
+          <td>174</td><td>174</td>
+          <td class="num">62,820</td><td class="num">361.0</td>
+          <td><span class="warn">65.3%</span></td><td class="num">41,042</td>
+          <td><span class="bad">34.7%</span></td><td class="num">21,778</td>
+          <td style="color:#276221;font-weight:700">3</td><td>0</td>
+          <td>11.6</td><td>1.29</td><td>9.1</td><td>22.5%</td>
+          <td>Escama</td><td>8.7%</td>
+        </tr>
+        <tr>
+          <td class="left" style="font-weight:700;color:#7F6000">Monte Alto</td>
+          <td>66</td><td>66</td>
+          <td class="num">23,098</td><td class="num">350.0</td>
+          <td><span class="bad">62.0%</span></td><td class="num">14,321</td>
+          <td><span class="bad">38.0%</span></td><td class="num">8,777</td>
+          <td style="color:#276221;font-weight:700">1</td><td>0</td>
+          <td>12.2</td><td>1.58</td><td>7.7</td><td>44.8%</td>
+          <td>Chanchito Blanco</td><td><span class="crit">11.0%</span></td>
+        </tr>
+        <tr style="background:#e8f0fb;font-weight:700">
+          <td class="left">TOTAL / PROM.</td>
+          <td>540</td><td>540</td>
+          <td class="num">178,983</td><td class="num">331.4</td>
+          <td>73.0%</td><td class="num">130,741</td>
+          <td>25.9%</td><td class="num">46,348</td>
+          <td>8</td><td>1</td>
+          <td colspan="6" style="text-align:left;padding-left:16px;color:#555;font-weight:400;font-size:11px">
+            Semana 24 · 3 exportadoras · 9 lotes con informe · 2 guías comerciales (24 bins sin proceso)
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- TABLA CUARTEL -->
+  <div class="section-title">RENDIMIENTO POR CUARTEL</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Cuartel</th><th>N° Lotes</th><th>Bins</th><th>Kg Recep.</th><th>Kg/Bin</th>
+          <th>% Export</th><th>Kg Export Proy.</th><th>% Desc.</th><th>Kg Desc. Proy.</th>
+          <th>Lotes OK</th><th>Lotes Obj.</th><th>°Brix</th><th>Acidez</th><th>SS/Ac</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="left" style="font-weight:700">Mirador</td>
+          <td>5</td><td>292</td><td class="num">102,268</td><td class="num">350.2</td>
+          <td><span class="good">75.9%</span></td><td class="num">77,629</td>
+          <td><span class="warn">24.1%</span></td><td class="num">24,645</td>
+          <td style="color:#276221;font-weight:700">5</td><td>0</td>
+          <td>11.5</td><td>1.48</td><td>8.0</td>
+        </tr>
+        <tr>
+          <td class="left" style="font-weight:700">Rinconada</td>
+          <td>4</td><td>248</td><td class="num">76,716</td><td class="num">309.3</td>
+          <td><span class="warn">69.1%</span></td><td class="num">53,033</td>
+          <td><span class="warn">29.4%</span></td><td class="num">22,569</td>
+          <td style="color:#276221;font-weight:700">3</td><td style="color:#9C0006;font-weight:700">1</td>
+          <td>11.4</td><td>1.44</td><td>7.9</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- LEYENDA -->
+  <div style="background:#fff;border-radius:8px;padding:12px 16px;font-size:11px;color:#555;box-shadow:0 1px 4px rgba(0,0,0,.08)">
+    <strong>Escala % Export:</strong>
+    <span style="background:#e6f4ea;color:#276221;font-weight:700;padding:2px 8px;border-radius:4px;margin:0 4px">≥ 80% BUENO</span>
+    <span style="background:#fff3cd;color:#7a5800;font-weight:700;padding:2px 8px;border-radius:4px;margin:0 4px">70–79% ATENCIÓN</span>
+    <span style="background:#fde8e8;color:#9C0006;font-weight:700;padding:2px 8px;border-radius:4px;margin:0 4px">&lt; 70% CRÍTICO</span>
+    &nbsp;·&nbsp; Kg exportables proyectados desde % CAT1 × Kg lote (informe recepción, confirmar con proceso final)
+  </div>
+</div>
+
+<!-- ═══════════════════ PAGE: RECEPCIONES ═══════════════════ -->
+<div id="recep" class="page">
+  <div class="header-card">
+    <div>
+      <h1>🔬 Recepciones de Calidad en Planta</h1>
+      <div style="margin-top:6px;font-size:13px;opacity:.9">Temporada 2026 · Naranjas · 12 Guías semana 24</div>
+    </div>
+    <div class="meta">Proyección basada en muestreo.<br>Fuente indicada por lote.</div>
+  </div>
+
+  <!-- IDENTIFICACIÓN + CALIDAD -->
+  <div class="section-title">IDENTIFICACIÓN, CALIDAD INTERNA Y EMBALAJE</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th colspan="11" class="grp" style="background:#1F4E79">IDENTIFICACIÓN Y FUENTE</th>
+          <th colspan="6" class="grp" style="background:#375623">CALIDAD INTERNA</th>
+          <th colspan="4" class="grp" style="background:#1F4E79">EMBALAJE</th>
+          <th colspan="3" class="grp" style="background:#BF8F00">KG PROYECTADOS</th>
+        </tr>
+        <tr>
+          <th>Lote</th><th>Guía</th><th>Exportador</th><th>Cuartel</th>
+          <th>F.Cosecha</th><th>F.Recep.</th><th>Bins</th><th>Kg Lote</th><th>Kg/Bin</th>
+          <th>Segreg.</th><th style="max-width:160px">Fuente Informe</th>
+          <th>% Jugo</th><th>Presión</th><th>°Brix</th><th>Acidez</th><th>SS/Ac</th><th>Naup.</th>
+          <th>% CAT1</th><th>% Desc.</th><th>% CAT2</th><th>Aprobac.</th>
+          <th>Kg Export</th><th>Kg Desc.</th><th>Kg CAT2</th>
+        </tr>
+      </thead>
+      <tbody id="tbody-recep"></tbody>
+    </table>
+  </div>
+
+  <!-- CALIBRES -->
+  <div class="section-title">DISTRIBUCIÓN POR CALIBRE (% del lote — unidades por caja equivalente)</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th colspan="4" class="grp" style="background:#1F4E79">IDENTIFICACIÓN</th>
+          <th colspan="10" class="grp" style="background:#7030A0">CALIBRES</th>
+        </tr>
+        <tr>
+          <th>Lote</th><th>Guía</th><th>Exportador</th><th>Cuartel</th>
+          <th>C40</th><th>C48</th><th>C56</th><th>C64</th><th>C72</th>
+          <th>C88</th><th>C105</th><th>C113</th><th>C138</th><th>SCN</th>
+        </tr>
+      </thead>
+      <tbody id="tbody-cal"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════ PAGE: DEFECTOS ═══════════════════ -->
+<div id="defectos" class="page">
+  <div class="header-card">
+    <div><h1>⚠️ Análisis Comparativo de Defectos</h1>
+    <div style="margin-top:6px;font-size:13px;opacity:.9">% encontrado en muestreo de recepción · 9 lotes proceso</div></div>
+    <div class="meta">Temporada 2026 · Semana 24</div>
+  </div>
+
+  <div class="charts-row">
+    <div class="chart-card" style="grid-column:1/-1">
+      <h3>Top Defectos por Exportadora (%)</h3>
+      <canvas id="chartDefectos" style="max-height:300px"></canvas>
+    </div>
+  </div>
+
+  <div class="section-title">TABLA COMPARATIVA DE DEFECTOS POR EXPORTADORA</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Defecto</th>
+          <th>El Parque<br>(5 lotes)</th>
+          <th>Crispagold<br>(3 lotes)</th>
+          <th>Monte Alto<br>(1 lote)</th>
+          <th>Prom. Gral.</th>
+          <th>Tendencia</th>
+          <th>Tipo</th>
+          <th style="min-width:200px">Acción Sugerida</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="left"><strong>Escama (Col.)</strong></td>
+          <td>1.6%</td><td><span class="alto">8.7%</span></td><td>5.0%</td>
+          <td>4.8%</td><td>↑↑ ALTO Crispa+Monte</td><td>Calidad</td>
+          <td class="left" style="font-size:11px">Control fitosanitario urgente — mayor en Rinconada y Mirador</td></tr>
+        <tr><td class="left"><strong>Ombligo Rasgado</strong></td>
+          <td><span class="warn">5.4%</span></td><td>3.7%</td><td>6.0%</td>
+          <td>5.4%</td><td>↑ Persistente todos</td><td>Condición</td>
+          <td class="left" style="font-size:11px">Técnica cosecha — todos los cuarteles</td></tr>
+        <tr><td class="left"><strong>Chanchito Blanco</strong></td>
+          <td>1.0%</td><td>2.7%</td><td><span class="crit">11.0%</span></td>
+          <td>3.0%</td><td>↑↑ CRÍTICO Monte Alto</td><td>Calidad</td>
+          <td class="left" style="font-size:11px;color:#9C0006;font-weight:600">Control plaga urgente cuartel Mirador</td></tr>
+        <tr><td class="left"><strong>Creasing</strong></td>
+          <td>0.3%</td><td><span class="alto">3.7%</span></td><td>—</td>
+          <td>1.5%</td><td>↑ Solo Crispagold</td><td>Condición</td>
+          <td class="left" style="font-size:11px">Investigar suelo/riego Rinconada — lote G-2345 severo (12%+6%)</td></tr>
+        <tr><td class="left"><strong>Golpe de Sol</strong></td>
+          <td>3.0%</td><td>2.0%</td><td>6.0%</td>
+          <td>3.3%</td><td>Variable</td><td>Condición</td>
+          <td class="left" style="font-size:11px">Revisar horario cosecha y exposición solar</td></tr>
+        <tr><td class="left"><strong>Fumagina</strong></td>
+          <td>0.5%</td><td>1.3%</td><td>—</td>
+          <td>0.7%</td><td>↑ Crispagold</td><td>Calidad</td>
+          <td class="left" style="font-size:11px">Asociado a escama — mismo control fitosanitario</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ALERTAS -->
+  <div style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:12px">
+    <div style="background:#fde8e8;border-left:4px solid #9C0006;border-radius:8px;padding:14px">
+      <div style="font-weight:700;color:#9C0006;font-size:12px;margin-bottom:8px">🚨 ALERTAS CRÍTICAS</div>
+      <div style="font-size:12px;line-height:1.7">
+        <strong>Chanchito Blanco 11%</strong> en Monte Alto Lote 8029 (Mirador)<br>
+        <strong>Creasing severo 12%+6%</strong> en Crispagold Lote 0906 (Rinconada)<br>
+        <strong>Lote 5246 OBJETADO</strong> — 143 kg/bin anómalo (60 bins / 8,593 kg)<br>
+        <strong>Crispagold NFR-4614</strong> sin datos jugo/acidez/presión<br>
+        <strong>Monte Alto</strong> Cal-36 (2%) registrado en columna SCN (sobre calibre)
+      </div>
+    </div>
+    <div style="background:#fff3cd;border-left:4px solid #BF8F00;border-radius:8px;padding:14px">
+      <div style="font-weight:700;color:#7a5800;font-size:12px;margin-bottom:8px">⚠️ ATENCIÓN</div>
+      <div style="font-size:12px;line-height:1.7">
+        Crispagold promedio exportable <strong>65.3%</strong> — bajo umbral objetivo (70%)<br>
+        Monte Alto exportable <strong>62.0%</strong> — bajo umbral objetivo (70%)<br>
+        Ombligo Rasgado persistente en <strong>todos</strong> los exportadores<br>
+        Rinconada con mayor % descarte que Mirador (29.4% vs 26.2%)<br>
+        2 guías comerciales (G-2346, G-2352 · 24 bins) sin proceso exportación
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════ PAGE: POR EXPORTADORA ═══════════════════ -->
+<div id="exportadora" class="page">
+  <div class="header-card">
+    <div>
+      <h1>🏭 Recepciones por Exportadora</h1>
+      <div style="margin-top:6px;font-size:13px;opacity:.9">Calidad, rendimiento y defectos por exportadora</div>
+    </div>
+    <div style="font-size:12px;opacity:.8;text-align:right">Temporada 2026 · Sem. 24</div>
+  </div>
+
+  <!-- Filtro -->
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px" id="recExpBtns">
+    <button onclick="recShowExp('todas')" style="padding:5px 14px;border-radius:16px;font-size:12px;font-weight:700;cursor:pointer;border:2px solid #1c3f64;background:#1c3f64;color:#fff">Todas</button>
+    <button onclick="recShowExp('EP')"  style="padding:5px 14px;border-radius:16px;font-size:12px;font-weight:700;cursor:pointer;border:2px solid #2E75B6;color:#2E75B6;background:transparent">El Parque</button>
+    <button onclick="recShowExp('CG')"  style="padding:5px 14px;border-radius:16px;font-size:12px;font-weight:700;cursor:pointer;border:2px solid #70AD47;color:#70AD47;background:transparent">Crispagold</button>
+    <button onclick="recShowExp('MA')"  style="padding:5px 14px;border-radius:16px;font-size:12px;font-weight:700;cursor:pointer;border:2px solid #F4B400;color:#F4B400;background:transparent">Monte Alto</button>
+  </div>
+
+  <!-- Filtro variedad -->
+  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #dde4f0">
+    <span style="font-size:11px;color:#888;font-weight:700;text-transform:uppercase;letter-spacing:.5px">Variedad:</span>
+    <div id="recVarBtns" style="display:flex;gap:6px">
+      <button onclick="recSetVar('todas',this)" style="padding:3px 12px;border-radius:12px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid #1c3f64;background:#1c3f64;color:#fff">Todas</button>
+      <button onclick="recSetVar('Fukumoto',this)" style="padding:3px 12px;border-radius:12px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid #e07b39;color:#e07b39;background:transparent">Fukumoto</button>
+      <button onclick="recSetVar('Cara Cara',this)" style="padding:3px 12px;border-radius:12px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid #c0392b;color:#c0392b;background:transparent">Cara Cara</button>
+    </div>
+  </div>
+  <div id="recExpContent"></div>
+</div>
+
+<script>
+const REC_EXP = {
+  EP: {
+    nombre:'El Parque SPA', color:'#2E75B6',
+    lotes:[
+      {lote:'5213',var:'Fukumoto',g:2343,cuar:'Mirador',bins:60,kg:21177.5,brix:11.4,jugo:37.3,pres:3.9,acid:1.77,cat1:82,desc:18,seg:'ok',
+       defs:[['Golpe de Sol',6],['Ombligo Rasgado',3],['Pedúnculo Largo',3],['Oleocelosis',1]]},
+      {lote:'5237',var:'Fukumoto',g:2348,cuar:'Rinconada',bins:60,kg:21362.5,brix:11.5,jugo:38.1,pres:4.3,acid:1.50,cat1:80,desc:14,seg:'ok',
+       defs:[['Ombligo Rasgado',4],['Ombligo Abierto',3],['Oleocelosis',1],['Piquete',1]]},
+      {lote:'5238',var:'Fukumoto',g:2349,cuar:'Mirador',bins:60,kg:20807,brix:11.0,jugo:37.6,pres:4.3,acid:1.66,cat1:83,desc:17,seg:'ok',
+       defs:[['Ombligo Rasgado',9],['Col.Escamas',3],['Oleocelosis',2],['Golpe de Sol',2]]},
+      {lote:'5246',var:'Fukumoto',g:2350,cuar:'Rinconada',bins:60,kg:8593,brix:10.5,jugo:38.9,pres:4.6,acid:1.43,cat1:69,desc:31,seg:'obj',
+       defs:[['Ombligo Rasgado',10],['Golpe de Sol',5],['Col.Escamas',5],['Pedúnculo Largo',4]]},
+      {lote:'5282',var:'Fukumoto',g:2353,cuar:'Mirador',bins:60,kg:21124.5,brix:12.0,jugo:35.5,pres:3.2,acid:1.23,cat1:84,desc:16,seg:'ok',
+       defs:[['Machucon',4],['Quimera',4],['Russet',3],['Pedúnculo Largo',2]]},
+    ]
+  },
+  CG: {
+    nombre:'Crispagold S.A.', color:'#70AD47',
+    lotes:[
+      {lote:'0887',var:'Fukumoto',g:2344,cuar:'Rinconada',bins:66,kg:23800,brix:11.5,jugo:null,pres:null,acid:null,cat1:67,desc:33,seg:'ok',
+       defs:[['Escama',6],['Chanchito Blanco',5],['Oleocelosis',5],['Ombligo Rasgado',5]]},
+      {lote:'0906',var:'Fukumoto',g:2345,cuar:'Rinconada',bins:62,kg:22960,brix:12.2,jugo:36,pres:null,acid:1.40,cat1:61,desc:39,seg:'ok',
+       defs:[['Escama',10],['Creasing',8],['Ombligo Rasgado',6],['Golpe de Sol',6]]},
+      {lote:'0922',var:'Fukumoto',g:2351,cuar:'Mirador',bins:46,kg:16060,brix:11.0,jugo:9,pres:null,acid:1.17,cat1:68,desc:32,seg:'ok',
+       defs:[['Escama',10],['Fumagina',4],['Creasing',3],['Chanchito Blanco',3]]},
+    ]
+  },
+  MA: {
+    nombre:'Monte Alto Fruit', color:'#F4B400',
+    lotes:[
+      {lote:'8029',var:'Fukumoto',g:2347,cuar:'Mirador',bins:66,kg:23098.02,brix:12.2,jugo:44.8,pres:null,acid:1.58,cat1:62,desc:38,seg:'ok',
+       defs:[['Chanchito Blanco',11],['Ombligo Rasgado',6],['Quemado de Sol',6],['Escamas',5]]},
+    ]
+  }
+};
+
+function recVarFilter(lotes){
+  const vf=window._recVarFiltro||'todas';
+  return vf==='todas'?lotes:lotes.filter(l=>l.var===vf);
+}
+function recSetVar(v,btn){
+  window._recVarFiltro=v;
+  document.querySelectorAll('#recVarBtns button').forEach(b=>{
+    const bc=b.style.borderColor;
+    b.style.background='transparent';b.style.color=bc;
+  });
+  if(btn){btn.style.background=btn.style.borderColor;btn.style.color='#fff';}
+  recShowExp(window._recExpFiltro||'todas');
+}
+function recSegBadge(s){
+  if(s==='ok') return '<span style="background:#c6efce;color:#276221;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:700">Aprobado</span>';
+  if(s==='obj') return '<span style="background:#ffeb9c;color:#7a5800;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:700">Objetado</span>';
+  return '<span style="background:#ffc7ce;color:#9c0006;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:700">Rechazado</span>';
+}
+
+function recExpCard(key, d){
+  const lotes=recVarFilter(d.lotes);
+  if(!lotes.length) return '';
+  const cat1avg=Math.round(lotes.reduce((a,l)=>a+l.cat1,0)/lotes.length);
+  const descavg=Math.round(lotes.reduce((a,l)=>a+l.desc,0)/lotes.length);
+  const brixavg=(lotes.reduce((a,l)=>a+l.brix,0)/lotes.length).toFixed(1);
+  const kgtot=Math.round(lotes.reduce((a,l)=>a+(l.kg||0),0));
+  const binstot=lotes.reduce((a,l)=>a+l.bins,0);
+  const cat1col=cat1avg>=80?'#276221':cat1avg>=70?'#7a5800':'#9c0006';
+  const descCol=descavg>=30?'#9c0006':descavg>=20?'#7a5800':'#276221';
+
+  const lotesRows=lotes.map(l=>`<tr>
+    <td class="l" style="font-weight:700">L-${l.lote}</td>
+    <td>G-${l.g}</td>
+    <td style="font-size:10px;background:${l.var==='Cara Cara'?'#fdf2f0':'#f0f4fa'};color:${l.var==='Cara Cara'?'#c0392b':'#2E75B6'};font-weight:700;border-radius:8px;padding:2px 6px">${l.var||'Fukumoto'}</td>
+    <td>${l.cuar}</td>
+    <td>${l.bins}</td>
+    <td>${l.brix}</td>
+    <td>${l.jugo!=null?l.jugo+'%':'—'}</td>
+    <td style="font-weight:700;color:${l.cat1>=80?'#276221':l.cat1>=70?'#7a5800':'#9c0006'}">${l.cat1}%</td>
+    <td style="font-weight:700;color:${l.desc>=30?'#9c0006':l.desc>=20?'#7a5800':'#276221'}">${l.desc}%</td>
+    <td>${recSegBadge(l.seg)}</td>
+  </tr>`).join('');
+
+  const topDefs={};
+  lotes.forEach(l=>l.defs.forEach(([n,p])=>{topDefs[n]=(topDefs[n]||0)+p}));
+  const sorted=Object.entries(topDefs).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  const maxDef=sorted[0]?sorted[0][1]:1;
+  const defsHtml=sorted.map(([n,v])=>`<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px;font-size:12px">
+    <span style="min-width:140px;color:#444">${n}</span>
+    <div style="flex:1;background:#eee;border-radius:4px;height:6px"><div style="width:${Math.round(v/maxDef*100)}%;background:${d.color};height:100%;border-radius:4px"></div></div>
+    <span style="min-width:28px;text-align:right;color:#666">${v}%</span>
+  </div>`).join('');
+
+  return `<div style="background:#fff;border:1px solid #dde4f0;border-radius:10px;padding:14px 16px;margin-bottom:16px">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+      <div style="width:12px;height:12px;border-radius:50%;background:${d.color}"></div>
+      <span style="font-size:14px;font-weight:700;color:${d.color}">${d.nombre}</span>
+      <span style="font-size:12px;color:#888;margin-left:auto">${lotes.length} lotes · ${binstot} bins · ${kgtot.toLocaleString('es-CL')} kg</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px">
+      <div style="background:#f5f8ff;border-radius:8px;padding:10px 12px;text-align:center">
+        <div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.5px">CAT1 prom.</div>
+        <div style="font-size:22px;font-weight:700;color:${cat1col}">${cat1avg}%</div>
+      </div>
+      <div style="background:#f5f8ff;border-radius:8px;padding:10px 12px;text-align:center">
+        <div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.5px">Descarte prom.</div>
+        <div style="font-size:22px;font-weight:700;color:${descCol}">${descavg}%</div>
+      </div>
+      <div style="background:#f5f8ff;border-radius:8px;padding:10px 12px;text-align:center">
+        <div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.5px">°Brix prom.</div>
+        <div style="font-size:22px;font-weight:700;color:#1c3f64">${brixavg}</div>
+      </div>
+      <div style="background:#f5f8ff;border-radius:8px;padding:10px 12px;text-align:center">
+        <div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:.5px">Lotes</div>
+        <div style="font-size:22px;font-weight:700;color:#1c3f64">${d.lotes.length}</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div>
+        <div style="font-size:11px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Lotes recibidos</div>
+        <div style="overflow-x:auto">
+        <table>
+          <thead><tr>
+            <th style="text-align:left">Lote</th><th>Guía</th><th>Variedad</th><th>Cuartel</th><th>Bins</th><th>°Brix</th><th>% Jugo</th><th>CAT1</th><th>Desc.</th><th>Estado</th>
+          </tr></thead>
+          <tbody>${lotesRows}</tbody>
+        </table></div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Defectos acumulados</div>
+        ${defsHtml}
+        <div style="font-size:10px;color:#aaa;margin-top:6px">Suma de % por defecto en todos los lotes</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function recShowExp(key){
+  window._recExpFiltro=key;
+  document.querySelectorAll('#recExpBtns button').forEach(b=>{
+    b.style.background='transparent';b.style.color=b.style.borderColor;
+  });
+  const idx={'todas':0,'EP':1,'CG':2,'MA':3}[key];
+  const btns=document.querySelectorAll('#recExpBtns button');
+  if(btns[idx]){btns[idx].style.background=btns[idx].style.borderColor;btns[idx].style.color='#fff';}
+
+  const keys=key==='todas'?['EP','CG','MA']:[key];
+  const cont=document.getElementById('recExpContent');
+
+  if(key==='todas'){
+    const comparacion=`<div style="background:#fff;border:1px solid #dde4f0;border-radius:10px;padding:14px 16px;margin-bottom:16px">
+      <div style="font-size:12px;font-weight:700;color:#1c3f64;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px">Comparación de calidad por exportadora</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div>
+          <div style="font-size:11px;color:#888;margin-bottom:6px">% CAT1 promedio (exportable)</div>
+          ${['EP','CG','MA'].map(k=>{
+            const d=REC_EXP[k];
+            const avg=Math.round(d.lotes.reduce((a,l)=>a+l.cat1,0)/d.lotes.length);
+            return `<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:12px">
+              <span style="min-width:88px;font-weight:700;color:${d.color}">${d.nombre.split(' ').slice(0,2).join(' ')}</span>
+              <div style="flex:1;background:#eee;border-radius:4px;height:8px"><div style="width:${avg}%;background:${d.color};height:100%;border-radius:4px"></div></div>
+              <span style="min-width:32px;font-weight:700">${avg}%</span>
+            </div>`;
+          }).join('')}
+        </div>
+        <div>
+          <div style="font-size:11px;color:#888;margin-bottom:6px">% Descarte promedio</div>
+          ${['EP','CG','MA'].map(k=>{
+            const d=REC_EXP[k];
+            const avg=Math.round(d.lotes.reduce((a,l)=>a+l.desc,0)/d.lotes.length);
+            return `<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:12px">
+              <span style="min-width:88px;font-weight:700;color:${d.color}">${d.nombre.split(' ').slice(0,2).join(' ')}</span>
+              <div style="flex:1;background:#eee;border-radius:4px;height:8px"><div style="width:${avg*2}%;background:${avg>=30?'#c00000':avg>=20?'#F4B400':d.color};height:100%;border-radius:4px"></div></div>
+              <span style="min-width:32px;font-weight:700;color:${avg>=30?'#c00000':avg>=20?'#7a5800':'#276221'}">${avg}%</span>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>
+    </div>`;
+    cont.innerHTML = comparacion + keys.map(k=>recExpCard(k,REC_EXP[k])).join('');
+  } else {
+    cont.innerHTML = keys.map(k=>recExpCard(k,REC_EXP[k])).join('');
+  }
+}
+recShowExp('todas');
+</script>
+
+<footer>Agrícola Yoye SPA — Exportaciones 2026 · Datos de informe de recepción en planta · Proyecciones sujetas a proceso definitivo</footer>
+
+<script>
+// ─── DATA ─────────────────────────────────────────────────────────────────────
+const LOTES = [
+  { lote:'5213',var:'Fukumoto', guia:2343, exp:'El Parque', cuar:'Mirador',
+    fcos:'08/06/2026', frec:'08/06/2026', bins:60, kg:21177.5,
+    seg:'APROBADO', fuente:'El Parque SPA — Lote 5213',
+    jugo:37.3, pres:3.9, brix:11.4, acid:1.77, ssac:6.4, naup:0,
+    cals:[1.2,8.5,20.7,25.6,24.4,19.5,null,null,null,null],
+    cat1:.82, desc:.18, cat2:0,
+    defs:[['Golpe de Sol',6],['Ombligo Rasgado',3],['Pedúnculo Largo',3],['Oleocelosis',1],['Daño Tijera',1]] },
+  { lote:'5237',var:'Fukumoto', guia:2348, exp:'El Parque', cuar:'Rinconada',
+    fcos:'09/06/2026', frec:'09/06/2026', bins:60, kg:21362.5,
+    seg:'APROBADO', fuente:'El Parque SPA — Lote 5237',
+    jugo:38.1, pres:4.3, brix:11.5, acid:1.50, ssac:7.7, naup:0,
+    cals:[10.5,20.9,20.9,18.6,11.6,8.1,null,2.3,null,7.0],
+    cat1:.80, desc:.14, cat2:0,
+    defs:[['Ombligo Rasgado',4],['Ombligo Abierto',3],['Oleocelosis',1],['Piquete',1],['Daño Tijera',1]] },
+  { lote:'5238',var:'Fukumoto', guia:2349, exp:'El Parque', cuar:'Mirador',
+    fcos:'09/06/2026', frec:'09/06/2026', bins:60, kg:20807,
+    seg:'APROBADO', fuente:'El Parque SPA — Lote 5238',
+    jugo:37.6, pres:4.3, brix:11.0, acid:1.66, ssac:6.6, naup:0,
+    cals:[1.2,12.0,33.7,30.1,10.8,12.0,null,null,null,null],
+    cat1:.83, desc:.17, cat2:0,
+    defs:[['Ombligo Rasgado',9],['Col.Escamas',3],['Oleocelosis',2],['Golpe de Sol',2],['Quimera',1]] },
+  { lote:'5246',var:'Fukumoto', guia:2350, exp:'El Parque', cuar:'Rinconada',
+    fcos:'09/06/2026', frec:'10/06/2026', bins:60, kg:8593,
+    seg:'OBJETADO', fuente:'El Parque SPA — Lote 5246',
+    jugo:38.9, pres:4.6, brix:10.5, acid:1.43, ssac:7.3, naup:0,
+    cals:[1.4,15.9,30.4,26.1,20.3,5.8,null,null,null,null],
+    cat1:.69, desc:.31, cat2:0,
+    defs:[['Ombligo Rasgado',10],['Golpe de Sol',5],['Col.Escamas',5],['Pedúnculo Largo',4],['Quimera',3]] },
+  { lote:'0887',var:'Fukumoto', guia:2344, exp:'Crispagold', cuar:'Rinconada',
+    fcos:'08/06/2026', frec:'08/06/2026', bins:66, kg:23800,
+    seg:'APROBADO', fuente:'Crispagold — NFR-4614 Lote 0887',
+    jugo:null, pres:null, brix:11.5, acid:null, ssac:null, naup:null,
+    cals:[1.0,1.0,10.0,18.0,31.0,28.0,null,6.0,4.0,1.0],
+    cat1:.67, desc:.33, cat2:0,
+    defs:[['Escama',6],['Chanchito Blanco',5],['Oleocelosis',5],['Ombligo Rasgado',5],['Frutos Verdes',4]] },
+  { lote:'0906',var:'Fukumoto', guia:2345, exp:'Crispagold', cuar:'Rinconada',
+    fcos:'09/06/2026', frec:'09/06/2026', bins:62, kg:22960,
+    seg:'APROBADO', fuente:'Crispagold — NFR-4655 Lote 0906',
+    jugo:36, pres:null, brix:12.2, acid:1.40, ssac:8.70, naup:null,
+    cals:[4.0,8.0,10.0,12.0,34.0,24.0,null,6.0,2.0,null],
+    cat1:.61, desc:.39, cat2:0,
+    defs:[['Escama',10],['Creasing',8],['Ombligo Rasgado',6],['Golpe de Sol',6],['Fumagina',2]] },
+  { lote:'0922',var:'Fukumoto', guia:2351, exp:'Crispagold', cuar:'Mirador',
+    fcos:'09/06/2026', frec:'09/06/2026', bins:46, kg:16060,
+    seg:'APROBADO', fuente:'Crispagold — NFR-4663 Lote 0922',
+    jugo:9, pres:null, brix:11.0, acid:1.17, ssac:9.40, naup:null,
+    cals:[4.0,null,5.0,15.0,25.0,38.0,null,4.0,10.0,3.0],
+    cat1:.68, desc:.32, cat2:0,
+    defs:[['Escama',10],['Fumagina',4],['Creasing',3],['Chanchito Blanco',3],['Pre Calibre',3]] },
+  { lote:'8029',var:'Fukumoto', guia:2347, exp:'Monte Alto', cuar:'Mirador',
+    fcos:'09/06/2026', frec:'09/06/2026', bins:66, kg:23098.02,
+    seg:'APROBADO', fuente:'Monte Alto / FruTango S.A. — Lote 8029',
+    jugo:44.8, pres:null, brix:12.2, acid:1.58, ssac:7.7, naup:null,
+    cals:[5.0,9.0,13.0,18.0,15.0,14.0,15.0,8.0,null,2.0],
+    cat1:.62, desc:.38, cat2:0,
+    defs:[['Chanchito Blanco',11],['Ombligo Rasgado',6],['Quemado de Sol',6],['Escamas',5],['Daño Tijera',3]] },
+  { lote:'5282',var:'Fukumoto', guia:2353, exp:'El Parque', cuar:'Mirador',
+    fcos:'11/06/2026', frec:'11/06/2026', bins:60, kg:21124.5,
+    seg:'APROBADO', fuente:'El Parque SPA — Lote 5282',
+    jugo:35.5, pres:3.2, brix:12.0, acid:1.23, ssac:9.8, naup:0,
+    cals:[3.6,10.7,null,35.7,44.0,6.0,null,null,null,null],
+    cat1:.84, desc:.16, cat2:0,
+    defs:[['Machucon',4],['Quimera',4],['Russet',3],['Pedúnculo Largo',2],['Golpe de Sol / Col.Escamas',1]] },
+  { lote:'—', guia:2346, exp:'Comerc. CG', cuar:'Comercial',
+    fcos:'09/06/2026', frec:null, bins:4, kg:null,
+    seg:'COMERCIAL', fuente:'Guia 2346 — Fruta Comercial / Sin informe exportadora',
+    jugo:null,pres:null,brix:null,acid:null,ssac:null,naup:null,
+    cals:[null,null,null,null,null,null,null,null,null,null],
+    cat1:null,desc:null,cat2:null, defs:[] },
+  { lote:'—', guia:2352, exp:'Comerc. CG', cuar:'Comercial',
+    fcos:'09/06/2026', frec:null, bins:20, kg:null,
+    seg:'COMERCIAL', fuente:'Guia 2352 — Fruta Comercial / Sin informe exportadora',
+    jugo:null,pres:null,brix:null,acid:null,ssac:null,naup:null,
+    cals:[null,null,null,null,null,null,null,null,null,null],
+    cat1:null,desc:null,cat2:null, defs:[] },
+];
+
+const CAL_HDRS = ['C40','C48','C56','C64','C72','C88','C105','C113','C138','SCN'];
+
+function pct(v){ return v==null ? '<span class="null">—</span>' : (v*100).toFixed(1)+'%'; }
+function num(v,d=0){ return v==null ? '<span class="null">—</span>' : v.toLocaleString('es-CL',{minimumFractionDigits:d,maximumFractionDigits:d}); }
+function nd(v,d=1){ return v==null ? '<span class="null">—</span>' : v.toFixed(d); }
+
+function segBadge(s){
+  if(s==='APROBADO') return `<span class="aprob">APROBADO</span>`;
+  if(s==='OBJETADO') return `<span class="objet">OBJETADO</span>`;
+  return `<span class="comer">COMERCIAL</span>`;
+}
+function pctClass(v,lo,hi){
+  if(v==null) return 'null';
+  return v>=hi?'good':v>=lo?'warn':'bad';
+}
+
+// Build recepciones table
+const tbody = document.getElementById('tbody-recep');
+LOTES.forEach(r => {
+  const isOb = r.seg==='OBJETADO', isCo = r.seg==='COMERCIAL';
+  const cls = isOb?'row-ob':isCo?'row-co':'';
+  const kgBin = r.kg&&r.bins ? (r.kg/r.bins).toFixed(1) : '—';
+  const kgEx  = r.cat1&&r.kg ? Math.round(r.cat1*r.kg).toLocaleString('es-CL') : '—';
+  const kgDe  = r.desc&&r.kg ? Math.round(r.desc*r.kg).toLocaleString('es-CL') : '—';
+  const kgC2  = r.cat2&&r.kg ? Math.round(r.cat2*r.kg).toLocaleString('es-CL') : '—';
+  const c1cls = pctClass(r.cat1,.70,.80);
+  const dcls  = r.desc==null?'null':r.desc>=.30?'bad':r.desc>=.20?'warn':'good';
+  tbody.innerHTML += `<tr class="${cls}">
+    <td class="num">${r.lote}</td>
+    <td class="num">${r.guia}</td>
+    <td class="left">${r.exp}</td>
+    <td>${r.cuar}</td>
+    <td>${r.fcos}</td>
+    <td>${r.frec||'<span class="null">—</span>'}</td>
+    <td>${r.bins}</td>
+    <td class="num">${num(r.kg,1)}</td>
+    <td class="num">${kgBin}</td>
+    <td>${segBadge(r.seg)}</td>
+    <td class="left" style="max-width:180px;white-space:normal;font-size:10.5px;color:#555">${r.fuente}</td>
+    <td>${nd(r.jugo)}</td><td>${nd(r.pres)}</td><td>${nd(r.brix)}</td>
+    <td>${nd(r.acid,2)}</td><td>${nd(r.ssac)}</td>
+    <td>${r.naup==null?'<span class="null">—</span>':r.naup}</td>
+    <td><span class="${c1cls}">${pct(r.cat1)}</span></td>
+    <td><span class="${dcls}">${pct(r.desc)}</span></td>
+    <td>${pct(r.cat2)}</td>
+    <td>${segBadge(r.seg)}</td>
+    <td class="num">${kgEx}</td><td class="num">${kgDe}</td><td class="num">${kgC2}</td>
+  </tr>`;
+});
+
+// Build calibres table
+const tbodyCal = document.getElementById('tbody-cal');
+LOTES.filter(r=>r.seg!=='COMERCIAL').forEach(r => {
+  const calCells = r.cals.map(v => {
+    if(v==null) return '<td class="null">—</td>';
+    const bg = v>=30?'#f8d7ff':v>=20?'#e8d5f5':v>=15?'#ede2f8':'';
+    return `<td style="${bg?'background:'+bg:''}"><strong>${v.toFixed(1)}</strong></td>`;
+  }).join('');
+  const expColor = {'El Parque':'#2E75B6','Crispagold':'#375623','Monte Alto':'#7F6000'}[r.exp]||'#333';
+  tbodyCal.innerHTML += `<tr>
+    <td>${r.lote}</td><td>${r.guia}</td>
+    <td class="left" style="color:${expColor};font-weight:700">${r.exp}</td>
+    <td>${r.cuar}</td>
+    ${calCells}
+  </tr>`;
+});
+
+// ─── CHARTS ────────────────────────────────────────────────────────────────────
+const EXPS = ['El Parque','Crispagold','Monte Alto'];
+const EXP_COLORS = ['#2E75B6','#70AD47','#F4B400'];
+
+// Chart 1: % export por exportadora
+new Chart(document.getElementById('chartExport'), {
+  type:'bar',
+  data:{ labels: EXPS,
+    datasets:[
+      {label:'% Exportable',data:[81.0,65.3,62.0],backgroundColor:EXP_COLORS,borderRadius:6},
+    ]},
+  options:{responsive:true,maintainAspectRatio:true,
+    scales:{y:{min:50,max:100,ticks:{callback:v=>v+'%'},grid:{color:'#eee'}}},
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw+'%'}}}}
+});
+
+// Chart 2: Kg por exportadora
+new Chart(document.getElementById('chartKg'), {
+  type:'bar',
+  data:{ labels: EXPS,
+    datasets:[{label:'Kg Export Proy.',data:[75399,41042,14321],backgroundColor:'#2E75B6',borderRadius:4},
+              {label:'Kg Descarte',data:[16384,21778,8777],backgroundColor:'#C00000',borderRadius:4}]},
+  options:{responsive:true,maintainAspectRatio:true,
+    scales:{x:{stacked:true},y:{stacked:true,ticks:{callback:v=>(v/1000)+'k'},grid:{color:'#eee'}}},
+    plugins:{tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw.toLocaleString('es-CL')+' kg'}}}}
+});
+
+// Chart 3: Pie
+new Chart(document.getElementById('chartPie'), {
+  type:'doughnut',
+  data:{labels:['Exportable 73.0%','Descarte 25.9%','CAT2'],
+    datasets:[{data:[73.0,25.9,1.1],backgroundColor:['#70AD47','#C00000','#BF8F00'],borderWidth:2}]},
+  options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{position:'bottom',labels:{font:{size:11}}}}}
+});
+
+// Chart 4: Brix + Acidez
+new Chart(document.getElementById('chartBrix'), {
+  type:'bar',
+  data:{labels: EXPS,
+    datasets:[
+      {label:'°Brix',data:[11.3,11.6,12.2],backgroundColor:['#2E75B6aa','#70AD47aa','#F4B400aa'],borderRadius:4,yAxisID:'y'},
+      {label:'Acidez',data:[1.52,1.29,1.58],type:'line',borderColor:'#C00000',pointBackgroundColor:'#C00000',tension:.3,yAxisID:'y2'}
+    ]},
+  options:{responsive:true,maintainAspectRatio:true,
+    scales:{y:{position:'left',min:0,max:14,grid:{color:'#eee'},title:{display:true,text:'°Brix'}},
+            y2:{position:'right',min:0,max:2,grid:{display:false},title:{display:true,text:'Acidez'}}}}
+});
+
+// Chart 5: Kg proyectados
+new Chart(document.getElementById('chartProyec'), {
+  type:'bar',
+  data:{labels: EXPS,
+    datasets:[{label:'Kg Export',data:[75399,41042,14321],backgroundColor:'#70AD47',borderRadius:4},
+              {label:'Kg Descarte',data:[16384,21778,8777],backgroundColor:'#C0000099',borderRadius:4}]},
+  options:{responsive:true,maintainAspectRatio:true,indexAxis:'y',
+    scales:{x:{stacked:true,ticks:{callback:v=>(v/1000)+'k'},grid:{color:'#eee'}},y:{stacked:true}},
+    plugins:{legend:{position:'bottom'}}}
+});
+
+// Chart Defectos
+new Chart(document.getElementById('chartDefectos'), {
+  type:'bar',
+  data:{labels:['Escama','Ombligo Rasgado','Chanchito Blanco','Creasing','Golpe de Sol','Fumagina'],
+    datasets:[
+      {label:'El Parque',data:[1.6,5.4,1.0,0.2,3.0,0.4],backgroundColor:'#2E75B6',borderRadius:3},
+      {label:'Crispagold',data:[8.7,3.7,2.7,3.7,2.0,1.3],backgroundColor:'#70AD47',borderRadius:3},
+      {label:'Monte Alto',data:[5.0,6.0,11.0,0,6.0,0],backgroundColor:'#F4B400',borderRadius:3},
+    ]},
+  options:{responsive:true,maintainAspectRatio:true,
+    scales:{y:{ticks:{callback:v=>v+'%'},grid:{color:'#eee'}}},
+    plugins:{legend:{position:'top'},tooltip:{callbacks:{label:c=>c.dataset.label+': '+c.raw+'%'}}}}
+});
+
+// ─── NAV ───────────────────────────────────────────────────────────────────────
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
+</body>
+</html>

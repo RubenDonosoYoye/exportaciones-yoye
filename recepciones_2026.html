@@ -379,7 +379,7 @@
       <div style="font-size:12px;line-height:1.7">
         <strong>Chanchito Blanco 11%</strong> en Monte Alto Lote 8029 (Mirador)<br>
         <strong>Creasing severo 12%+6%</strong> en Crispagold Lote 0906 (Rinconada)<br>
-        <strong>Lote 5246 OBJETADO</strong> — 143 kg/bin anómalo (60 bins / 8,593 kg)<br>
+        <strong>Lote 5246 INSP.PARCIAL</strong> — 143 kg/bin anómalo (60 bins / 8,593 kg)<br>
         <strong>Crispagold NFR-4614</strong> sin datos jugo/acidez/presión<br>
         <strong>Monte Alto</strong> Cal-36 (2%) registrado en columna SCN (sobre calibre)
       </div>
@@ -439,10 +439,11 @@ const REC_EXP = {
        defs:[['Ombligo Rasgado',4],['Ombligo Abierto',3],['Oleocelosis',1],['Piquete',1]]},
       {lote:'5238',var:'Fukumoto',g:2349,cuar:'Mirador',bins:60,kg:20807,brix:11.0,jugo:37.6,pres:4.3,acid:1.66,cat1:83,desc:17,seg:'ok',
        defs:[['Ombligo Rasgado',9],['Col.Escamas',3],['Oleocelosis',2],['Golpe de Sol',2]]},
-      {lote:'5246',var:'Fukumoto',g:2350,cuar:'Rinconada',bins:60,kg:8593,brix:10.5,jugo:38.9,pres:4.6,acid:1.43,cat1:69,desc:31,seg:'obj',
+      {lote:'5246',var:'Fukumoto',g:2350,cuar:'Rinconada',bins:60,kg:8593,brix:10.5,jugo:38.9,pres:4.6,acid:1.43,cat1:69,desc:31,seg:'parcial',
        defs:[['Ombligo Rasgado',10],['Golpe de Sol',5],['Col.Escamas',5],['Pedúnculo Largo',4]]},
       {lote:'5282',var:'Fukumoto',g:2353,cuar:'Mirador',bins:60,kg:21124.5,brix:12.0,jugo:35.5,pres:3.2,acid:1.23,cat1:84,desc:16,seg:'ok',
        defs:[['Machucon',4],['Quimera',4],['Russet',3],['Pedúnculo Largo',2]]},
+      {lote:null,var:'Fukumoto',g:2358,cuar:'Mirador',bins:60,kg:null,brix:null,jugo:null,pres:null,acid:null,cat1:null,desc:null,seg:'pend',defs:[]},
     ]
   },
   CG: {
@@ -454,6 +455,7 @@ const REC_EXP = {
        defs:[['Escama',10],['Creasing',8],['Ombligo Rasgado',6],['Golpe de Sol',6]]},
       {lote:'0922',var:'Fukumoto',g:2351,cuar:'Mirador',bins:46,kg:16060,brix:11.0,jugo:9,pres:null,acid:1.17,cat1:68,desc:32,seg:'ok',
        defs:[['Escama',10],['Fumagina',4],['Creasing',3],['Chanchito Blanco',3]]},
+      {lote:null,var:'Fukumoto',g:2357,cuar:'Rinconada',bins:66,kg:null,brix:null,jugo:null,pres:null,acid:null,cat1:null,desc:null,seg:'pend',defs:[]},
     ]
   },
   MA: {
@@ -461,6 +463,8 @@ const REC_EXP = {
     lotes:[
       {lote:'8029',var:'Fukumoto',g:2347,cuar:'Mirador',bins:66,kg:23098.02,brix:12.2,jugo:44.8,pres:null,acid:1.58,cat1:62,desc:38,seg:'ok',
        defs:[['Chanchito Blanco',11],['Ombligo Rasgado',6],['Quemado de Sol',6],['Escamas',5]]},
+      {lote:null,var:'Fukumoto',g:2354,cuar:'Rinconada',bins:66,kg:null,brix:null,jugo:null,pres:null,acid:null,cat1:null,desc:null,seg:'pend',defs:[]},
+      {lote:null,var:'Fukumoto',g:2355,cuar:'Rinconada',bins:66,kg:null,brix:null,jugo:null,pres:null,acid:null,cat1:null,desc:null,seg:'pend',defs:[]},
     ]
   }
 };
@@ -480,33 +484,37 @@ function recSetVar(v,btn){
 }
 function recSegBadge(s){
   if(s==='ok') return '<span style="background:#c6efce;color:#276221;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:700">Aprobado</span>';
-  if(s==='obj') return '<span style="background:#ffeb9c;color:#7a5800;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:700">Objetado</span>';
+  if(s==='parcial') return '<span style="background:#ffeb9c;color:#7a5800;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:700">Insp. Parcial</span>';
+  if(s==='pend') return '<span style="background:#e8eaf6;color:#3949ab;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:700">Sin Informe</span>';
   return '<span style="background:#ffc7ce;color:#9c0006;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:700">Rechazado</span>';
 }
 
 function recExpCard(key, d){
   const lotes=recVarFilter(d.lotes);
   if(!lotes.length) return '';
-  const cat1avg=Math.round(lotes.reduce((a,l)=>a+l.cat1,0)/lotes.length);
-  const descavg=Math.round(lotes.reduce((a,l)=>a+l.desc,0)/lotes.length);
-  const brixavg=(lotes.reduce((a,l)=>a+l.brix,0)/lotes.length).toFixed(1);
+  const lotesConInf=lotes.filter(l=>l.seg!=='pend');
+  const cat1avg=lotesConInf.length?Math.round(lotesConInf.reduce((a,l)=>a+l.cat1,0)/lotesConInf.length):0;
+  const descavg=lotesConInf.length?Math.round(lotesConInf.reduce((a,l)=>a+l.desc,0)/lotesConInf.length):0;
+  const brixavg=lotesConInf.length?(lotesConInf.reduce((a,l)=>a+l.brix,0)/lotesConInf.length).toFixed(1):'—';
   const kgtot=Math.round(lotes.reduce((a,l)=>a+(l.kg||0),0));
   const binstot=lotes.reduce((a,l)=>a+l.bins,0);
   const cat1col=cat1avg>=80?'#276221':cat1avg>=70?'#7a5800':'#9c0006';
   const descCol=descavg>=30?'#9c0006':descavg>=20?'#7a5800':'#276221';
 
-  const lotesRows=lotes.map(l=>`<tr>
-    <td class="l" style="font-weight:700">L-${l.lote}</td>
+  const lotesRows=lotes.map(l=>{
+    const isPend = l.seg==='pend';
+    return `<tr style="${isPend?'background:#f5f6ff;color:#888':''}">
+    <td class="l" style="font-weight:700;color:${isPend?'#9e9e9e':'inherit'}">${l.lote?'L-'+l.lote:'—'}</td>
     <td>G-${l.g}</td>
     <td style="font-size:10px;background:${l.var==='Cara Cara'?'#fdf2f0':'#f0f4fa'};color:${l.var==='Cara Cara'?'#c0392b':'#2E75B6'};font-weight:700;border-radius:8px;padding:2px 6px">${l.var||'Fukumoto'}</td>
     <td>${l.cuar}</td>
     <td>${l.bins}</td>
-    <td>${l.brix}</td>
-    <td>${l.jugo!=null?l.jugo+'%':'—'}</td>
-    <td style="font-weight:700;color:${l.cat1>=80?'#276221':l.cat1>=70?'#7a5800':'#9c0006'}">${l.cat1}%</td>
-    <td style="font-weight:700;color:${l.desc>=30?'#9c0006':l.desc>=20?'#7a5800':'#276221'}">${l.desc}%</td>
+    <td>${isPend?'—':l.brix}</td>
+    <td>${isPend?'—':l.jugo!=null?l.jugo+'%':'—'}</td>
+    <td style="font-weight:700;color:${isPend?'#bbb':l.cat1>=80?'#276221':l.cat1>=70?'#7a5800':'#9c0006'}">${isPend?'—':l.cat1+'%'}</td>
+    <td style="font-weight:700;color:${isPend?'#bbb':l.desc>=30?'#9c0006':l.desc>=20?'#7a5800':'#276221'}">${isPend?'—':l.desc+'%'}</td>
     <td>${recSegBadge(l.seg)}</td>
-  </tr>`).join('');
+  </tr>`;}).join('');
 
   const topDefs={};
   lotes.forEach(l=>l.defs.forEach(([n,p])=>{topDefs[n]=(topDefs[n]||0)+p}));
@@ -640,7 +648,7 @@ const LOTES = [
     defs:[['Ombligo Rasgado',9],['Col.Escamas',3],['Oleocelosis',2],['Golpe de Sol',2],['Quimera',1]] },
   { lote:'5246',var:'Fukumoto', guia:2350, exp:'El Parque', cuar:'Rinconada',
     fcos:'09/06/2026', frec:'10/06/2026', bins:60, kg:8593,
-    seg:'OBJETADO', fuente:'El Parque SPA — Lote 5246',
+    seg:'INSP.PARCIAL', fuente:'El Parque SPA — Lote 5246',
     jugo:38.9, pres:4.6, brix:10.5, acid:1.43, ssac:7.3, naup:0,
     cals:[1.4,15.9,30.4,26.1,20.3,5.8,null,null,null,null],
     cat1:.69, desc:.31, cat2:0,
@@ -702,7 +710,7 @@ function nd(v,d=1){ return v==null ? '<span class="null">—</span>' : v.toFixed
 
 function segBadge(s){
   if(s==='APROBADO') return `<span class="aprob">APROBADO</span>`;
-  if(s==='OBJETADO') return `<span class="objet">OBJETADO</span>`;
+  if(s==='INSP.PARCIAL') return `<span class="objet">INSP.PARCIAL</span>`;
   return `<span class="comer">COMERCIAL</span>`;
 }
 function pctClass(v,lo,hi){
@@ -713,7 +721,7 @@ function pctClass(v,lo,hi){
 // Build recepciones table
 const tbody = document.getElementById('tbody-recep');
 LOTES.forEach(r => {
-  const isOb = r.seg==='OBJETADO', isCo = r.seg==='COMERCIAL';
+  const isOb = r.seg==='INSP.PARCIAL', isCo = r.seg==='COMERCIAL';
   const cls = isOb?'row-ob':isCo?'row-co':'';
   const kgBin = r.kg&&r.bins ? (r.kg/r.bins).toFixed(1) : '—';
   const kgEx  = r.cat1&&r.kg ? Math.round(r.cat1*r.kg).toLocaleString('es-CL') : '—';

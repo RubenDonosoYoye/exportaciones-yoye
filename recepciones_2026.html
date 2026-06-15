@@ -56,6 +56,7 @@
   .comer  { background: #fff3cd; color: #7F6000; font-weight: 700; border-radius: 4px; padding: 2px 7px; font-size: 10px; }
   .row-ob td { background: #fff5f5 !important; }
   .row-co td { background: #fffbf0 !important; }
+  .row-pend td { background: #f5f5f5; color: #888; font-style: italic; }
   td.num { font-variant-numeric: tabular-nums; }
   .null { color: #bbb; }
 
@@ -103,11 +104,11 @@
   <div class="header-card">
     <div>
       <h1>🍊 Agrícola Yoye SPA — Control de Recepciones</h1>
-      <div style="margin-top:6px; font-size:13px; opacity:.9">Temporada 2026 · Naranjas · Semana 24</div>
+      <div style="margin-top:6px; font-size:13px; opacity:.9">Temporada 2026 · Naranjas · Semana 25</div>
     </div>
     <div class="meta">
       Actualizado: 11 Jun 2026<br>
-      <span class="badge">9 lotes procesados</span>
+      <span class="badge">10 lotes inspeccionados</span>
     </div>
   </div>
 
@@ -210,7 +211,7 @@
           <td>25.9%</td><td class="num">46,348</td>
           <td>8</td><td>1</td>
           <td colspan="6" style="text-align:left;padding-left:16px;color:#555;font-weight:400;font-size:11px">
-            Semana 24 · 3 exportadoras · 9 lotes con informe · 2 guías comerciales (24 bins sin proceso)
+            Semana 25 · 3 exportadoras · 10 lotes inspeccionados · 5 guías pendientes
           </td>
         </tr>
       </tbody>
@@ -317,8 +318,8 @@
 <div id="defectos" class="page">
   <div class="header-card">
     <div><h1>⚠️ Análisis Comparativo de Defectos</h1>
-    <div style="margin-top:6px;font-size:13px;opacity:.9">% encontrado en muestreo de recepción · 9 lotes proceso</div></div>
-    <div class="meta">Temporada 2026 · Semana 24</div>
+    <div style="margin-top:6px;font-size:13px;opacity:.9">% encontrado en muestreo de recepción · 10 lotes inspeccionados</div></div>
+    <div class="meta">Temporada 2026 · Semana 25</div>
   </div>
 
   <div class="charts-row">
@@ -391,7 +392,7 @@
         Monte Alto exportable <strong>62.0%</strong> — bajo umbral objetivo (70%)<br>
         Ombligo Rasgado persistente en <strong>todos</strong> los exportadores<br>
         Rinconada con mayor % descarte que Mirador (29.4% vs 26.2%)<br>
-        2 guías comerciales (G-2346, G-2352 · 24 bins) sin proceso exportación
+        3 guías comerciales (G-2346, G-2352, G-2360 · 28 bins) sin proceso exportación
       </div>
     </div>
   </div>
@@ -699,15 +700,41 @@ const LOTES = [
     cals:[3.6,10.7,null,35.7,44.0,6.0,null,null,null,null],
     cat1:.84, desc:.16, cat2:0,
     defs:[['Machucon',4],['Quimera',4],['Russet',3],['Pedúnculo Largo',2],['Golpe de Sol / Col.Escamas',1]] },
-  { lote:'—', guia:2346, exp:'Comerc. CG', cuar:'Comercial',
-    fcos:'09/06/2026', frec:null, bins:4, kg:null,
-    seg:'COMERCIAL', fuente:'Guia 2346 — Fruta Comercial / Sin informe exportadora',
+  { lote:'5298', guia:2358, exp:'El Parque', cuar:'Mirador',
+    fcos:'12/06/2026', frec:'12/06/2026', bins:60, kg:20913,
+    seg:'APROBADO', fuente:'El Parque SPA — Lote 5298',
+    jugo:34.4, pres:3.2, brix:10.0, acid:1.46, ssac:6.8, naup:0,
+    cals:[10.9,18.5,23.9,null,null,31.5,null,15.2,null,null],
+    cat1:.92, desc:.08, cat2:0,
+    defs:[['Colonias de Escamas',4],['Golpe de Sol',2],['Machucon',1],['Quimera',1]] },
+  // Guías pendientes — sin informe de recepción aún
+  { lote:'—', guia:2354, exp:'Monte Alto', cuar:'Rinconada',
+    fcos:'11/06/2026', frec:null, bins:66, kg:null,
+    seg:'PEND', fuente:'Guía 2354 — Sin informe recepción',
     jugo:null,pres:null,brix:null,acid:null,ssac:null,naup:null,
     cals:[null,null,null,null,null,null,null,null,null,null],
     cat1:null,desc:null,cat2:null, defs:[] },
-  { lote:'—', guia:2352, exp:'Comerc. CG', cuar:'Comercial',
-    fcos:'09/06/2026', frec:null, bins:20, kg:null,
-    seg:'COMERCIAL', fuente:'Guia 2352 — Fruta Comercial / Sin informe exportadora',
+  { lote:'—', guia:2355, exp:'Monte Alto', cuar:'Rinconada',
+    fcos:'12/06/2026', frec:null, bins:66, kg:null,
+    seg:'PEND', fuente:'Guía 2355 — Sin informe recepción',
+    jugo:null,pres:null,brix:null,acid:null,ssac:null,naup:null,
+    cals:[null,null,null,null,null,null,null,null,null,null],
+    cat1:null,desc:null,cat2:null, defs:[] },
+  { lote:'—', guia:2357, exp:'Crispagold', cuar:'Rinconada',
+    fcos:'12/06/2026', frec:null, bins:66, kg:null,
+    seg:'PEND', fuente:'Guía 2357 — Sin informe recepción',
+    jugo:null,pres:null,brix:null,acid:null,ssac:null,naup:null,
+    cals:[null,null,null,null,null,null,null,null,null,null],
+    cat1:null,desc:null,cat2:null, defs:[] },
+  { lote:'—', guia:2359, exp:'Crispagold', cuar:'Rinconada',
+    fcos:'12/06/2026', frec:null, bins:62, kg:null,
+    seg:'PEND', fuente:'Guía 2359 — Sin informe recepción',
+    jugo:null,pres:null,brix:null,acid:null,ssac:null,naup:null,
+    cals:[null,null,null,null,null,null,null,null,null,null],
+    cat1:null,desc:null,cat2:null, defs:[] },
+  { lote:'—', guia:2361, exp:'Crispagold', cuar:'Mirador',
+    fcos:'15/06/2026', frec:null, bins:66, kg:null,
+    seg:'PEND', fuente:'Guía 2361 — Sin informe recepción',
     jugo:null,pres:null,brix:null,acid:null,ssac:null,naup:null,
     cals:[null,null,null,null,null,null,null,null,null,null],
     cat1:null,desc:null,cat2:null, defs:[] },
@@ -722,6 +749,7 @@ function nd(v,d=1){ return v==null ? '<span class="null">—</span>' : v.toFixed
 function segBadge(s){
   if(s==='APROBADO') return `<span class="aprob">APROBADO</span>`;
   if(s==='INSP.PARCIAL') return `<span class="objet">INSP.PARCIAL</span>`;
+  if(s==='PEND') return `<span style="background:#e3e3e3;color:#666;border-radius:5px;padding:1px 6px;font-size:11px;font-weight:700">PENDIENTE</span>`;
   return `<span class="comer">COMERCIAL</span>`;
 }
 function pctClass(v,lo,hi){
@@ -729,11 +757,19 @@ function pctClass(v,lo,hi){
   return v>=hi?'good':v>=lo?'warn':'bad';
 }
 
-// Build recepciones table
+// Build recepciones table — filtro: último inspeccionado por exportadora + pendientes
+function recepLotesFiltrados(){
+  const sinCom = LOTES.filter(r=>r.seg!=='COMERCIAL');
+  const insp = sinCom.filter(r=>r.seg!=='PEND');
+  const pend = sinCom.filter(r=>r.seg==='PEND');
+  const lastByExp = {};
+  insp.forEach(r=>{ lastByExp[r.exp]=r; });
+  return [...Object.values(lastByExp), ...pend];
+}
 const tbody = document.getElementById('tbody-recep');
-LOTES.forEach(r => {
-  const isOb = r.seg==='INSP.PARCIAL', isCo = r.seg==='COMERCIAL';
-  const cls = isOb?'row-ob':isCo?'row-co':'';
+recepLotesFiltrados().forEach(r => {
+  const isOb = r.seg==='INSP.PARCIAL', isPend = r.seg==='PEND';
+  const cls = isOb?'row-ob':isPend?'row-pend':'';
   const kgBin = r.kg&&r.bins ? (r.kg/r.bins).toFixed(1) : '—';
   const kgEx  = r.cat1&&r.kg ? Math.round(r.cat1*r.kg).toLocaleString('es-CL') : '—';
   const kgDe  = r.desc&&r.kg ? Math.round(r.desc*r.kg).toLocaleString('es-CL') : '—';
@@ -765,7 +801,7 @@ LOTES.forEach(r => {
 
 // Build calibres table
 const tbodyCal = document.getElementById('tbody-cal');
-LOTES.filter(r=>r.seg!=='COMERCIAL').forEach(r => {
+LOTES.filter(r=>r.seg!=='COMERCIAL'&&r.seg!=='PEND').forEach(r => {
   const calCells = r.cals.map(v => {
     if(v==null) return '<td class="null">—</td>';
     const bg = v>=30?'#f8d7ff':v>=20?'#e8d5f5':v>=15?'#ede2f8':'';

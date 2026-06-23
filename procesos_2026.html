@@ -651,10 +651,12 @@ function ovCardExportHTML(filterExp, doneGs, kgExportable, kgProcesado){
       <div style="font-size:9px;color:#aaa">${fmtKg(kgexp)} / ${fmtKg(g.kg)} kg</div>
     </div>`;
   }).join('');
+  const cardsBlock = filterExp==='todas' ? '' :
+    `<div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px">${cards}</div>`;
   return `<div style="font-size:11px;font-weight:700;color:#276221;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">% Exportación (sobre Kg procesados)</div>
   <div style="font-size:42px;font-weight:700;color:#276221;line-height:1">${pct}%</div>
   <div style="font-size:12px;color:#888;margin:4px 0 12px">${fmtKg(kgExportable)} kg export / ${fmtKg(kgProcesado)} kg procesados</div>
-  <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px">${cards}</div>`;
+  ${cardsBlock}`;
 }
 
 function ovCardNacionalHTML(filterExp, doneGs, kgComercial, kgProcesado){
@@ -674,10 +676,12 @@ function ovCardNacionalHTML(filterExp, doneGs, kgComercial, kgProcesado){
       <div style="font-size:9px;color:#aaa">${fmtKg(kgcom)} kg nac.</div>
     </div>`;
   }).join('');
+  const cardsBlock = filterExp==='todas' ? '' :
+    `<div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px">${cards}</div>`;
   return `<div style="font-size:11px;font-weight:700;color:#7a5800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">% Nacional / COM (sobre Kg procesados)</div>
   <div style="font-size:42px;font-weight:700;color:#7a5800;line-height:1">${pct}%</div>
   <div style="font-size:12px;color:#888;margin:4px 0 12px">${fmtKg(kgComercial)} kg nac. / ${fmtKg(kgProcesado)} kg procesados</div>
-  <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px">${cards}</div>`;
+  ${cardsBlock}`;
 }
 
 function ovAvanceCardHTML(filterExp, agg){

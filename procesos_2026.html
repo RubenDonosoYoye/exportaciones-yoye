@@ -77,7 +77,7 @@ footer{text-align:center;padding:16px;color:#999;font-size:11px}
     <div id="ovCardNacional" style="background:#fff;border:2px solid #ffeb9c;border-radius:10px;padding:16px 20px"></div>
   </div>
 
-  <div class="warn-box">&#9888;&#65039; <strong>Proceso 126 El Parque:</strong> Incluye saldo G-2343 (20 bins) + G-2348 y G-2349 completos &#8212; 140 bins / 49.229 kg vaciados. &nbsp;|&nbsp; <strong>G-2353 (L5282):</strong> 60 bins completos &#8212; calibres planilla recepci&#243;n. &nbsp;|&nbsp; <strong>Proceso 194 El Parque:</strong> G-2367 + G-2366 combinados &#8212; 120 bins / 42.102 kg, split proporcional. &nbsp;|&nbsp; <strong>P213 (G-2370), P224 (G-2375), P162 (G-2358):</strong> procesos individuales El Parque. &nbsp;|&nbsp; <strong>G-2355 (P302):</strong> 23/66 bins procesados.</div>
+  <div class="warn-box">&#9888;&#65039; <strong>Proceso 126 El Parque:</strong> Incluye saldo G-2343 (20 bins) + G-2348 y G-2349 completos &#8212; 140 bins / 49.229 kg vaciados. &nbsp;|&nbsp; <strong>G-2353 (P143):</strong> 60 bins completos &#8212; informe oficial recibido. &nbsp;|&nbsp; <strong>Proceso 194 El Parque:</strong> G-2367 + G-2366 combinados &#8212; 120 bins / 42.102 kg, split proporcional. &nbsp;|&nbsp; <strong>P213 (G-2370), P224 (G-2375), P162 (G-2358):</strong> procesos individuales El Parque. &nbsp;|&nbsp; <strong>G-2355 (P302):</strong> 23/66 bins procesados.</div>
 
   <div class="card" style="margin-bottom:14px" id="ovAvanceCard"></div>
 
@@ -91,7 +91,7 @@ footer{text-align:center;padding:16px;color:#999;font-size:11px}
     <div class="card">
       <h3>Avance por exportadora (bins)</h3>
       <canvas id="binsChart" style="max-height:200px"></canvas>
-      <div style="font-size:10px;color:#aaa;margin-top:4px">L5282 (G-2353): calibres calculados desde planilla de recepci&#243;n.</div>
+      <div style="font-size:10px;color:#aaa;margin-top:4px">P143 (G-2353): kg/cajas oficiales; desglose por calibre estimado desde % de recepci&#243;n.</div>
     </div>
   </div>
 </div>
@@ -129,9 +129,9 @@ footer{text-align:center;padding:16px;color:#999;font-size:11px}
       </tr>
       <tr>
         <td class="l" style="font-weight:700">G-2353</td><td>El Parque</td><td>Mirador</td><td>60</td>
-        <td>21.124</td><td>17.745</td><td>3.380</td><td>0</td><td>0</td>
-        <td style="font-weight:700;color:#276221">84,0%</td><td>&#8212;</td><td>&#8212;</td>
-        <td><span class="ok pill">L5282 &#10003;</span></td>
+        <td>21.124</td><td>17.930</td><td>3.003</td><td>0</td><td>191</td>
+        <td style="font-weight:700;color:#276221">84,9%</td><td>1.177</td><td>15,2</td>
+        <td><span class="ok pill">P143 &#10003;</span></td>
       </tr>
       <tr>
         <td class="l" style="font-weight:700">G-2358</td><td>El Parque</td><td>Mirador</td><td>60</td>
@@ -194,7 +194,7 @@ footer{text-align:center;padding:16px;color:#999;font-size:11px}
       </tr>
     </tbody>
   </table></div>
-  <div style="font-size:10px;color:#aaa;margin-top:6px">G-2348/G-2349 distribuidos proporcionalmente desde P126 El Parque. G-2367/G-2366 distribuidos proporcionalmente desde P194 El Parque. G-2354/G-2355 desde P302 Monte Alto. G-2353: calibres desde planilla recepci&#243;n L5282. G-2355: 23/66 bins procesados.</div>
+  <div style="font-size:10px;color:#aaa;margin-top:6px">G-2348/G-2349 distribuidos proporcionalmente desde P126 El Parque. G-2367/G-2366 distribuidos proporcionalmente desde P194 El Parque. G-2354/G-2355 desde P302 Monte Alto. G-2353 (P143): kg/cajas oficiales, desglose por calibre estimado desde % de recepci&#243;n. G-2355: 23/66 bins procesados.</div>
 
   <div class="sec">Avance por exportadora (bins)</div>
   <div class="tw"><table>
@@ -334,10 +334,10 @@ const EP = {
   pct:{36:0,40:4.62,48:4.17,56:18.33,64:5.23,72:29.49,88:26.94,105:0,113:9.68,138:1.57}
 };
 const EP2 = {
-  label:'El Parque (G-2353 — L5282)', color:'#1565c0',
-  kg_env:21124.5, kg_exp:17744.58, kg_com:3379.92, pre:0, merma:0,
-  rdto:84.0, cajas:null, kgcj:null,
-  cals:{36:0,40:638.8,48:1898.7,56:0,64:6334.8,72:7807.6,88:1064.7,105:0,113:0,138:0},
+  label:'El Parque (G-2353 · P143)', color:'#1565c0',
+  kg_env:21124.5, kg_exp:17930.4, kg_com:3003, pre:0, merma:191.1,
+  rdto:84.88, cajas:1177, kgcj:15.23,
+  cals:{36:0,40:645.49,48:1918.55,56:0,64:6401.15,72:7889.38,88:1075.82,105:0,113:0,138:0},
   pct:{36:0,40:3.60,48:10.70,56:0,64:35.70,72:44.00,88:6.00,105:0,113:0,138:0}
 };
 const EP3 = {
@@ -435,7 +435,7 @@ const GUIAS=[
   {g:2350,var:'Fukumoto',exp:'El Parque',cuar:'Rinconada',bins:60,kg:21493.0,status:'proc',rdto:67.62,kg_exp:14534.40,proceso:'P150',kg_com:6522,pre:0,merma:436.6,cajas:899,kgcj:16.17},
   {g:2351,var:'Fukumoto',exp:'Crispagold',cuar:'Mirador',bins:46,kg:16060,status:'pend',rdto_esp:68.0},
   {g:2352,var:'Fukumoto Comercial',exp:'Comerc. CG',cuar:'Comercial',bins:20,kg:null,status:'com'},
-  {g:2353,var:'Fukumoto',exp:'El Parque',cuar:'Mirador',bins:60,kg:21124.5,status:'proc',rdto:84.0,kg_exp:17744.58,proceso:'L5282',kg_com:3379.92,pre:0,merma:0,cajas:null,kgcj:null},
+  {g:2353,var:'Fukumoto',exp:'El Parque',cuar:'Mirador',bins:60,kg:21124.5,status:'proc',rdto:84.88,kg_exp:17930.4,proceso:'P143',kg_com:3003,pre:0,merma:191.1,cajas:1177,kgcj:15.23},
   {g:2354,var:'Fukumoto',exp:'Monte Alto',cuar:'Rinconada',bins:66,kg:23237.94,status:'proc',rdto:75.94,kg_exp:17647.39,proceso:'P302',kg_com:4638.08,pre:337.86,merma:614.61,cajas:1119,kgcj:15.77},
   {g:2355,var:'Fukumoto',exp:'Monte Alto',cuar:'Rinconada',bins:66,bins_proc:23,kg:8091.17,status:'parcial',kg_proc:8091.17,rdto_proc:75.94,proceso:'P302',kg_com:1614.92,pre:117.64,merma:214,cajas:391,kgcj:15.72},
   {g:2357,var:'Fukumoto',exp:'Crispagold',cuar:'Rinconada',bins:66,kg:null,status:'pend',rdto_esp:65.33},
@@ -469,7 +469,7 @@ CALS.forEach(c=>{
 });
 const CAJAS_TOT={};
 CALS.forEach(c=>CAJAS_TOT[c]=(CAJAS_EP[c]||0)+(CAJAS_MA[c]||0));
-// kg por calibre por exportadora (EP incluye P109 + L5282 est.)
+// kg por calibre por exportadora (EP incluye P109 + P143 est. desde % recepción)
 const KG_EP={},KG_MA={},KG_TOT={};
 CALS.forEach(c=>{
   KG_EP[c]=EP_OBJS.reduce((a,o)=>a+(o.cals[c]||0),0);
@@ -490,12 +490,12 @@ function buildCalibresTab(){
   let kgs,cajas,label,color,nota='';
   if(key==='EP'){
     kgs=KG_EP; cajas=CAJAS_EP; label='El Parque (9 procesos)'; color='#2E75B6';
-    nota='G-2353 L5282: calibres desde planilla de recepción.';
+    nota='G-2353 (P143): kg oficiales, calibres estimados desde % de recepción.';
   } else if(key==='MA'){
     kgs=KG_MA; cajas=CAJAS_MA; label='Monte Alto (P301+P302)'; color='#F4B400';
   } else {
     kgs=KG_TOT; cajas=CAJAS_TOT; label='Todas las exportadoras'; color='#1c3f64';
-    nota='G-2353 L5282: calibres desde planilla recepción. G-2355: proceso parcial (23/66 bins).';
+    nota='G-2353 (P143): kg oficiales, calibres estimados desde % de recepción. G-2355: proceso parcial (23/66 bins).';
   }
   const totKg=CALS.reduce((a,c)=>a+(kgs[c]||0),0);
   const totCj=CALS.reduce((a,c)=>a+(cajas[c]||0),0);
@@ -715,14 +715,15 @@ function ovAvanceCardHTML(filterExp, agg){
 }
 
 function ovKpiRowHTML(filterExp, agg){
-  const {procGs,parGs,pendGs,kgProcesado,kgExportable,cajas,kgPendienteKnown,kgTotal,binsProc,binsParDone,binsPend,binsTotal,hasUnknownPend}=agg;
+  const {procGs,parGs,pendGs,doneGs,kgProcesado,kgExportable,cajas,kgPendienteKnown,kgTotal,binsProc,binsParDone,binsPend,binsTotal,hasUnknownPend}=agg;
   const tilde=hasUnknownPend?'~':'', plus=hasUnknownPend?'+':'';
   const pctProc=kgTotal? kgProcesado/kgTotal*100 : 0;
   const pctPend=kgTotal? kgPendienteKnown/kgTotal*100 : 0;
   const pctRdto=kgProcesado? kgExportable/kgProcesado*100 : null;
   const kgNoExp=kgProcesado-kgExportable;
   const nGuiasTotal=procGs.length+parGs.length+pendGs.length;
-  const cajasNota=(filterExp==='El Parque'||filterExp==='todas')?'sin G-2353 (L5282)':'&nbsp;';
+  const sinCajas=doneGs.filter(g=>!g.cajas);
+  const cajasNota=sinCajas.length? 'sin '+sinCajas.map(g=>'G-'+g.g).join(', ') : '&nbsp;';
   return `
   <div class="kpi" style="flex:1;min-width:120px"><div class="lbl">Kg totales a proceso</div><div class="val">${tilde}${fmtKg(kgTotal)}${plus} kg</div><div class="sub">${nGuiasTotal} guías · ${binsTotal.toLocaleString('es-CL')} bins</div></div>
   <div class="kpi g" style="flex:1;min-width:120px"><div class="lbl">Kg procesados</div><div class="val">${fmtKg(kgProcesado)} kg</div><div style="font-size:15px;font-weight:700;color:#276221;margin:2px 0">${fmtPct(pctProc)}%</div><div class="sub">${procGs.length+parGs.length} procesos · ${(binsProc+binsParDone).toLocaleString('es-CL')} bins</div></div>
@@ -943,4 +944,4 @@ function showPage(id,btn){
 </script>
 </body>
 </html>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          

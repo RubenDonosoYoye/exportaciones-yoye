@@ -715,12 +715,14 @@ function ovAvanceCardHTML(filterExp, agg){
 }
 
 function ovKpiRowHTML(filterExp, agg){
-  const {procGs,parGs,pendGs,doneGs,kgProcesado,kgExportable,cajas,kgPendienteKnown,kgTotal,binsProc,binsParDone,binsPend,binsTotal,hasUnknownPend}=agg;
+  const {procGs,parGs,pendGs,doneGs,kgProcesado,kgExportable,kgComercial,cajas,kgPendienteKnown,kgTotal,binsProc,binsParDone,binsPend,binsTotal,hasUnknownPend}=agg;
   const tilde=hasUnknownPend?'~':'', plus=hasUnknownPend?'+':'';
   const pctProc=kgTotal? kgProcesado/kgTotal*100 : 0;
   const pctPend=kgTotal? kgPendienteKnown/kgTotal*100 : 0;
   const pctRdto=kgProcesado? kgExportable/kgProcesado*100 : null;
-  const kgNoExp=kgProcesado-kgExportable;
+  const pctCom=kgProcesado? kgComercial/kgProcesado*100 : null;
+  const kgMermaPre=kgProcesado-kgExportable-kgComercial;
+  const pctMermaPre=kgProcesado? kgMermaPre/kgProcesado*100 : null;
   const nGuiasTotal=procGs.length+parGs.length+pendGs.length;
   const sinCajas=doneGs.filter(g=>!g.cajas);
   const cajasNota=sinCajas.length? 'sin '+sinCajas.map(g=>'G-'+g.g).join(', ') : '&nbsp;';
@@ -728,8 +730,9 @@ function ovKpiRowHTML(filterExp, agg){
   <div class="kpi" style="flex:1;min-width:120px"><div class="lbl">Kg totales a proceso</div><div class="val">${tilde}${fmtKg(kgTotal)}${plus} kg</div><div class="sub">${nGuiasTotal} guías · ${binsTotal.toLocaleString('es-CL')} bins</div></div>
   <div class="kpi g" style="flex:1;min-width:120px"><div class="lbl">Kg procesados</div><div class="val">${fmtKg(kgProcesado)} kg</div><div style="font-size:15px;font-weight:700;color:#276221;margin:2px 0">${fmtPct(pctProc)}%</div><div class="sub">${procGs.length+parGs.length} procesos · ${(binsProc+binsParDone).toLocaleString('es-CL')} bins</div></div>
   <div class="kpi a" style="flex:1;min-width:120px"><div class="lbl">Kg pendientes</div><div class="val">${tilde}${fmtKg(kgPendienteKnown)}${plus} kg</div><div style="font-size:15px;font-weight:700;color:#7a5800;margin:2px 0">${fmtPct(pctPend)}%</div><div class="sub">${binsPend.toLocaleString('es-CL')} bins · ${pendGs.length} guías</div></div>
-  <div class="kpi g" style="flex:1;min-width:120px"><div class="lbl">Kg exportables</div><div class="val">${kgProcesado?fmtKg(kgExportable)+' kg':'—'}</div><div style="font-size:15px;font-weight:700;color:#276221;margin:2px 0">${pctRdto!=null?fmtPct(pctRdto)+'% rdto':'—'}</div><div class="sub">${procGs.length+parGs.length} procesos combinados</div></div>
-  <div class="kpi" style="flex:1;min-width:120px;border-left:3px solid #e53935"><div class="lbl">Kg no exportables</div><div class="val" style="color:#c62828">${kgProcesado?fmtKg(kgNoExp)+' kg':'—'}</div><div class="sub">COM + Pre + Merma</div></div>
+  <div class="kpi g" style="flex:1;min-width:120px"><div class="lbl">Kg exportables</div><div class="val">${kgProcesado?fmtKg(kgExportable)+' kg':'—'}</div><div style="font-size:15px;font-weight:700;color:#276221;margin:2px 0">${pctRdto!=null?fmtPct(pctRdto)+'% rdto':'—'}</div><div class="sub">Facturable · ${procGs.length+parGs.length} procesos</div></div>
+  <div class="kpi" style="flex:1;min-width:120px;border-left:3px solid #f4b400"><div class="lbl">Kg Comercial</div><div class="val" style="color:#7a5800">${kgProcesado?fmtKg(kgComercial)+' kg':'—'}</div><div style="font-size:15px;font-weight:700;color:#7a5800;margin:2px 0">${pctCom!=null?fmtPct(pctCom)+'%':'—'}</div><div class="sub">Facturable · no exportación</div></div>
+  <div class="kpi" style="flex:1;min-width:120px;border-left:3px solid #e53935"><div class="lbl">Merma / Pre-Calibre</div><div class="val" style="color:#c62828">${kgProcesado?fmtKg(kgMermaPre)+' kg':'—'}</div><div style="font-size:15px;font-weight:700;color:#c62828;margin:2px 0">${pctMermaPre!=null?fmtPct(pctMermaPre)+'%':'—'}</div><div class="sub">No facturable</div></div>
   <div class="kpi" style="flex:1;min-width:120px;border-left:3px solid #5b2d8e"><div class="lbl">Cajas exportadas</div><div class="val" style="color:#5b2d8e">${cajas?cajas.toLocaleString('es-CL')+' cjs':'—'}</div><div class="sub">${cajasNota}</div></div>`;
 }
 

@@ -711,13 +711,16 @@ function procShowExp(key,btn){
   const keys=key==='todas'?['EP','CG','MA']:[key];
   const cont=document.getElementById('procExpContent');
   if(key==='todas'){
+    let _totBins=0,_totGuias=0;
     const comp=`<div style="background:#fff;border:1px solid #dde4f0;border-radius:10px;padding:14px 16px;margin-bottom:12px">
       <div style="font-size:12px;font-weight:700;color:#1c3f64;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px">Comparación rendimiento</div>
       ${['EP','CG','MA'].map(k=>{
         const d=PROC_EXP[k];
-        const rs=d.guias.filter(g=>g.rdto||g.rdto_proc).map(g=>g.rdto||g.rdto_proc);
+        const guias=procVarFilter(d.guias);
+        const rs=guias.filter(g=>g.rdto||g.rdto_proc).map(g=>g.rdto||g.rdto_proc);
         const avg=rs.length?(rs.reduce((a,v)=>a+v,0)/rs.length).toFixed(1):'—';
-        const bins=d.guias.reduce((a,g)=>a+g.bins,0);
+        const bins=guias.reduce((a,g)=>a+g.bins,0);
+        _totBins+=bins;_totGuias+=guias.length;
         return `<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:12px">
           <span style="min-width:90px;font-weight:700;color:${d.color}">${d.nombre.split(' ').slice(0,2).join(' ')}</span>
           <div style="flex:1;background:#eee;border-radius:4px;height:8px"><div style="width:${avg!=='—'?avg:0}%;background:${d.color};height:100%;border-radius:4px"></div></div>
@@ -725,6 +728,11 @@ function procShowExp(key,btn){
           <span style="color:#888;min-width:52px;text-align:right">${bins} bins</span>
         </div>`;
       }).join('')}
+      <div style="display:flex;align-items:center;gap:10px;margin-top:10px;padding-top:10px;border-top:1px solid #dde4f0;font-size:12px">
+        <span style="min-width:90px;font-weight:700;color:#1c3f64">TOTAL</span>
+        <span style="flex:1;color:#888">${_totGuias} gu&#237;as</span>
+        <span style="font-weight:700;color:#1c3f64">${_totBins.toLocaleString('es-CL')} bins</span>
+      </div>
     </div>`;
     cont.innerHTML=comp+keys.map(k=>procExpCard(k,PROC_EXP[k])).join('');
   } else {

@@ -57,181 +57,31 @@ footer{text-align:center;padding:16px;color:#999;font-size:11px}
 <div id="overview" class="page active">
   <div class="hdr">
     <div><h1>&#127818; Dashboard Procesos &#8212; Naranjas Temporada 2026</h1>
-    <div style="margin-top:5px;font-size:12px;opacity:.9">Agr&#237;cola Yoye SPA &middot; Sem. 24-25 &middot; 32 gu&#237;as enviadas</div></div>
-    <div class="meta" style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
-      <span class="badge badge-g">11 procesos completos</span>
+    <div style="margin-top:5px;font-size:12px;opacity:.9" id="ovSubtitle">Agr&#237;cola Yoye SPA &middot; Sem. 24-25 &middot; 32 gu&#237;as enviadas</div></div>
+    <div class="meta" style="display:flex;gap:6px;align-items:center;flex-wrap:wrap" id="ovBadges">
+      <span class="badge badge-g">12 procesos completos</span>
       <span class="badge badge-w">1 parcial</span>
-      <span class="badge badge-a">17 pendientes</span>
+      <span class="badge badge-a">16 pendientes</span>
     </div>
   </div>
 
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px" id="ovExpBtns">
+    <button class="exp-tab active" onclick="ovSetExp('todas',this)">Todas</button>
+    <button class="exp-tab" onclick="ovSetExp('El Parque',this)" style="border-color:#2E75B6;color:#2E75B6">El Parque</button>
+    <button class="exp-tab" onclick="ovSetExp('Crispagold',this)" style="border-color:#70AD47;color:#70AD47">Crispagold</button>
+    <button class="exp-tab" onclick="ovSetExp('Monte Alto',this)" style="border-color:#F4B400;color:#F4B400">Monte Alto</button>
+  </div>
+
   <div class="grid2" style="margin-bottom:12px">
-    <div style="background:#fff;border:2px solid #c6efce;border-radius:10px;padding:16px 20px">
-      <div style="font-size:11px;font-weight:700;color:#276221;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">% Exportación (sobre Kg procesados)</div>
-      <div style="font-size:42px;font-weight:700;color:#276221;line-height:1">82,0%</div>
-      <div style="font-size:12px;color:#888;margin:4px 0 12px">199.627 kg export / 243.320 kg procesados</div>
-      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px">
-        <div style="background:#f0faf2;border-radius:6px;padding:6px 8px">
-          <div style="font-size:9px;color:#888;margin-bottom:2px">G-2343 P109+P126</div>
-          <div style="font-size:16px;font-weight:700;color:#276221">82,8%</div>
-          <div style="font-size:9px;color:#aaa">17.530 / 21.178 kg</div>
-        </div>
-        <div style="background:#f0faf2;border-radius:6px;padding:6px 8px">
-          <div style="font-size:9px;color:#888;margin-bottom:2px">G-2353 L5282</div>
-          <div style="font-size:16px;font-weight:700;color:#276221">84,0%</div>
-          <div style="font-size:9px;color:#aaa">17.745 / 21.124 kg</div>
-        </div>
-        <div style="background:#f0faf2;border-radius:6px;padding:6px 8px">
-          <div style="font-size:9px;color:#888;margin-bottom:2px">G-2349 P126</div>
-          <div style="font-size:16px;font-weight:700;color:#276221">86,5%</div>
-          <div style="font-size:9px;color:#aaa">17.989 / 20.807 kg</div>
-        </div>
-        <div style="background:#f0faf2;border-radius:6px;padding:6px 8px">
-          <div style="font-size:9px;color:#888;margin-bottom:2px">G-2348 P126</div>
-          <div style="font-size:16px;font-weight:700;color:#276221">86,5%</div>
-          <div style="font-size:9px;color:#aaa">18.469 / 21.362 kg</div>
-        </div>
-        <div style="background:#f0faf2;border-radius:6px;padding:6px 8px">
-          <div style="font-size:9px;color:#888;margin-bottom:2px">G-2367 P194</div>
-          <div style="font-size:16px;font-weight:700;color:#276221">80,2%</div>
-          <div style="font-size:9px;color:#aaa">17.088 / 21.313 kg</div>
-        </div>
-        <div style="background:#f0faf2;border-radius:6px;padding:6px 8px">
-          <div style="font-size:9px;color:#888;margin-bottom:2px">G-2366 P194</div>
-          <div style="font-size:16px;font-weight:700;color:#276221">80,2%</div>
-          <div style="font-size:9px;color:#aaa">16.667 / 20.788 kg</div>
-        </div>
-        <div style="background:#f0faf2;border-radius:6px;padding:6px 8px">
-          <div style="font-size:9px;color:#888;margin-bottom:2px">G-2370 P213</div>
-          <div style="font-size:16px;font-weight:700;color:#276221">81,9%</div>
-          <div style="font-size:9px;color:#aaa">17.008 / 20.774 kg</div>
-        </div>
-        <div style="background:#f0faf2;border-radius:6px;padding:6px 8px">
-          <div style="font-size:9px;color:#888;margin-bottom:2px">G-2375 P224</div>
-          <div style="font-size:16px;font-weight:700;color:#276221">78,2%</div>
-          <div style="font-size:9px;color:#aaa">16.125 / 20.633 kg</div>
-        </div>
-        <div style="background:#f0faf2;border-radius:6px;padding:6px 8px">
-          <div style="font-size:9px;color:#888;margin-bottom:2px">G-2358 P162</div>
-          <div style="font-size:16px;font-weight:700;color:#276221">84,6%</div>
-          <div style="font-size:9px;color:#aaa">17.685 / 20.913 kg</div>
-        </div>
-        <div style="background:#f0faf2;border-radius:6px;padding:6px 8px">
-          <div style="font-size:9px;color:#888;margin-bottom:2px">MA P301</div>
-          <div style="font-size:16px;font-weight:700;color:#276221">84,6%</div>
-          <div style="font-size:9px;color:#aaa">19.530 / 23.098 kg</div>
-        </div>
-        <div style="background:#f0faf2;border-radius:6px;padding:6px 8px">
-          <div style="font-size:9px;color:#888;margin-bottom:2px">MA G-2354 P302</div>
-          <div style="font-size:16px;font-weight:700;color:#276221">75,9%</div>
-          <div style="font-size:9px;color:#aaa">17.647 / 23.238 kg</div>
-        </div>
-        <div style="background:#fff8e1;border-radius:6px;padding:6px 8px">
-          <div style="font-size:9px;color:#888;margin-bottom:2px">MA G-2355 P302 ⚡</div>
-          <div style="font-size:16px;font-weight:700;color:#e65100">75,9%</div>
-          <div style="font-size:9px;color:#aaa">6.145 / 8.091 kg</div>
-        </div>
-      </div>
-    </div>
-    <div style="background:#fff;border:2px solid #ffeb9c;border-radius:10px;padding:16px 20px">
-      <div style="font-size:11px;font-weight:700;color:#7a5800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">% Nacional / COM (sobre Kg procesados)</div>
-      <div style="font-size:42px;font-weight:700;color:#7a5800;line-height:1">16,7%</div>
-      <div style="font-size:12px;color:#888;margin:4px 0 12px">40.568 kg nac. / 243.320 kg procesados</div>
-      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px">
-        <div style="background:#fffbeb;border-radius:6px;padding:6px 8px">
-          <div style="font-size:9px;color:#888;margin-bottom:2px">G-2343 P109+P126</div>
-          <div style="font-size:16px;font-weight:700;color:#7a5800">16,4%</div>
-          <div style="font-size:9px;color:#aaa">3.464 kg nac.</div>
-        </div>
-        <div style="background:#fffbeb;border-radius:6px;padding:6px 8px">
-          <div style="font-size:9px;color:#888;margin-bottom:2px">G-2353 L5282</div>
-          <div style="font-size:16px;font-weight:700;color:#7a5800">16,0%</div>
-          <div style="font-size:9px;color:#aaa">3.380 kg nac.</div>
-        </div>
-        <div style="background:#fffbeb;border-radius:6px;padding:6px 8px">
-          <div style="font-size:9px;color:#888;margin-bottom:2px">G-2349 P126</div>
-          <div style="font-size:16px;font-weight:700;color:#7a5800">13,0%</div>
-          <div style="font-size:9px;color:#aaa">2.714 kg nac.</div>
-        </div>
-        <div style="background:#fffbeb;border-radius:6px;padding:6px 8px">
-          <div style="font-size:9px;color:#888;margin-bottom:2px">G-2348 P126</div>
-          <div style="font-size:16px;font-weight:700;color:#7a5800">13,0%</div>
-          <div style="font-size:9px;color:#aaa">2.787 kg nac.</div>
-        </div>
-        <div style="background:#fffbeb;border-radius:6px;padding:6px 8px">
-          <div style="font-size:9px;color:#888;margin-bottom:2px">G-2367 P194</div>
-          <div style="font-size:16px;font-weight:700;color:#7a5800">19,3%</div>
-          <div style="font-size:9px;color:#aaa">4.114 kg nac.</div>
-        </div>
-        <div style="background:#fffbeb;border-radius:6px;padding:6px 8px">
-          <div style="font-size:9px;color:#888;margin-bottom:2px">G-2366 P194</div>
-          <div style="font-size:16px;font-weight:700;color:#7a5800">19,3%</div>
-          <div style="font-size:9px;color:#aaa">4.013 kg nac.</div>
-        </div>
-        <div style="background:#fffbeb;border-radius:6px;padding:6px 8px">
-          <div style="font-size:9px;color:#888;margin-bottom:2px">G-2370 P213</div>
-          <div style="font-size:16px;font-weight:700;color:#7a5800">17,5%</div>
-          <div style="font-size:9px;color:#aaa">3.636 kg nac.</div>
-        </div>
-        <div style="background:#fffbeb;border-radius:6px;padding:6px 8px">
-          <div style="font-size:9px;color:#888;margin-bottom:2px">G-2375 P224</div>
-          <div style="font-size:16px;font-weight:700;color:#7a5800">21,3%</div>
-          <div style="font-size:9px;color:#aaa">4.394 kg nac.</div>
-        </div>
-        <div style="background:#fffbeb;border-radius:6px;padding:6px 8px">
-          <div style="font-size:9px;color:#888;margin-bottom:2px">G-2358 P162</div>
-          <div style="font-size:16px;font-weight:700;color:#7a5800">14,6%</div>
-          <div style="font-size:9px;color:#aaa">3.064 kg nac.</div>
-        </div>
-        <div style="background:#fffbeb;border-radius:6px;padding:6px 8px">
-          <div style="font-size:9px;color:#888;margin-bottom:2px">MA P301</div>
-          <div style="font-size:16px;font-weight:700;color:#7a5800">11,9%</div>
-          <div style="font-size:9px;color:#aaa">2.750 kg nac.</div>
-        </div>
-        <div style="background:#fffbeb;border-radius:6px;padding:6px 8px">
-          <div style="font-size:9px;color:#888;margin-bottom:2px">MA G-2354 P302</div>
-          <div style="font-size:16px;font-weight:700;color:#7a5800">20,0%</div>
-          <div style="font-size:9px;color:#aaa">4.638 kg nac.</div>
-        </div>
-        <div style="background:#fff3e0;border-radius:6px;padding:6px 8px">
-          <div style="font-size:9px;color:#888;margin-bottom:2px">MA G-2355 P302 ⚡</div>
-          <div style="font-size:16px;font-weight:700;color:#7a5800">20,0%</div>
-          <div style="font-size:9px;color:#aaa">1.615 kg nac.</div>
-        </div>
-      </div>
-    </div>
+    <div id="ovCardExport" style="background:#fff;border:2px solid #c6efce;border-radius:10px;padding:16px 20px"></div>
+    <div id="ovCardNacional" style="background:#fff;border:2px solid #ffeb9c;border-radius:10px;padding:16px 20px"></div>
   </div>
 
   <div class="warn-box">&#9888;&#65039; <strong>Proceso 126 El Parque:</strong> Incluye saldo G-2343 (20 bins) + G-2348 y G-2349 completos &#8212; 140 bins / 49.229 kg vaciados. &nbsp;|&nbsp; <strong>G-2353 (L5282):</strong> 60 bins completos &#8212; calibres planilla recepci&#243;n. &nbsp;|&nbsp; <strong>Proceso 194 El Parque:</strong> G-2367 + G-2366 combinados &#8212; 120 bins / 42.102 kg, split proporcional. &nbsp;|&nbsp; <strong>P213 (G-2370), P224 (G-2375), P162 (G-2358):</strong> procesos individuales El Parque. &nbsp;|&nbsp; <strong>G-2355 (P302):</strong> 23/66 bins procesados.</div>
 
-  <div class="card" style="margin-bottom:14px">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px">
-      <div>
-        <div style="font-size:11px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.5px">Avance de Procesamiento &#8212; Kg (excluye gu&#237;as comerciales)</div>
-        <div style="font-size:11px;color:#888;margin-top:2px">13 procesos recibidos &middot; 16 gu&#237;as pendientes</div>
-      </div>
-      <div style="font-size:18px;font-weight:700;color:#1c3f64">80,8% Kg procesados</div>
-    </div>
-    <div style="background:#eee;border-radius:6px;height:14px;overflow:hidden;display:flex">
-      <div style="width:78.4%;background:#276221;height:100%" title="Completo: 256.722 kg (12 procesos)"></div>
-      <div style="width:2.5%;background:#1565c0;height:100%" title="Parcial: G-2355 · 8.091 kg"></div>
-      <div style="width:19.2%;background:#f0f0f0;height:100%"></div>
-    </div>
-    <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:8px;font-size:11px">
-      <span>&#9632; <strong style="color:#276221">Completo:</strong> 732 bins &middot; 256.722 kg (12 procesos)</span>
-      <span>&#9632; <strong style="color:#1565c0">Parcial:</strong> 23 bins &middot; 8.091 kg (G-2355)</span>
-      <span>&#9632; <strong style="color:#bbb">Pendiente:</strong> 1.003 bins &middot; ~62.820+ kg</span>
-    </div>
-  </div>
+  <div class="card" style="margin-bottom:14px" id="ovAvanceCard"></div>
 
-  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px">
-    <div class="kpi" style="flex:1;min-width:120px"><div class="lbl">Kg totales a proceso</div><div class="val">327.633+ kg</div><div class="sub">29 gu&#237;as &middot; 1.801 bins</div></div>
-    <div class="kpi g" style="flex:1;min-width:120px"><div class="lbl">Kg procesados</div><div class="val">264.813 kg</div><div style="font-size:15px;font-weight:700;color:#276221;margin:2px 0">80,8%</div><div class="sub">13 procesos &middot; 755 bins</div></div>
-    <div class="kpi a" style="flex:1;min-width:120px"><div class="lbl">Kg pendientes</div><div class="val">~62.820+ kg</div><div style="font-size:15px;font-weight:700;color:#7a5800;margin:2px 0">19,2%</div><div class="sub">1.003 bins &middot; 16 gu&#237;as</div></div>
-    <div class="kpi g" style="flex:1;min-width:120px"><div class="lbl">Kg exportables</div><div class="val">214.161 kg</div><div style="font-size:15px;font-weight:700;color:#276221;margin:2px 0">80,9% rdto</div><div class="sub">13 procesos combinados</div></div>
-    <div class="kpi" style="flex:1;min-width:120px;border-left:3px solid #e53935"><div class="lbl">Kg no exportables</div><div class="val" style="color:#c62828">~50.652 kg</div><div class="sub">COM + Pre + Merma</div></div>
-    <div class="kpi" style="flex:1;min-width:120px;border-left:3px solid #5b2d8e"><div class="lbl">Cajas exportadas</div><div class="val" style="color:#5b2d8e">12.800 cjs</div><div class="sub">sin G-2353 (L5282)</div></div>
-  </div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px" id="ovKpiRow"></div>
 
   <div class="grid2">
     <div class="card">
@@ -575,36 +425,36 @@ CALS.forEach(c=>{
 });
 
 const GUIAS=[
-  {g:2343,var:'Fukumoto',exp:'El Parque',cuar:'Mirador',bins:60,kg:21177.5,status:'proc',rdto:82.8,kg_exp:17530,proceso:'P109+P126'},
+  {g:2343,var:'Fukumoto',exp:'El Parque',cuar:'Mirador',bins:60,kg:21177.5,status:'proc',rdto:82.8,kg_exp:17530,proceso:'P109+P126',kg_com:3464.3,pre:0,merma:182.9,cajas:1152,kgcj:15.2},
   {g:2344,var:'Fukumoto',exp:'Crispagold',cuar:'Rinconada',bins:66,kg:23800,status:'pend',rdto_esp:65.33},
   {g:2345,var:'Fukumoto',exp:'Crispagold',cuar:'Rinconada',bins:62,kg:22960,status:'pend',rdto_esp:65.33},
   {g:2346,var:'Fukumoto Comercial',exp:'Comerc. CG',cuar:'Comercial',bins:4,kg:null,status:'com'},
-  {g:2347,var:'Fukumoto',exp:'Monte Alto',cuar:'Mirador',bins:66,kg:23098.02,status:'proc',rdto:84.55,kg_exp:19530,proceso:'0301'},
-  {g:2348,var:'Fukumoto',exp:'El Parque',cuar:'Rinconada',bins:60,kg:21362.5,status:'proc',rdto:86.45,kg_exp:18469,proceso:'P126'},
-  {g:2349,var:'Fukumoto',exp:'El Parque',cuar:'Mirador',bins:60,kg:20807,status:'proc',rdto:86.45,kg_exp:17989,proceso:'P126'},
-  {g:2350,var:'Fukumoto',exp:'El Parque',cuar:'Rinconada',bins:60,kg:21493.0,status:'proc',rdto:67.62,kg_exp:14534.40,proceso:'P150'},
+  {g:2347,var:'Fukumoto',exp:'Monte Alto',cuar:'Mirador',bins:66,kg:23098.02,status:'proc',rdto:84.55,kg_exp:19530,proceso:'P301',kg_com:2749.5,pre:206.5,merma:612.02,cajas:1302,kgcj:15.0},
+  {g:2348,var:'Fukumoto',exp:'El Parque',cuar:'Rinconada',bins:60,kg:21362.5,status:'proc',rdto:86.45,kg_exp:18469,proceso:'P126',kg_com:2786.7,pre:0,merma:106.8,cajas:1214,kgcj:15.2},
+  {g:2349,var:'Fukumoto',exp:'El Parque',cuar:'Mirador',bins:60,kg:20807,status:'proc',rdto:86.45,kg_exp:17989,proceso:'P126',kg_com:2714.5,pre:0,merma:104,cajas:1183,kgcj:15.2},
+  {g:2350,var:'Fukumoto',exp:'El Parque',cuar:'Rinconada',bins:60,kg:21493.0,status:'proc',rdto:67.62,kg_exp:14534.40,proceso:'P150',kg_com:6522,pre:0,merma:436.6,cajas:899,kgcj:16.17},
   {g:2351,var:'Fukumoto',exp:'Crispagold',cuar:'Mirador',bins:46,kg:16060,status:'pend',rdto_esp:68.0},
   {g:2352,var:'Fukumoto Comercial',exp:'Comerc. CG',cuar:'Comercial',bins:20,kg:null,status:'com'},
-  {g:2353,var:'Fukumoto',exp:'El Parque',cuar:'Mirador',bins:60,kg:21124.5,status:'proc',rdto:84.0,kg_exp:17744.58,proceso:'L5282'},
-  {g:2354,var:'Fukumoto',exp:'Monte Alto',cuar:'Rinconada',bins:66,kg:23237.94,status:'proc',rdto:75.94,kg_exp:17647.39,proceso:'P302'},
-  {g:2355,var:'Fukumoto',exp:'Monte Alto',cuar:'Rinconada',bins:66,kg:8091.17,status:'parcial',kg_proc:8091.17,rdto_proc:75.94,proceso:'P302'},
+  {g:2353,var:'Fukumoto',exp:'El Parque',cuar:'Mirador',bins:60,kg:21124.5,status:'proc',rdto:84.0,kg_exp:17744.58,proceso:'L5282',kg_com:3379.92,pre:0,merma:0,cajas:null,kgcj:null},
+  {g:2354,var:'Fukumoto',exp:'Monte Alto',cuar:'Rinconada',bins:66,kg:23237.94,status:'proc',rdto:75.94,kg_exp:17647.39,proceso:'P302',kg_com:4638.08,pre:337.86,merma:614.61,cajas:1119,kgcj:15.77},
+  {g:2355,var:'Fukumoto',exp:'Monte Alto',cuar:'Rinconada',bins:66,bins_proc:23,kg:8091.17,status:'parcial',kg_proc:8091.17,rdto_proc:75.94,proceso:'P302',kg_com:1614.92,pre:117.64,merma:214,cajas:391,kgcj:15.72},
   {g:2357,var:'Fukumoto',exp:'Crispagold',cuar:'Rinconada',bins:66,kg:null,status:'pend',rdto_esp:65.33},
-  {g:2358,var:'Fukumoto',exp:'El Parque',cuar:'Mirador',bins:60,kg:20913.0,status:'proc',rdto:84.56,kg_exp:17684.80,proceso:'P162'},
+  {g:2358,var:'Fukumoto',exp:'El Parque',cuar:'Mirador',bins:60,kg:20913.0,status:'proc',rdto:84.56,kg_exp:17684.80,proceso:'P162',kg_com:3063.5,pre:0,merma:164.7,cajas:1154,kgcj:15.32},
   {g:2359,var:'Fukumoto',exp:'Crispagold',cuar:'Rinconada',bins:62,kg:null,status:'pend',rdto_esp:65.33},
   {g:2360,var:'Fukumoto Comercial',exp:'Comerc. CG',cuar:'Comercial',bins:4,kg:null,status:'com'},
   {g:2361,var:'Fukumoto',exp:'Crispagold',cuar:'Mirador',bins:66,kg:null,status:'pend',rdto_esp:65.33},
   {g:2363,var:'Fukumoto',exp:'Monte Alto',cuar:'Rinconada',bins:48,kg:null,status:'pend',rdto_esp:75.94},
   {g:2365,var:'Fukumoto',exp:'Monte Alto',cuar:'Mirador',bins:66,kg:null,status:'pend',rdto_esp:84.55},
-  {g:2366,var:'Fukumoto',exp:'El Parque',cuar:'Mirador',bins:60,kg:20788.5,status:'proc',rdto:80.18,kg_exp:16667.24,proceso:'P194'},
-  {g:2367,var:'Fukumoto',exp:'El Parque',cuar:'Mirador',bins:60,kg:21313.0,status:'proc',rdto:80.18,kg_exp:17087.76,proceso:'P194'},
+  {g:2366,var:'Fukumoto',exp:'El Parque',cuar:'Mirador',bins:60,kg:20788.5,status:'proc',rdto:80.18,kg_exp:16667.24,proceso:'P194',kg_com:4013.12,pre:0,merma:108.14,cajas:1094,kgcj:15.24},
+  {g:2367,var:'Fukumoto',exp:'El Parque',cuar:'Mirador',bins:60,kg:21313.0,status:'proc',rdto:80.18,kg_exp:17087.76,proceso:'P194',kg_com:4114.38,pre:0,merma:110.86,cajas:1121,kgcj:15.24},
   {g:2368,var:'Fukumoto',exp:'Crispagold',cuar:'Mirador',bins:66,kg:null,status:'pend',rdto_esp:68.0},
   {g:2369,var:'Fukumoto',exp:'Monte Alto',cuar:'Rinconada',bins:59,kg:null,status:'pend',rdto_esp:75.94},
-  {g:2370,var:'Fukumoto',exp:'El Parque',cuar:'Mirador',bins:60,kg:20774.0,status:'proc',rdto:81.87,kg_exp:17007.60,proceso:'P213'},
+  {g:2370,var:'Fukumoto',exp:'El Parque',cuar:'Mirador',bins:60,kg:20774.0,status:'proc',rdto:81.87,kg_exp:17007.60,proceso:'P213',kg_com:3635.5,pre:0,merma:130.9,cajas:1113,kgcj:15.28},
   {g:2371,var:'Fukumoto',exp:'Monte Alto',cuar:'Mirador',bins:66,kg:null,status:'pend',rdto_esp:84.55},
   {g:2372,var:'Fukumoto',exp:'Crispagold',cuar:'Mirador',bins:66,kg:null,status:'pend',rdto_esp:68.0},
   {g:2373,var:'Fukumoto',exp:'Monte Alto',cuar:'Rinconada',bins:66,kg:null,status:'pend',rdto_esp:75.94},
   {g:2374,var:'Fukumoto',exp:'Monte Alto',cuar:'Mirador',bins:66,kg:null,status:'pend',rdto_esp:84.55},
-  {g:2375,var:'Fukumoto',exp:'El Parque',cuar:'Rinconada',bins:60,kg:20633.0,status:'proc',rdto:78.15,kg_exp:16124.80,proceso:'P224'},
+  {g:2375,var:'Fukumoto',exp:'El Parque',cuar:'Rinconada',bins:60,kg:20633.0,status:'proc',rdto:78.15,kg_exp:16124.80,proceso:'P224',kg_com:4394,pre:0,merma:114.2,cajas:1058,kgcj:15.24},
   {g:2376,var:'Fukumoto',exp:'Crispagold',cuar:'Mirador',bins:66,kg:null,status:'pend',rdto_esp:68.0},
   {g:2377,var:'Fukumoto',exp:'Monte Alto',cuar:'Rinconada',bins:66,kg:null,status:'pend',rdto_esp:75.94},
 ];
@@ -748,29 +598,184 @@ function updateGuiaTotals(){
   document.getElementById('guia-tot-kg').textContent=kg?kg.toLocaleString('es-CL',{maximumFractionDigits:0})+' kg':'—';
 }
 
-// ── OVERVIEW CHARTS ──────────────────────────────────────────────────────────
-function buildOverviewCharts(){
-  new Chart(document.getElementById('binsChart'),{
+// ── OVERVIEW DINÁMICO (por exportadora) ─────────────────────────────────────
+const EXP_ORDER=['El Parque','Crispagold','Monte Alto'];
+const EXP_SHORT={'El Parque':'EP','Crispagold':'CG','Monte Alto':'MA'};
+const EXP_BARCOLOR={'El Parque':'#2E75B6','Crispagold':'#70AD47','Monte Alto':'#F4B400'};
+window._ovFiltro='todas';
+
+function fmtKg(n){ return Math.round(n).toLocaleString('es-CL'); }
+function fmtPct(n){ return n.toFixed(1).replace('.',','); }
+
+function ovGuias(filterExp){
+  const base=GUIAS.filter(g=>g.status!=='com');
+  return filterExp==='todas'? base : base.filter(g=>g.exp===filterExp);
+}
+
+function ovComputeAgg(filterExp){
+  const gs=ovGuias(filterExp);
+  const procGs=gs.filter(g=>g.status==='proc');
+  const parGs=gs.filter(g=>g.status==='parcial');
+  const pendGs=gs.filter(g=>g.status==='pend');
+  const doneGs=procGs.concat(parGs).sort((a,b)=>EXP_ORDER.indexOf(a.exp)-EXP_ORDER.indexOf(b.exp)||a.g-b.g);
+  const kgProcesado=doneGs.reduce((a,g)=>a+g.kg,0);
+  const kgExportable=procGs.reduce((a,g)=>a+g.kg_exp,0)+parGs.reduce((a,g)=>a+g.kg*(g.rdto_proc/100),0);
+  const kgComercial=doneGs.reduce((a,g)=>a+(g.kg_com||0),0);
+  const cajas=doneGs.reduce((a,g)=>a+(g.cajas||0),0);
+  const kgPendienteKnown=pendGs.filter(g=>g.kg!=null).reduce((a,g)=>a+g.kg,0);
+  const hasUnknownPend=pendGs.some(g=>g.kg==null);
+  const binsProc=procGs.reduce((a,g)=>a+g.bins,0);
+  const binsParDone=parGs.reduce((a,g)=>a+(g.bins_proc||g.bins),0);
+  const binsParRem=parGs.reduce((a,g)=>a+(g.bins-(g.bins_proc||g.bins)),0);
+  const binsPend=pendGs.reduce((a,g)=>a+g.bins,0)+binsParRem;
+  const kgTotal=kgProcesado+kgPendienteKnown;
+  return {gs,procGs,parGs,pendGs,doneGs,kgProcesado,kgExportable,kgComercial,cajas,
+    kgPendienteKnown,hasUnknownPend,binsProc,binsParDone,binsParRem,binsPend,
+    binsTotal:binsProc+binsParDone+binsPend,kgTotal};
+}
+
+function ovCardExportHTML(filterExp, doneGs, kgExportable, kgProcesado){
+  if(!doneGs.length){
+    return `<div style="font-size:11px;font-weight:700;color:#276221;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">% Exportación (sobre Kg procesados)</div>
+    <div style="font-size:14px;color:#888;padding:24px 0">Sin procesos recibidos aún para ${filterExp}.</div>`;
+  }
+  const pct=fmtPct(kgExportable/kgProcesado*100);
+  const cards=doneGs.map(g=>{
+    const isPar=g.status==='parcial';
+    const kgexp=isPar? g.kg*(g.rdto_proc/100) : g.kg_exp;
+    const rdto=isPar? g.rdto_proc : g.rdto;
+    const bg=isPar?'#fff8e1':'#f0faf2', col=isPar?'#e65100':'#276221';
+    return `<div style="background:${bg};border-radius:6px;padding:6px 8px">
+      <div style="font-size:9px;color:#888;margin-bottom:2px">G-${g.g} ${g.proceso||''}${isPar?' ⚡':''}</div>
+      <div style="font-size:16px;font-weight:700;color:${col}">${fmtPct(rdto)}%</div>
+      <div style="font-size:9px;color:#aaa">${fmtKg(kgexp)} / ${fmtKg(g.kg)} kg</div>
+    </div>`;
+  }).join('');
+  return `<div style="font-size:11px;font-weight:700;color:#276221;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">% Exportación (sobre Kg procesados)</div>
+  <div style="font-size:42px;font-weight:700;color:#276221;line-height:1">${pct}%</div>
+  <div style="font-size:12px;color:#888;margin:4px 0 12px">${fmtKg(kgExportable)} kg export / ${fmtKg(kgProcesado)} kg procesados</div>
+  <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px">${cards}</div>`;
+}
+
+function ovCardNacionalHTML(filterExp, doneGs, kgComercial, kgProcesado){
+  if(!doneGs.length){
+    return `<div style="font-size:11px;font-weight:700;color:#7a5800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">% Nacional / COM (sobre Kg procesados)</div>
+    <div style="font-size:14px;color:#888;padding:24px 0">Sin procesos recibidos aún para ${filterExp}.</div>`;
+  }
+  const pct=fmtPct(kgComercial/kgProcesado*100);
+  const cards=doneGs.map(g=>{
+    const isPar=g.status==='parcial';
+    const kgcom=g.kg_com||0;
+    const pctG=g.kg? fmtPct(kgcom/g.kg*100) : '0,0';
+    const bg=isPar?'#fff3e0':'#fffbeb';
+    return `<div style="background:${bg};border-radius:6px;padding:6px 8px">
+      <div style="font-size:9px;color:#888;margin-bottom:2px">G-${g.g} ${g.proceso||''}${isPar?' ⚡':''}</div>
+      <div style="font-size:16px;font-weight:700;color:#7a5800">${pctG}%</div>
+      <div style="font-size:9px;color:#aaa">${fmtKg(kgcom)} kg nac.</div>
+    </div>`;
+  }).join('');
+  return `<div style="font-size:11px;font-weight:700;color:#7a5800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">% Nacional / COM (sobre Kg procesados)</div>
+  <div style="font-size:42px;font-weight:700;color:#7a5800;line-height:1">${pct}%</div>
+  <div style="font-size:12px;color:#888;margin:4px 0 12px">${fmtKg(kgComercial)} kg nac. / ${fmtKg(kgProcesado)} kg procesados</div>
+  <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px">${cards}</div>`;
+}
+
+function ovAvanceCardHTML(filterExp, agg){
+  const {procGs,parGs,pendGs,kgProcesado,kgPendienteKnown,kgTotal,binsProc,binsParDone,binsPend,hasUnknownPend}=agg;
+  const pctProc=kgTotal? kgProcesado/kgTotal*100 : 0;
+  const completoKg=procGs.reduce((a,g)=>a+g.kg,0);
+  const parcialKg=parGs.reduce((a,g)=>a+g.kg,0);
+  const pctCompletoKg=kgTotal? completoKg/kgTotal*100 : 0;
+  const pctParcialKg=kgTotal? parcialKg/kgTotal*100 : 0;
+  const pctPendKg=kgTotal? kgPendienteKnown/kgTotal*100 : 0;
+  const nProcesos=procGs.length+parGs.length;
+  const tilde=hasUnknownPend?'~':'', plus=hasUnknownPend?'+':'';
+  const titulo=filterExp==='todas'?'Avance de Procesamiento — Kg (excluye guías comerciales)':'Avance de Procesamiento — Kg — '+filterExp;
+  return `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px">
+    <div>
+      <div style="font-size:11px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.5px">${titulo}</div>
+      <div style="font-size:11px;color:#888;margin-top:2px">${nProcesos} proceso${nProcesos===1?'':'s'} recibido${nProcesos===1?'':'s'} · ${pendGs.length} guía${pendGs.length===1?'':'s'} pendiente${pendGs.length===1?'':'s'}</div>
+    </div>
+    <div style="font-size:18px;font-weight:700;color:#1c3f64">${fmtPct(pctProc)}% Kg procesados</div>
+  </div>
+  <div style="background:#eee;border-radius:6px;height:14px;overflow:hidden;display:flex">
+    <div style="width:${pctCompletoKg}%;background:#276221;height:100%" title="Completo: ${fmtKg(completoKg)} kg (${procGs.length} procesos)"></div>
+    <div style="width:${pctParcialKg}%;background:#1565c0;height:100%" title="Parcial: ${fmtKg(parcialKg)} kg"></div>
+    <div style="width:${pctPendKg}%;background:#f0f0f0;height:100%"></div>
+  </div>
+  <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:8px;font-size:11px">
+    <span>■ <strong style="color:#276221">Completo:</strong> ${binsProc.toLocaleString('es-CL')} bins · ${fmtKg(completoKg)} kg (${procGs.length} procesos)</span>
+    ${parGs.length?`<span>■ <strong style="color:#1565c0">Parcial:</strong> ${binsParDone} bins · ${fmtKg(parcialKg)} kg (${parGs.map(g=>'G-'+g.g).join(', ')})</span>`:''}
+    <span>■ <strong style="color:#bbb">Pendiente:</strong> ${binsPend.toLocaleString('es-CL')} bins · ${tilde}${fmtKg(kgPendienteKnown)}${plus} kg</span>
+  </div>`;
+}
+
+function ovKpiRowHTML(filterExp, agg){
+  const {procGs,parGs,pendGs,kgProcesado,kgExportable,cajas,kgPendienteKnown,kgTotal,binsProc,binsParDone,binsPend,binsTotal,hasUnknownPend}=agg;
+  const tilde=hasUnknownPend?'~':'', plus=hasUnknownPend?'+':'';
+  const pctProc=kgTotal? kgProcesado/kgTotal*100 : 0;
+  const pctPend=kgTotal? kgPendienteKnown/kgTotal*100 : 0;
+  const pctRdto=kgProcesado? kgExportable/kgProcesado*100 : null;
+  const kgNoExp=kgProcesado-kgExportable;
+  const nGuiasTotal=procGs.length+parGs.length+pendGs.length;
+  const cajasNota=(filterExp==='El Parque'||filterExp==='todas')?'sin G-2353 (L5282)':'&nbsp;';
+  return `
+  <div class="kpi" style="flex:1;min-width:120px"><div class="lbl">Kg totales a proceso</div><div class="val">${tilde}${fmtKg(kgTotal)}${plus} kg</div><div class="sub">${nGuiasTotal} guías · ${binsTotal.toLocaleString('es-CL')} bins</div></div>
+  <div class="kpi g" style="flex:1;min-width:120px"><div class="lbl">Kg procesados</div><div class="val">${fmtKg(kgProcesado)} kg</div><div style="font-size:15px;font-weight:700;color:#276221;margin:2px 0">${fmtPct(pctProc)}%</div><div class="sub">${procGs.length+parGs.length} procesos · ${(binsProc+binsParDone).toLocaleString('es-CL')} bins</div></div>
+  <div class="kpi a" style="flex:1;min-width:120px"><div class="lbl">Kg pendientes</div><div class="val">${tilde}${fmtKg(kgPendienteKnown)}${plus} kg</div><div style="font-size:15px;font-weight:700;color:#7a5800;margin:2px 0">${fmtPct(pctPend)}%</div><div class="sub">${binsPend.toLocaleString('es-CL')} bins · ${pendGs.length} guías</div></div>
+  <div class="kpi g" style="flex:1;min-width:120px"><div class="lbl">Kg exportables</div><div class="val">${kgProcesado?fmtKg(kgExportable)+' kg':'—'}</div><div style="font-size:15px;font-weight:700;color:#276221;margin:2px 0">${pctRdto!=null?fmtPct(pctRdto)+'% rdto':'—'}</div><div class="sub">${procGs.length+parGs.length} procesos combinados</div></div>
+  <div class="kpi" style="flex:1;min-width:120px;border-left:3px solid #e53935"><div class="lbl">Kg no exportables</div><div class="val" style="color:#c62828">${kgProcesado?fmtKg(kgNoExp)+' kg':'—'}</div><div class="sub">COM + Pre + Merma</div></div>
+  <div class="kpi" style="flex:1;min-width:120px;border-left:3px solid #5b2d8e"><div class="lbl">Cajas exportadas</div><div class="val" style="color:#5b2d8e">${cajas?cajas.toLocaleString('es-CL')+' cjs':'—'}</div><div class="sub">${cajasNota}</div></div>`;
+}
+
+let rdtoChartInst=null;
+function buildRdtoChart(filterExp){
+  const agg=ovComputeAgg(filterExp);
+  const gs=agg.doneGs;
+  const canvas=document.getElementById('rdtoChart');
+  if(!canvas) return;
+  if(rdtoChartInst){ rdtoChartInst.destroy(); rdtoChartInst=null; }
+  if(!gs.length) return;
+  const labels=gs.map(g=>'G-'+g.g+(g.status==='parcial'?'★':'')+' ('+EXP_SHORT[g.exp]+')');
+  const data=gs.map(g=>g.status==='parcial'?g.rdto_proc:g.rdto);
+  const colors=gs.map(g=>EXP_BARCOLOR[g.exp]);
+  const minScale=Math.max(0,Math.floor((Math.min(...data)-5)/10)*10);
+  rdtoChartInst=new Chart(canvas,{
     type:'bar',
-    data:{
-      labels:['El Parque','Crispagold','Monte Alto'],
-      datasets:[
-        {label:'Bins procesados',data:[240,0,155],backgroundColor:['#2E75B6','#70AD47','#F4B400'],borderRadius:4},
-        {label:'Bins pendientes',data:[360,566,480],backgroundColor:['#2E75B620','#70AD4720','#F4B40020'],borderRadius:4,borderWidth:2,borderColor:['#2E75B6','#70AD47','#F4B400']}
-      ]
-    },
-    options:{responsive:true,plugins:{legend:{position:'bottom',labels:{font:{size:10}}}},
-      scales:{x:{stacked:false,grid:{display:false}},y:{ticks:{stepSize:50},grid:{color:'#eee'},title:{display:true,text:'Bins'}}}}
-  });
-  new Chart(document.getElementById('rdtoChart'),{
-    type:'doughnut',
-    data:{
-      labels:['Kg Export','Kg Nacional/COM','Merma/Pre-Cal'],
-      datasets:[{data:[115054,21348,2498],backgroundColor:['#276221','#2E75B6','#ccc'],borderWidth:0}]
-    },
-    options:{responsive:true,cutout:'65%',plugins:{legend:{position:'right',labels:{font:{size:10},boxWidth:12}}}}
+    data:{labels,datasets:[{label:'% Rdto Export',data,backgroundColor:colors,borderRadius:4}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:true,plugins:{legend:{display:false}},
+      scales:{x:{min:minScale,max:90,ticks:{callback:function(v){return v+'%';}}}}}
   });
 }
+
+function renderOverview(filterExp){
+  const agg=ovComputeAgg(filterExp);
+  const {gs,procGs,parGs,pendGs,doneGs,kgProcesado,kgExportable,kgComercial,kgTotal}=agg;
+
+  document.getElementById('ovSubtitle').textContent = filterExp==='todas'
+    ? 'Agrícola Yoye SPA · Sem. 24-25 · '+GUIAS.length+' guías enviadas'
+    : 'Agrícola Yoye SPA · Sem. 24-25 · '+gs.length+' guías · '+filterExp;
+
+  document.getElementById('ovBadges').innerHTML =
+    `<span class="badge badge-g">${procGs.length} procesos completos</span>`+
+    (parGs.length?`<span class="badge badge-w">${parGs.length} parcial</span>`:'')+
+    `<span class="badge badge-a">${pendGs.length} pendientes</span>`;
+
+  document.getElementById('ovCardExport').innerHTML = ovCardExportHTML(filterExp,doneGs,kgExportable,kgProcesado);
+  document.getElementById('ovCardNacional').innerHTML = ovCardNacionalHTML(filterExp,doneGs,kgComercial,kgProcesado);
+  document.getElementById('ovAvanceCard').innerHTML = ovAvanceCardHTML(filterExp,agg);
+  document.getElementById('ovKpiRow').innerHTML = ovKpiRowHTML(filterExp,agg);
+
+  buildRdtoChart(filterExp);
+}
+
+function ovSetExp(key,btn){
+  window._ovFiltro=key;
+  document.querySelectorAll('#ovExpBtns .exp-tab').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  renderOverview(key);
+}
+
 
 // ── POR EXPORTADORA ──────────────────────────────────────────────────────────
 const PROC_EXP={
@@ -904,27 +909,6 @@ function showPage(id,btn){
 
 // ── INIT ───────────────────────────────────────────────────────────────────
 (function(){
-  // Rdto chart
-  var c1=document.getElementById('rdtoChart');
-  if(c1){
-    new Chart(c1,{
-      type:'bar',
-      data:{
-        labels:['G-2343 (EP)','G-2353 (EP)','G-2349 (EP)','G-2348 (EP)','G-2367 (EP)','G-2366 (EP)','G-2370 (EP)','G-2375 (EP)','G-2358 (EP)','G-2350 (EP)','G-2347 (MA)','G-2354 (MA)','G-2355★ (MA)'],
-        datasets:[{
-          label:'% Rdto Export',
-          data:[EP.rdto,EP2.rdto,EP3.rdto,EP4.rdto,EP5.rdto,EP6.rdto,EP7.rdto,EP8.rdto,EP9.rdto,EP10.rdto,MA.rdto,MA2.rdto,MA3.rdto],
-          backgroundColor:['#2E75B6','#1565c0','#1e88e5','#0d47a1','#0277bd','#0288d1','#039be5','#29b6f6','#01579b','#1976d2','#276221','#F4B400','#e6ac00'],
-          borderRadius:4
-        }]
-      },
-      options:{
-        indexAxis:'y',responsive:true,maintainAspectRatio:true,
-        plugins:{legend:{display:false}},
-        scales:{x:{min:60,max:90,ticks:{callback:function(v){return v+'%';}}}}
-      }
-    });
-  }
   // Bins chart — Procesado / Parcial / Pendiente por exportadora (ground truth: GUIAS array)
   var c2=document.getElementById('binsChart');
   if(c2){
@@ -946,6 +930,7 @@ function showPage(id,btn){
     });
   }
   // Build dynamic sections
+  renderOverview('todas');
   buildGuiaTable();
   procShowExp('todas', document.querySelector('#procExpBtns button'));
   showPage('overview', document.querySelector('.nav button'));
@@ -954,3 +939,4 @@ function showPage(id,btn){
 </script>
 </body>
 </html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    

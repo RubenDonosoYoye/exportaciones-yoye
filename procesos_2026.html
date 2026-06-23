@@ -344,8 +344,15 @@ footer{text-align:center;padding:16px;color:#999;font-size:11px}
       <th>Kg Env.</th><th>Estado</th><th>Proceso / Rdto</th>
     </tr></thead>
     <tbody id="guia-tbody"></tbody>
+    <tfoot><tr style="background:#e8f0fb;font-weight:700">
+      <td class="l" colspan="2">TOTAL (<span id="guia-tot-n">0</span> gu&#237;as)</td>
+      <td></td>
+      <td id="guia-tot-bins">0</td>
+      <td id="guia-tot-kg">0</td>
+      <td colspan="2"></td>
+    </tr></tfoot>
   </table></div>
-  <div style="font-size:10px;color:#aaa;margin-top:6px">Cuadratura kg/bins por exportadora disponible en la pesta&#241;a &#128203; Detalle Procesos.</div>
+  <div style="font-size:10px;color:#aaa;margin-top:6px">Totales seg&#250;n filtro activo &middot; Kg Env. solo cuenta gu&#237;as con peso ya conocido. Cuadratura completa por exportadora en la pesta&#241;a &#128203; Detalle Procesos.</div>
 </div>
 
 <!-- ═══ POR EXPORTADORA ═══ -->
@@ -576,7 +583,7 @@ function buildGuiaTable(){
                     r.status==='parcial'?`${r.proceso||'—'} &middot; ${r.rdto_proc}% rdto`:
                     r.status==='pend'&&r.rdto_esp?`<span style="color:#999">Rdto esp. ${r.rdto_esp}%</span>`:
                     '<span style="color:#bbb">&#8212;</span>';
-    tbody.innerHTML+=`<tr data-status="${r.status}" style="background:${bg}">
+    tbody.innerHTML+=`<tr data-status="${r.status}" data-bins="${r.bins}" data-kg="${r.kg||0}" style="background:${bg}">
       <td class="l" style="font-weight:700">G-${r.g}</td>
       <td>${r.exp}</td>
       <td>${r.cuar}</td>
@@ -586,6 +593,7 @@ function buildGuiaTable(){
       <td style="font-size:11px">${procInfo}</td>
     </tr>`;
   });
+  updateGuiaTotals();
 }
 function filterGuiaTable(status,btn){
   document.querySelectorAll('#guiaFiltBtns .exp-tab').forEach(b=>b.classList.remove('active'));
@@ -593,6 +601,19 @@ function filterGuiaTable(status,btn){
   document.querySelectorAll('#guia-tbody tr').forEach(tr=>{
     tr.style.display=(status==='todas'||tr.dataset.status===status)?'':'none';
   });
+  updateGuiaTotals();
+}
+function updateGuiaTotals(){
+  let n=0,bins=0,kg=0;
+  document.querySelectorAll('#guia-tbody tr').forEach(tr=>{
+    if(tr.style.display==='none') return;
+    n++;
+    bins+=parseFloat(tr.dataset.bins)||0;
+    kg+=parseFloat(tr.dataset.kg)||0;
+  });
+  document.getElementById('guia-tot-n').textContent=n;
+  document.getElementById('guia-tot-bins').textContent=bins.toLocaleString('es-CL');
+  document.getElementById('guia-tot-kg').textContent=kg?kg.toLocaleString('es-CL',{maximumFractionDigits:0})+' kg':'—';
 }
 
 // ── OVERVIEW CHARTS ──────────────────────────────────────────────────────────

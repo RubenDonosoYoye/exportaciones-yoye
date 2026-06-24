@@ -817,6 +817,11 @@ function ovGuias(filterExp){
   return filterExp==='todas'? base : base.filter(g=>g.exp===filterExp);
 }
 
+function ovGuiasComerciales(filterExp){
+  const com=GUIAS.filter(g=>g.status==='com');
+  return filterExp==='todas'? com : com.filter(g=>g.exp===filterExp);
+}
+
 function ovComputeAgg(filterExp){
   const gs=ovGuias(filterExp);
   const procGs=gs.filter(g=>g.status==='proc');
@@ -834,9 +839,17 @@ function ovComputeAgg(filterExp){
   const binsParRem=parGs.reduce((a,g)=>a+(g.bins-(g.bins_proc||g.bins)),0);
   const binsPend=pendGs.reduce((a,g)=>a+g.bins,0)+binsParRem;
   const kgTotal=kgProcesado+kgPendienteKnown;
+  const binsTotal=binsProc+binsParDone+binsPend;
+  // Guías Comercial (venta directa, nunca se procesan) — solo se suman para "Cosecha total",
+  // NO entran en kgProcesado/kgExportable/%rdto (eso sigue excluyendo status:'com', sin cambios arriba).
+  const comGs=ovGuiasComerciales(filterExp);
+  const kgGuiasComercial=comGs.reduce((a,g)=>a+(g.kg||0),0);
+  const binsGuiasComercial=comGs.reduce((a,g)=>a+g.bins,0);
+  const kgCosechaTotal=kgTotal+kgGuiasComercial;
+  const binsCosechaTotal=binsTotal+binsGuiasComercial;
   return {gs,procGs,parGs,pendGs,doneGs,kgProcesado,kgExportable,kgComercial,cajas,
     kgPendienteKnown,hasUnknownPend,binsProc,binsParDone,binsParRem,binsPend,
-    binsTotal:binsProc+binsParDone+binsPend,kgTotal};
+    binsTotal,kgTotal,comGs,kgGuiasComercial,binsGuiasComercial,kgCosechaTotal,binsCosechaTotal};
 }
 
 function ovCardExportHTML(filterExp, doneGs, kgExportable, kgProcesado){
@@ -920,7 +933,7 @@ function ovAvanceCardHTML(filterExp, agg){
 }
 
 function ovKpiRowHTML(filterExp, agg){
-  const {procGs,parGs,pendGs,doneGs,kgProcesado,kgExportable,kgComercial,cajas,kgPendienteKnown,kgTotal,binsProc,binsParDone,binsPend,binsTotal,hasUnknownPend}=agg;
+  const {procGs,parGs,pendGs,doneGs,kgProcesado,kgExportable,kgComercial,cajas,kgPendienteKnown,kgTotal,binsProc,binsParDone,binsPend,binsTotal,hasUnknownPend,comGs,kgGuiasComercial,binsGuiasComercial,kgCosechaTotal,binsCosechaTotal}=agg;
   const tilde=hasUnknownPend?'~':'', plus=hasUnknownPend?'+':'';
   const pctProc=kgTotal? kgProcesado/kgTotal*100 : 0;
   const pctPend=kgTotal? kgPendienteKnown/kgTotal*100 : 0;
@@ -929,9 +942,11 @@ function ovKpiRowHTML(filterExp, agg){
   const kgMermaPre=kgProcesado-kgExportable-kgComercial;
   const pctMermaPre=kgProcesado? kgMermaPre/kgProcesado*100 : null;
   const nGuiasTotal=procGs.length+parGs.length+pendGs.length;
+  const nGuiasCosecha=nGuiasTotal+comGs.length;
   const sinCajas=doneGs.filter(g=>!g.cajas);
   const cajasNota=sinCajas.length? 'sin '+sinCajas.map(g=>'G-'+g.g).join(', ') : '&nbsp;';
   return `
+  <div class="kpi" style="flex:1;min-width:120px;border-left:3px solid #555"><div class="lbl">Cosecha total</div><div class="val">${tilde}${fmtKg(kgCosechaTotal)}${plus} kg</div><div class="sub">${nGuiasCosecha} guías · ${binsCosechaTotal.toLocaleString('es-CL')} bins${comGs.length?' · incl. '+fmtKg(kgGuiasComercial)+' kg comercial ('+comGs.length+')':''}</div></div>
   <div class="kpi" style="flex:1;min-width:120px"><div class="lbl">Kg totales a proceso</div><div class="val">${tilde}${fmtKg(kgTotal)}${plus} kg</div><div class="sub">${nGuiasTotal} guías · ${binsTotal.toLocaleString('es-CL')} bins</div></div>
   <div class="kpi g" style="flex:1;min-width:120px"><div class="lbl">Kg procesados</div><div class="val">${fmtKg(kgProcesado)} kg</div><div style="font-size:15px;font-weight:700;color:#276221;margin:2px 0">${fmtPct(pctProc)}%</div><div class="sub">${procGs.length+parGs.length} procesos · ${(binsProc+binsParDone).toLocaleString('es-CL')} bins</div></div>
   <div class="kpi a" style="flex:1;min-width:120px"><div class="lbl">Kg pendientes</div><div class="val">${tilde}${fmtKg(kgPendienteKnown)}${plus} kg</div><div style="font-size:15px;font-weight:700;color:#7a5800;margin:2px 0">${fmtPct(pctPend)}%</div><div class="sub">${binsPend.toLocaleString('es-CL')} bins · ${pendGs.length} guías</div></div>

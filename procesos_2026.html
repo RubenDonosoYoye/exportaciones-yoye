@@ -59,11 +59,11 @@ footer{text-align:center;padding:16px;color:#999;font-size:11px}
 <div id="overview" class="page active">
   <div class="hdr">
     <div><h1>&#127818; Dashboard Procesos &#8212; Naranjas Temporada 2026</h1>
-    <div style="margin-top:5px;font-size:12px;opacity:.9" id="ovSubtitle">Agr&#237;cola Yoye SPA &middot; Sem. 24-25 &middot; 32 gu&#237;as enviadas</div></div>
+    <div style="margin-top:5px;font-size:12px;opacity:.9" id="ovSubtitle">Agr&#237;cola Yoye SPA &middot; Sem. 24-27 &middot; 35 gu&#237;as enviadas</div></div>
     <div class="meta" style="display:flex;gap:6px;align-items:center;flex-wrap:wrap" id="ovBadges">
       <span class="badge badge-g">27 procesos completos</span>
       <span class="badge badge-w">1 parcial</span>
-      <span class="badge badge-a">1 pendientes</span>
+      <span class="badge badge-a">3 pendientes</span>
     </div>
   </div>
 
@@ -355,17 +355,17 @@ footer{text-align:center;padding:16px;color:#999;font-size:11px}
 <!-- ═══ GUIAS ═══ -->
 <div id="guias" class="page">
   <div class="hdr"><div><h1>&#128193; Estado de Gu&#237;as</h1>
-  <div style="margin-top:5px;font-size:12px;opacity:.9">32 gu&#237;as sem. 24-25 &middot; Seguimiento procesos</div></div>
+  <div style="margin-top:5px;font-size:12px;opacity:.9">35 gu&#237;as sem. 24-27 &middot; Seguimiento procesos</div></div>
   <div class="meta">
     <span class="badge badge-g">27 completas</span>&nbsp;
     <span class="badge badge-w">1 parcial</span>&nbsp;
     <span class="badge badge-a">1 pendiente</span>&nbsp;
-    <span class="badge" style="background:#eee;color:#666">3 comercial</span>
+    <span class="badge" style="background:#eee;color:#666">4 comercial</span>
   </div></div>
 
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px" id="guiaFiltBtns">
     <button class="exp-tab active" onclick="filterGuiaTable('todas',this)">Todas (32)</button>
-    <button class="exp-tab" style="border-color:#F4B400;color:#7a5800" onclick="filterGuiaTable('pend',this)">Pendientes (1)</button>
+    <button class="exp-tab" style="border-color:#F4B400;color:#7a5800" onclick="filterGuiaTable('pend',this)">Pendientes (3)</button>
     <button class="exp-tab" style="border-color:#276221;color:#276221" onclick="filterGuiaTable('proc',this)">Procesadas (27)</button>
     <button class="exp-tab" style="border-color:#2E75B6;color:#2E75B6" onclick="filterGuiaTable('parcial',this)">Parcial (1)</button>
     <button class="exp-tab" style="border-color:#999;color:#666" onclick="filterGuiaTable('com',this)">Comercial (3)</button>
@@ -615,6 +615,9 @@ const GUIAS=[
   {g:2375,var:'Fukumoto',exp:'El Parque',cuar:'Rinconada',bins:60,kg:20633.0,status:'proc',rdto:78.15,kg_exp:16124.80,proceso:'P224',kg_com:4394,pre:0,merma:114.2,cajas:1058,kgcj:15.24},
   {g:2376,var:'Fukumoto',exp:'Crispagold',cuar:'Mirador',bins:66,kg:22690,status:'proc',rdto:83.69,kg_exp:18990.00,proceso:'P1576',kg_com:2999.00,pre:0,merma:701.00,cajas:1266,kgcj:15.0},
   {g:2377,var:'Fukumoto',exp:'Monte Alto',cuar:'Rinconada',bins:66,kg:null,status:'pend',rdto_esp:75.94},
+  {g:2378,var:'Cara Cara',exp:'Crispagold',cuar:'Rinconada',bins:51,kg:null,status:'pend'},
+  {g:2379,var:'Cara Cara',exp:'Monte Alto',cuar:'Rinconada',bins:63,kg:null,status:'pend'},
+  {g:2380,var:'Cara Cara Comercial',exp:'Monte Alto',cuar:'Rinconada',bins:3,kg:null,status:'com'},
 ];
 
 // ── CALIBRES — kg y cajas confirmadas ────────────────────────────────────────
@@ -989,8 +992,8 @@ function renderOverview(filterExp){
   const {gs,procGs,parGs,pendGs,doneGs,kgProcesado,kgExportable,kgComercial,kgTotal}=agg;
 
   document.getElementById('ovSubtitle').textContent = filterExp==='todas'
-    ? 'Agrícola Yoye SPA · Sem. 24-25 · '+GUIAS.length+' guías enviadas'
-    : 'Agrícola Yoye SPA · Sem. 24-25 · '+gs.length+' guías · '+filterExp;
+    ? 'Agrícola Yoye SPA · Sem. 24-27 · '+GUIAS.length+' guías enviadas'
+    : 'Agrícola Yoye SPA · Sem. 24-27 · '+gs.length+' guías · '+filterExp;
 
   document.getElementById('ovBadges').innerHTML =
     `<span class="badge badge-g">${procGs.length} procesos completos</span>`+
@@ -1155,7 +1158,7 @@ function showPage(id,btn){
         datasets:[
           {label:'Procesado',data:[600,566,503],backgroundColor:'#276221',borderRadius:4},
           {label:'Parcial',data:[0,0,66],backgroundColor:'#2E75B6',borderRadius:4},
-          {label:'Pendiente',data:[0,0,66],backgroundColor:'#e0e0e0',borderRadius:4}
+          {label:'Pendiente',data:[0,51,129],backgroundColor:'#e0e0e0',borderRadius:4}
         ]
       },
       options:{

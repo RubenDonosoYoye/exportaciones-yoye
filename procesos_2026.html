@@ -67,11 +67,19 @@ footer{text-align:center;padding:16px;color:#999;font-size:11px}
     </div>
   </div>
 
-  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px" id="ovExpBtns">
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px" id="ovExpBtns">
     <button class="exp-tab active" onclick="ovSetExp('todas',this)">Todas</button>
     <button class="exp-tab" onclick="ovSetExp('El Parque',this)" style="border-color:#2E75B6;color:#2E75B6">El Parque</button>
     <button class="exp-tab" onclick="ovSetExp('Crispagold',this)" style="border-color:#70AD47;color:#70AD47">Crispagold</button>
     <button class="exp-tab" onclick="ovSetExp('Monte Alto',this)" style="border-color:#F4B400;color:#F4B400">Monte Alto</button>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+    <span style="font-size:11px;color:#888;font-weight:700;text-transform:uppercase;letter-spacing:.5px">Variedad:</span>
+    <div id="ovVarBtns" style="display:flex;gap:6px">
+      <button onclick="ovSetVar('todas',this)" style="padding:3px 12px;border-radius:12px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid #1c3f64;background:#1c3f64;color:#fff">Todas</button>
+      <button onclick="ovSetVar('Fukumoto',this)" style="padding:3px 12px;border-radius:12px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid #2E75B6;background:transparent;color:#2E75B6">Fukumoto</button>
+      <button onclick="ovSetVar('Cara Cara',this)" style="padding:3px 12px;border-radius:12px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid #c0392b;background:transparent;color:#c0392b">Cara Cara</button>
+    </div>
   </div>
 
   <div class="grid2" style="margin-bottom:12px">
@@ -328,11 +336,19 @@ footer{text-align:center;padding:16px;color:#999;font-size:11px}
   <div style="margin-top:5px;font-size:12px;opacity:.9">Total cajas por calibre &middot; Procesos recibidos</div></div>
   <div class="meta" id="calMeta"></div></div>
 
-  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px" id="calExpBtns">
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px" id="calExpBtns">
     <button class="exp-tab active" onclick="calSetExp('todas',this)">Todas</button>
     <button class="exp-tab" onclick="calSetExp('EP',this)" style="border-color:#2E75B6;color:#2E75B6">El Parque</button>
     <button class="exp-tab" onclick="calSetExp('CR',this)" style="border-color:#70AD47;color:#70AD47">Crispagold</button>
     <button class="exp-tab" onclick="calSetExp('MA',this)" style="border-color:#F4B400;color:#F4B400">Monte Alto</button>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
+    <span style="font-size:11px;color:#888;font-weight:700;text-transform:uppercase;letter-spacing:.5px">Variedad:</span>
+    <div id="calVarBtns" style="display:flex;gap:6px">
+      <button onclick="calSetVar('todas',this)" style="padding:3px 12px;border-radius:12px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid #1c3f64;background:#1c3f64;color:#fff">Todas</button>
+      <button onclick="calSetVar('Fukumoto',this)" style="padding:3px 12px;border-radius:12px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid #2E75B6;background:transparent;color:#2E75B6">Fukumoto</button>
+      <button onclick="calSetVar('Cara Cara',this)" style="padding:3px 12px;border-radius:12px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid #c0392b;background:transparent;color:#c0392b">Cara Cara</button>
+    </div>
   </div>
 
   <div class="card" style="margin-bottom:14px">
@@ -363,12 +379,20 @@ footer{text-align:center;padding:16px;color:#999;font-size:11px}
     <span class="badge" style="background:#eee;color:#666">4 comercial</span>
   </div></div>
 
-  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px" id="guiaFiltBtns">
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px" id="guiaFiltBtns">
     <button class="exp-tab active" onclick="filterGuiaTable('todas',this)">Todas (32)</button>
     <button class="exp-tab" style="border-color:#F4B400;color:#7a5800" onclick="filterGuiaTable('pend',this)">Pendientes (2)</button>
     <button class="exp-tab" style="border-color:#276221;color:#276221" onclick="filterGuiaTable('proc',this)">Procesadas (28)</button>
     <button class="exp-tab" style="border-color:#2E75B6;color:#2E75B6" onclick="filterGuiaTable('parcial',this)">Parcial (1)</button>
     <button class="exp-tab" style="border-color:#999;color:#666" onclick="filterGuiaTable('com',this)">Comercial (3)</button>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+    <span style="font-size:11px;color:#888;font-weight:700;text-transform:uppercase;letter-spacing:.5px">Variedad:</span>
+    <div id="guiaVarBtns" style="display:flex;gap:6px">
+      <button onclick="filterGuiaVar('todas',this)" style="padding:3px 12px;border-radius:12px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid #1c3f64;background:#1c3f64;color:#fff">Todas</button>
+      <button onclick="filterGuiaVar('Fukumoto',this)" style="padding:3px 12px;border-radius:12px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid #2E75B6;background:transparent;color:#2E75B6">Fukumoto</button>
+      <button onclick="filterGuiaVar('Cara Cara',this)" style="padding:3px 12px;border-radius:12px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid #c0392b;background:transparent;color:#c0392b">Cara Cara</button>
+    </div>
   </div>
 
   <div class="tw"><table id="guiaTable">
@@ -695,6 +719,17 @@ CALS.forEach(c=>{
   KG_CR[c]=CR_OBJS.reduce((a,o)=>a+(o.cals[c]||0),0);
   KG_TOT[c]=KG_EP[c]+KG_MA[c]+KG_CR[c];
 });
+const KG_CR_CC={},KG_CR_FK={},CAJAS_CR_CC={},CAJAS_CR_FK={},KG_TOT_FK={},CAJAS_TOT_FK={};
+const CR_CC_OBJS=CR_OBJS.filter(o=>o.label.includes('Cara Cara'));
+const CR_FK_OBJS=CR_OBJS.filter(o=>!o.label.includes('Cara Cara'));
+CALS.forEach(c=>{
+  KG_CR_CC[c]=CR_CC_OBJS.reduce((a,o)=>a+(o.cals[c]||0),0);
+  KG_CR_FK[c]=CR_FK_OBJS.reduce((a,o)=>a+(o.cals[c]||0),0);
+  CAJAS_CR_CC[c]=Math.round(CR_CC_OBJS.reduce((a,o)=>a+(o.kgcj?(o.cals[c]||0)/o.kgcj:0),0));
+  CAJAS_CR_FK[c]=Math.round(CR_FK_OBJS.reduce((a,o)=>a+(o.kgcj?(o.cals[c]||0)/o.kgcj:0),0));
+  KG_TOT_FK[c]=KG_EP[c]+KG_MA[c]+KG_CR_FK[c];
+  CAJAS_TOT_FK[c]=(CAJAS_EP[c]||0)+(CAJAS_MA[c]||0)+CAJAS_CR_FK[c];
+});
 
 let calChart=null;
 window._calExpFiltro='todas';
@@ -704,20 +739,40 @@ function calSetExp(key,btn){
   if(btn) btn.classList.add('active');
   buildCalibresTab();
 }
+function calSetVar(v,btn){
+  window._calVarFiltro=v;
+  document.querySelectorAll('#calVarBtns button').forEach(b=>{
+    const bc=b.style.borderColor;b.style.background='transparent';b.style.color=bc;
+  });
+  if(btn){btn.style.background=btn.style.borderColor;btn.style.color='#fff';}
+  buildCalibresTab();
+}
 function buildCalibresTab(){
   const key=window._calExpFiltro||'todas';
+  const vf=window._calVarFiltro||'todas';
+  const emptyKG=Object.fromEntries(CALS.map(c=>[c,0]));
   let kgs,cajas,label,color,nota='';
   if(key==='EP'){
-    kgs=KG_EP; cajas=CAJAS_EP; label='El Parque (9 procesos)'; color='#2E75B6';
+    color='#2E75B6';
     nota='G-2353 (P143): kg oficiales, calibres estimados desde % de recepción.';
+    if(vf==='Cara Cara'){kgs=emptyKG;cajas=emptyKG;label='El Parque — Sin procesos Cara Cara';}
+    else{kgs=KG_EP;cajas=CAJAS_EP;label='El Parque (9 procesos)';}
   } else if(key==='MA'){
-    kgs=KG_MA; cajas=CAJAS_MA; label='Monte Alto (7 procesos · 9 guías)'; color='#F4B400';
+    color='#F4B400';
     nota='G-2374: proceso parcial (42/66 bins). G-2369: combina 3 procesos parciales (P305+P308+P309).';
+    if(vf==='Cara Cara'){kgs=emptyKG;cajas=emptyKG;label='Monte Alto — Sin procesos Cara Cara';}
+    else{kgs=KG_MA;cajas=CAJAS_MA;label='Monte Alto (7 procesos · 9 guías)';}
   } else if(key==='CR'){
-    kgs=KG_CR; cajas=CAJAS_CR; label='Crispagold (6 procesos · 9 guías)'; color='#70AD47';
+    color='#70AD47';
+    if(vf==='Cara Cara'){kgs=KG_CR_CC;cajas=CAJAS_CR_CC;label='Crispagold · Cara Cara (1 proceso · P1637)';}
+    else if(vf==='Fukumoto'){kgs=KG_CR_FK;cajas=CAJAS_CR_FK;label='Crispagold · Fukumoto (6 procesos · 9 guías)';}
+    else{kgs=KG_CR;cajas=CAJAS_CR;label='Crispagold (todas las variedades)';}
   } else {
-    kgs=KG_TOT; cajas=CAJAS_TOT; label='Todas las exportadoras'; color='#1c3f64';
+    color='#1c3f64';
     nota='G-2353 (P143): kg oficiales, calibres estimados desde % de recepción. G-2355 y G-2374: procesos parciales (23/66 y 42/66 bins).';
+    if(vf==='Cara Cara'){kgs=KG_CR_CC;cajas=CAJAS_CR_CC;label='Cara Cara — Todas las exportadoras';nota='';}
+    else if(vf==='Fukumoto'){kgs=KG_TOT_FK;cajas=CAJAS_TOT_FK;label='Fukumoto — Todas las exportadoras';}
+    else{kgs=KG_TOT;cajas=CAJAS_TOT;label='Todas las exportadoras';}
   }
   const totKg=CALS.reduce((a,c)=>a+(kgs[c]||0),0);
   const totCj=CALS.reduce((a,c)=>a+(cajas[c]||0),0);
@@ -788,7 +843,7 @@ function buildGuiaTable(){
                     r.status==='parcial'?`${r.proceso||'—'} &middot; ${r.rdto_proc}% rdto`:
                     r.status==='pend'&&r.rdto_esp?`<span style="color:#999">Rdto esp. ${r.rdto_esp}%</span>`:
                     '<span style="color:#bbb">&#8212;</span>';
-    tbody.innerHTML+=`<tr data-status="${r.status}" data-bins="${r.bins}" data-kg="${r.kg||0}" style="background:${bg}">
+    tbody.innerHTML+=`<tr data-status="${r.status}" data-var="${r.var||'Fukumoto'}" data-bins="${r.bins}" data-kg="${r.kg||0}" style="background:${bg}">
       <td class="l" style="font-weight:700">G-${r.g}</td>
       <td>${r.exp}</td>
       <td>${r.cuar}</td>
@@ -801,10 +856,26 @@ function buildGuiaTable(){
   updateGuiaTotals();
 }
 function filterGuiaTable(status,btn){
+  window._guiaStatusFiltro=status;
   document.querySelectorAll('#guiaFiltBtns .exp-tab').forEach(b=>b.classList.remove('active'));
   if(btn) btn.classList.add('active');
+  _applyGuiaFilters();
+}
+function filterGuiaVar(v,btn){
+  window._guiaVarFiltro=v;
+  document.querySelectorAll('#guiaVarBtns button').forEach(b=>{
+    const bc=b.style.borderColor;b.style.background='transparent';b.style.color=bc;
+  });
+  if(btn){btn.style.background=btn.style.borderColor;btn.style.color='#fff';}
+  _applyGuiaFilters();
+}
+function _applyGuiaFilters(){
+  const status=window._guiaStatusFiltro||'todas';
+  const vf=window._guiaVarFiltro||'todas';
   document.querySelectorAll('#guia-tbody tr').forEach(tr=>{
-    tr.style.display=(status==='todas'||tr.dataset.status===status)?'':'none';
+    const stOk=status==='todas'||tr.dataset.status===status;
+    const varOk=vf==='todas'||tr.dataset.var===vf;
+    tr.style.display=(stOk&&varOk)?'':'none';
   });
   updateGuiaTotals();
 }
@@ -831,12 +902,14 @@ function fmtKg(n){ return Math.round(n).toLocaleString('es-CL'); }
 function fmtPct(n){ return n.toFixed(1).replace('.',','); }
 
 function ovGuias(filterExp){
-  const base=GUIAS.filter(g=>g.status!=='com');
+  const vf=window._ovVarFiltro||'todas';
+  const base=GUIAS.filter(g=>g.status!=='com'&&(vf==='todas'||g.var===vf||(vf==='Fukumoto'&&!g.var)));
   return filterExp==='todas'? base : base.filter(g=>g.exp===filterExp);
 }
 
 function ovGuiasComerciales(filterExp){
-  const com=GUIAS.filter(g=>g.status==='com');
+  const vf=window._ovVarFiltro||'todas';
+  const com=GUIAS.filter(g=>g.status==='com'&&(vf==='todas'||g.var===vf||(vf==='Fukumoto'&&!g.var)));
   return filterExp==='todas'? com : com.filter(g=>g.exp===filterExp);
 }
 
@@ -1020,6 +1093,14 @@ function ovSetExp(key,btn){
   document.querySelectorAll('#ovExpBtns .exp-tab').forEach(b=>b.classList.remove('active'));
   if(btn) btn.classList.add('active');
   renderOverview(key);
+}
+function ovSetVar(v,btn){
+  window._ovVarFiltro=v;
+  document.querySelectorAll('#ovVarBtns button').forEach(b=>{
+    const bc=b.style.borderColor;b.style.background='transparent';b.style.color=bc;
+  });
+  if(btn){btn.style.background=btn.style.borderColor;btn.style.color='#fff';}
+  renderOverview(window._ovFiltro||'todas');
 }
 
 

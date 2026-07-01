@@ -1280,28 +1280,28 @@ function showPage(id,btn){
 
 <div id="nacional" class="page" style="padding:18px 20px">
   <h2 style="font-size:16px;font-weight:700;margin-bottom:6px;color:#1a1a1a">&#127810; Mercado Nacional &mdash; Temporada 2026</h2>
-  <p style="font-size:12px;color:#666;margin-bottom:16px">Fruta descarte de exportaci&#243;n vendida en mercado nacional por consignaci&#243;n. Incluye fruta comercial y descarte de los procesos de cada exportadora.</p>
+  <p style="font-size:12px;color:#666;margin-bottom:16px">Control de fruta comercial / descarte de exportaci&#243;n. Se compara el total de kg comercial registrado en nuestros procesos versus el total facturado por la exportadora.</p>
 
   <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px">
     <div class="kpi" style="flex:1;min-width:130px">
-      <div class="lbl">Kg liquidados</div>
+      <div class="lbl">Kg comercial (nuestros registros)</div>
+      <div class="val">115.844,67 kg</div>
+      <div class="sub">EP + CG + MA procesado</div>
+    </div>
+    <div class="kpi" style="flex:1;min-width:130px;border-left:3px solid #276221">
+      <div class="lbl">Kg facturados</div>
       <div class="val">33.242,00 kg</div>
-      <div class="sub">EP confirmado &middot; CG+MA pendientes</div>
+      <div class="sub">Solo EP a la fecha</div>
     </div>
     <div class="kpi" style="flex:1;min-width:130px;border-left:3px solid #276221">
-      <div class="lbl">Neto CLP</div>
+      <div class="lbl">Neto CLP facturado</div>
       <div class="val">$2.269.337</div>
-      <div class="sub">$68/kg promedio EP</div>
-    </div>
-    <div class="kpi" style="flex:1;min-width:130px;border-left:3px solid #276221">
-      <div class="lbl">Total c/IVA</div>
-      <div class="val">$2.700.512</div>
-      <div class="sub">IVA 19%: $431.174</div>
+      <div class="sub">Total con IVA: $2.700.512</div>
     </div>
     <div class="kpi" style="flex:1;min-width:130px;border-left:3px solid #b8860b">
-      <div class="lbl">Pendientes</div>
-      <div class="val">CG + MA</div>
-      <div class="sub">Sin liquidaci&#243;n a la fecha</div>
+      <div class="lbl">Kg pendientes de facturar</div>
+      <div class="val">82.602,67 kg</div>
+      <div class="sub">CG + MA + EP diferencia</div>
     </div>
   </div>
 
@@ -1309,39 +1309,33 @@ function showPage(id,btn){
     <thead>
       <tr style="background:#2c5f2e;color:#fff;text-align:center">
         <th style="padding:8px 10px;text-align:left">Exportadora</th>
-        <th style="padding:8px 10px">Liquidaci&#243;n N&#176;</th>
-        <th style="padding:8px 10px">Fecha</th>
-        <th style="padding:8px 10px;text-align:left">Gu&#237;as incluidas</th>
-        <th style="padding:8px 10px">Kg</th>
-        <th style="padding:8px 10px">$/kg neto</th>
+        <th style="padding:8px 10px">Kg comercial<br><span style="font-weight:400;font-size:10px">(nuestros registros)</span></th>
+        <th style="padding:8px 10px">Kg facturados</th>
+        <th style="padding:8px 10px">Diferencia</th>
         <th style="padding:8px 10px">Neto CLP</th>
         <th style="padding:8px 10px">IVA 19%</th>
         <th style="padding:8px 10px">Total CLP</th>
-        <th style="padding:8px 10px">Factura N&#176;</th>
+        <th style="padding:8px 10px">Liq. / Factura</th>
         <th style="padding:8px 10px">Estado</th>
       </tr>
     </thead>
     <tbody>
       <tr style="background:#f8f8f8">
         <td style="padding:8px 10px;font-weight:600">El Parque</td>
-        <td style="padding:8px 10px;text-align:center">14.617</td>
-        <td style="padding:8px 10px;text-align:center">30/06/2026</td>
-        <td style="padding:8px 10px;color:#555;font-size:11px">2343 &middot; 2348 &middot; 2350 &middot; 2353 &middot; 2358 &middot; 2367 &middot; 2370 &middot; 2375</td>
+        <td style="padding:8px 10px;text-align:right">37.711,00</td>
         <td style="padding:8px 10px;text-align:right;font-weight:600">33.242,00</td>
-        <td style="padding:8px 10px;text-align:center">$68</td>
+        <td style="padding:8px 10px;text-align:right;color:#856404">&#8722;4.469,00</td>
         <td style="padding:8px 10px;text-align:right;font-weight:600">$2.269.337</td>
         <td style="padding:8px 10px;text-align:right">$431.174</td>
         <td style="padding:8px 10px;text-align:right;font-weight:600">$2.700.512</td>
-        <td style="padding:8px 10px;text-align:center">F-1371</td>
-        <td style="padding:8px 10px;text-align:center"><span style="background:#d4edda;color:#155724;padding:2px 8px;border-radius:10px;font-size:11px">&#10003; Cuadrada</span></td>
+        <td style="padding:8px 10px;text-align:center;font-size:11px">Liq. 14.617<br>F-1371</td>
+        <td style="padding:8px 10px;text-align:center"><span style="background:#fff3cd;color:#856404;padding:2px 8px;border-radius:10px;font-size:11px">&#9888; Parcial</span></td>
       </tr>
       <tr>
         <td style="padding:8px 10px;font-weight:600">Crispagold</td>
-        <td style="padding:8px 10px;text-align:center;color:#aaa">&mdash;</td>
-        <td style="padding:8px 10px;text-align:center;color:#aaa">&mdash;</td>
-        <td style="padding:8px 10px;color:#aaa">&mdash;</td>
+        <td style="padding:8px 10px;text-align:right">51.781,00</td>
         <td style="padding:8px 10px;text-align:right;color:#aaa">&mdash;</td>
-        <td style="padding:8px 10px;text-align:center;color:#aaa">&mdash;</td>
+        <td style="padding:8px 10px;text-align:right;color:#aaa">&mdash;</td>
         <td style="padding:8px 10px;text-align:right;color:#aaa">&mdash;</td>
         <td style="padding:8px 10px;text-align:right;color:#aaa">&mdash;</td>
         <td style="padding:8px 10px;text-align:right;color:#aaa">&mdash;</td>
@@ -1350,11 +1344,9 @@ function showPage(id,btn){
       </tr>
       <tr style="background:#f8f8f8">
         <td style="padding:8px 10px;font-weight:600">Monte Alto</td>
-        <td style="padding:8px 10px;text-align:center;color:#aaa">&mdash;</td>
-        <td style="padding:8px 10px;text-align:center;color:#aaa">&mdash;</td>
-        <td style="padding:8px 10px;color:#aaa">&mdash;</td>
+        <td style="padding:8px 10px;text-align:right">26.352,67</td>
         <td style="padding:8px 10px;text-align:right;color:#aaa">&mdash;</td>
-        <td style="padding:8px 10px;text-align:center;color:#aaa">&mdash;</td>
+        <td style="padding:8px 10px;text-align:right;color:#aaa">&mdash;</td>
         <td style="padding:8px 10px;text-align:right;color:#aaa">&mdash;</td>
         <td style="padding:8px 10px;text-align:right;color:#aaa">&mdash;</td>
         <td style="padding:8px 10px;text-align:right;color:#aaa">&mdash;</td>
@@ -1363,9 +1355,9 @@ function showPage(id,btn){
       </tr>
       <tr style="background:#eaf2ea;font-weight:700;border-top:2px solid #2c5f2e">
         <td style="padding:8px 10px">TOTAL</td>
-        <td colspan="3" style="padding:8px 10px;font-size:11px;color:#555">EP cuadrada &middot; CG y MA pendientes</td>
+        <td style="padding:8px 10px;text-align:right">115.844,67</td>
         <td style="padding:8px 10px;text-align:right">33.242,00</td>
-        <td style="padding:8px 10px;text-align:center">$68</td>
+        <td style="padding:8px 10px;text-align:right;color:#856404">&#8722;82.602,67</td>
         <td style="padding:8px 10px;text-align:right">$2.269.337</td>
         <td style="padding:8px 10px;text-align:right">$431.174</td>
         <td style="padding:8px 10px;text-align:right">$2.700.512</td>
@@ -1375,14 +1367,16 @@ function showPage(id,btn){
   </table>
 
   <div style="margin-top:16px;font-size:11.5px;display:flex;flex-direction:column;gap:8px">
+    <div style="background:#fff3cd;border-left:4px solid #f0ad4e;padding:10px 14px;border-radius:4px;color:#555">
+      <strong>&#9888; El Parque &mdash; diferencia 4.469 kg:</strong>
+      Podr&#237;an corresponder a guías G-2349 y G-2366 que no aparecen en Liq. 14.617 (probablemente incluidas en una liquidaci&#243;n anterior o siguiente).
+    </div>
     <div style="background:#e8f4f8;border-left:4px solid #17a2b8;padding:10px 14px;border-radius:4px;color:#555">
-      <strong>&#128203; El Parque &mdash; Liquidaci&#243;n 14.617:</strong>
-      Fruta COMERCIAL 32.306,50 kg @ $153/kg + DESCARTE 935,50 kg @ $302/kg.
-      Total bruto $5.226.387 &middot; Gastos (proceso+materiales+fr&#237;o+bins+cobro super+trasvasije) $2.538.940 &middot; Comisi&#243;n 8% $418.111 &middot; Neto productor $2.269.337 ($68/kg).
-      Factura N&#176; 1371 emitida por Agr&#237;cola Yoye SPA.
+      <strong>&#128203; Referencias:</strong>
+      El Parque &mdash; Liquidaci&#243;n 14.617 (25/06/2026) &middot; Factura N&#176; 1371 emitida por Agr&#237;cola Yoye SPA (30/06/2026, $68/kg neto).
     </div>
   </div>
 </div>
 
 </body>
-</html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+</html>

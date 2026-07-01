@@ -61,9 +61,9 @@ footer{text-align:center;padding:16px;color:#999;font-size:11px}
     <div><h1>&#127818; Dashboard Procesos &#8212; Naranjas Temporada 2026</h1>
     <div style="margin-top:5px;font-size:12px;opacity:.9" id="ovSubtitle">Agr&#237;cola Yoye SPA &middot; Sem. 24-27 &middot; 35 gu&#237;as enviadas</div></div>
     <div class="meta" style="display:flex;gap:6px;align-items:center;flex-wrap:wrap" id="ovBadges">
-      <span class="badge badge-g">27 procesos completos</span>
+      <span class="badge badge-g">28 procesos completos</span>
       <span class="badge badge-w">1 parcial</span>
-      <span class="badge badge-a">3 pendientes</span>
+      <span class="badge badge-a">2 pendientes</span>
     </div>
   </div>
 
@@ -280,9 +280,9 @@ footer{text-align:center;padding:16px;color:#999;font-size:11px}
         <td><span class="ok pill">P1576 &#10003;</span></td>
       </tr>
       <tr style="background:#e8f0fb;font-weight:700">
-        <td class="l">TOTAL proceso</td><td colspan="2"></td><td>1.735</td>
-        <td>600.451</td><td>473.364</td><td>116.221</td><td>904</td><td>9.961</td>
-        <td>78,8%</td><td>29.881</td><td>&#8212;</td><td></td>
+        <td class="l">TOTAL proceso</td><td colspan="2"></td><td>1.786</td>
+        <td>618.836</td><td>488.647</td><td>118.717</td><td>904</td><td>10.567</td>
+        <td>79,0%</td><td>30.836</td><td>&#8212;</td><td></td>
       </tr>
     </tbody>
   </table></div>
@@ -301,9 +301,9 @@ footer{text-align:center;padding:16px;color:#999;font-size:11px}
         <td>0</td><td>170.839</td>
         <td><span class="pill ok">100% bins</span></td></tr>
       <tr><td class="l" style="font-weight:700;color:#70AD47">Crispagold</td>
-        <td>566</td><td>200.120</td>
-        <td style="color:#276221;font-weight:700">200.120 &#10003; (9 proc. CR)</td>
-        <td>0</td><td>143.760</td>
+        <td>617</td><td>218.505</td>
+        <td style="color:#276221;font-weight:700">218.505 &#10003; (10 proc. CR)</td>
+        <td>0</td><td>159.043</td>
         <td><span class="pill ok">100% bins</span></td></tr>
       <tr><td class="l" style="font-weight:700;color:#F4B400">Monte Alto</td>
         <td>635</td><td>189.945+</td>
@@ -365,8 +365,8 @@ footer{text-align:center;padding:16px;color:#999;font-size:11px}
 
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px" id="guiaFiltBtns">
     <button class="exp-tab active" onclick="filterGuiaTable('todas',this)">Todas (32)</button>
-    <button class="exp-tab" style="border-color:#F4B400;color:#7a5800" onclick="filterGuiaTable('pend',this)">Pendientes (3)</button>
-    <button class="exp-tab" style="border-color:#276221;color:#276221" onclick="filterGuiaTable('proc',this)">Procesadas (27)</button>
+    <button class="exp-tab" style="border-color:#F4B400;color:#7a5800" onclick="filterGuiaTable('pend',this)">Pendientes (2)</button>
+    <button class="exp-tab" style="border-color:#276221;color:#276221" onclick="filterGuiaTable('proc',this)">Procesadas (28)</button>
     <button class="exp-tab" style="border-color:#2E75B6;color:#2E75B6" onclick="filterGuiaTable('parcial',this)">Parcial (1)</button>
     <button class="exp-tab" style="border-color:#999;color:#666" onclick="filterGuiaTable('com',this)">Comercial (3)</button>
   </div>
@@ -575,6 +575,13 @@ const CR9 = {
   cals:{36:0,40:2355,48:2100,56:3915,64:1920,72:3060,88:4215,105:0,113:1155,138:270},
   pct:{36:0,40:12.40,48:11.06,56:20.62,64:10.11,72:16.11,88:22.20,105:0,113:6.08,138:1.42}
 };
+const CR10 = {
+  label:'Crispagold (G-2378 Cara Cara · P1637)', color:'#c5e1a5',
+  kg_env:18385.0, kg_exp:15283.0, kg_com:2496.0, pre:0, merma:606.0,
+  rdto:83.1, cajas:955, kgcj:16.0,
+  cals:{36:0,40:119.0,48:289.0,56:1734.0,64:1564.0,72:4437.0,88:6000.0,105:0,113:1140.0,128:0,138:0},
+  pct:{36:0,40:0.78,48:1.89,56:11.35,64:10.24,72:29.03,88:39.26,105:0,113:7.46,128:0,138:0}
+};
 const TOT_DATA={cals:{},pct:{}};
 const totExp=EP.kg_exp+EP2.kg_exp+EP3.kg_exp+EP4.kg_exp+EP5.kg_exp+EP6.kg_exp+EP7.kg_exp+EP8.kg_exp+EP9.kg_exp+EP10.kg_exp+MA.kg_exp+MA2.kg_exp+MA3.kg_exp+CR1.kg_exp+CR2.kg_exp+CR3.kg_exp+CR4.kg_exp+CR5.kg_exp+CR6.kg_exp+CR7.kg_exp+CR8.kg_exp+CR9.kg_exp;
 CALS.forEach(c=>{
@@ -615,7 +622,7 @@ const GUIAS=[
   {g:2375,var:'Fukumoto',exp:'El Parque',cuar:'Rinconada',bins:60,kg:20633.0,status:'proc',rdto:78.15,kg_exp:16124.80,proceso:'P224',kg_com:4394,pre:0,merma:114.2,cajas:1058,kgcj:15.24},
   {g:2376,var:'Fukumoto',exp:'Crispagold',cuar:'Mirador',bins:66,kg:22690,status:'proc',rdto:83.69,kg_exp:18990.00,proceso:'P1576',kg_com:2999.00,pre:0,merma:701.00,cajas:1266,kgcj:15.0},
   {g:2377,var:'Fukumoto',exp:'Monte Alto',cuar:'Rinconada',bins:66,kg:null,status:'pend',rdto_esp:75.94},
-  {g:2378,var:'Cara Cara',exp:'Crispagold',cuar:'Rinconada',bins:51,kg:null,status:'pend'},
+  {g:2378,var:'Cara Cara',exp:'Crispagold',cuar:'Rinconada',bins:51,kg:18385.0,status:'proc',rdto:83.1,kg_exp:15283.0,proceso:'P1637',kg_com:2496.0,pre:0,merma:606.0,cajas:955,kgcj:16.0},
   {g:2379,var:'Cara Cara',exp:'Monte Alto',cuar:'Rinconada',bins:63,kg:null,status:'pend'},
   {g:2380,var:'Cara Cara Comercial',exp:'Monte Alto',cuar:'Rinconada',bins:3,kg:null,status:'com'},
 ];
@@ -672,7 +679,7 @@ const MA10 = { // Monte Alto G-2355 P304 (43 bins)
   cals:{36:15,40:150,48:255,56:1409,64:3425,72:272,88:2745,105:330,113:1008,128:1665,138:540}
 };
 const MA_OBJS=[MA,MA2,MA3,MA4,MA5,MA6,MA7,MA8,MA9,MA10];
-const CR_OBJS=[CR1,CR2,CR3,CR4,CR5,CR6,CR7,CR8,CR9];
+const CR_OBJS=[CR1,CR2,CR3,CR4,CR5,CR6,CR7,CR8,CR9,CR10];
 CALS.forEach(c=>{
   CAJAS_EP[c]=Math.round(EP_OBJS.reduce((a,o)=>a+(o.kgcj?(o.cals[c]||0)/o.kgcj:0),0));
   CAJAS_MA[c]=Math.round(MA_OBJS.reduce((a,o)=>a+(o.kgcj?(o.cals[c]||0)/o.kgcj:0),0));
@@ -1156,9 +1163,9 @@ function showPage(id,btn){
       data:{
         labels:['El Parque','Crispagold','Monte Alto'],
         datasets:[
-          {label:'Procesado',data:[600,566,503],backgroundColor:'#276221',borderRadius:4},
+          {label:'Procesado',data:[600,617,503],backgroundColor:'#276221',borderRadius:4},
           {label:'Parcial',data:[0,0,66],backgroundColor:'#2E75B6',borderRadius:4},
-          {label:'Pendiente',data:[0,51,129],backgroundColor:'#e0e0e0',borderRadius:4}
+          {label:'Pendiente',data:[0,0,129],backgroundColor:'#e0e0e0',borderRadius:4}
         ]
       },
       options:{

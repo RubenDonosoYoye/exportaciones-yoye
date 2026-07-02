@@ -393,8 +393,8 @@ footer{text-align:center;padding:16px;color:#999;font-size:11px}
   </div></div>
 
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px" id="guiaFiltBtns">
-    <button class="exp-tab active" onclick="filterGuiaTable('todas',this)">Todas (32)</button>
-    <button class="exp-tab" style="border-color:#F4B400;color:#7a5800" onclick="filterGuiaTable('pend',this)">Pendientes (2)</button>
+    <button class="exp-tab active" onclick="filterGuiaTable('todas',this)">Todas (35)</button>
+    <button class="exp-tab" style="border-color:#F4B400;color:#7a5800" onclick="filterGuiaTable('pend',this)">Pendientes (5)</button>
     <button class="exp-tab" style="border-color:#276221;color:#276221" onclick="filterGuiaTable('proc',this)">Procesadas (28)</button>
     <button class="exp-tab" style="border-color:#2E75B6;color:#2E75B6" onclick="filterGuiaTable('parcial',this)">Parcial (1)</button>
     <button class="exp-tab" style="border-color:#999;color:#666" onclick="filterGuiaTable('com',this)">Comercial (3)</button>
@@ -662,6 +662,9 @@ const GUIAS=[
   {g:2378,var:'Cara Cara',exp:'Crispagold',cuar:'Rinconada',bins:51,kg:18385.0,status:'proc',rdto:83.1,kg_exp:15283.0,proceso:'P1637',kg_com:2496.0,pre:0,merma:606.0,cajas:955,kgcj:16.0},
   {g:2379,var:'Cara Cara',exp:'Monte Alto',cuar:'Rinconada',bins:63,kg:null,status:'pend'},
   {g:2380,var:'Cara Cara Comercial',exp:'Monte Alto',cuar:'Rinconada',bins:3,kg:null,status:'com'},
+  {g:2381,var:'Cara Cara',exp:'El Parque',cuar:'Rinconada',bins:60,kg:null,status:'pend'},
+  {g:2382,var:'Cara Cara',exp:'Crispagold',cuar:'Rinconada',bins:66,kg:null,status:'pend'},
+  {g:2383,var:'Cara Cara',exp:'Monte Alto',cuar:'Rinconada',bins:66,kg:null,status:'pend'},
 ];
 
 // ── CALIBRES — kg y cajas confirmadas ────────────────────────────────────────
@@ -1654,8 +1657,7 @@ function showPage(id,btn){
   </div>
 
   <div style="background:#fdf2f0;border-left:4px solid #c0392b;padding:10px 14px;border-radius:4px;font-size:12px;color:#555;margin-bottom:12px">
-    <strong>&#9432; 2026 en curso:</strong> Solo 1 gu&#237;a procesada (51 bins &middot; G-2378 Crispagold P1637). 
-    Pendiente: G-2379 Monte Alto (63 bins). Los n&#250;meros 2026 son parciales.
+    <strong>&#9432; 2026 en curso:</strong> 1 gu&#237;a procesada (G-2378 Crispagold &middot; 51 bins &middot; P1637). Pendientes: G-2379 MA (63b), G-2381 EP (60b), G-2382 CG (66b), G-2383 MA (66b) = 255 bins. Los n&#250;meros 2026 son parciales.
   </div>
 
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:16px">
@@ -1758,7 +1760,7 @@ function showPage(id,btn){
       <tr style="background:#f8f8f8"><td class="l">Kg exp / h&#225;</td><td>43.916</td><td>~31.780 est.</td><td>34.402</td><td>parcial</td><td>40.767</td><td>~22.100 est.</td></tr>
     </tbody>
   </table></div>
-  <div style="font-size:10px;color:#aaa;margin-top:6px">* 2026: datos parciales al 02/07/2026. Fukumoto pendiente 132 bins (G-2374 resto + G-2377). Cara Cara pendiente G-2379 Monte Alto.</div>
+  <div style="font-size:10px;color:#aaa;margin-top:6px">* 2026: datos parciales al 02/07/2026. Fukumoto pendiente 132 bins (G-2374 resto + G-2377). Cara Cara pendiente 255 bins (G-2379 MA 63b + G-2381 EP 60b + G-2382 CG 66b + G-2383 MA 66b).</div>
 </div>
 
 </body>

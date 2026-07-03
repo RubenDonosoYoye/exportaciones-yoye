@@ -300,10 +300,16 @@ footer{text-align:center;padding:16px;color:#999;font-size:11px}
         <td style="font-weight:700;color:#276221">83,1%</td><td>955</td><td>16,0</td>
         <td><span class="ok pill">P1637 &#10003;</span></td>
       </tr>
+      <tr data-var="Cara Cara" style="background:#fdf2f0">
+        <td class="l" style="font-weight:700">G-2381</td><td>El Parque</td><td>Rinconada</td><td>60</td>
+        <td>21.595</td><td>18.179</td><td>3.185</td><td>0</td><td>231</td>
+        <td style="font-weight:700;color:#276221">84,2%</td><td>1.196</td><td>15,2</td>
+        <td><span class="ok pill">P346 &#10003;</span></td>
+      </tr>
       <tr style="background:#e8f0fb;font-weight:700">
-        <td class="l">TOTAL proceso</td><td colspan="2"></td><td>1.786</td>
-        <td>618.836</td><td>488.647</td><td>118.717</td><td>904</td><td>10.567</td>
-        <td>79,0%</td><td>30.836</td><td>&#8212;</td><td></td>
+        <td class="l">TOTAL proceso</td><td colspan="2"></td><td>1.846</td>
+        <td>640.431</td><td>506.826</td><td>121.902</td><td>904</td><td>10.798</td>
+        <td>79,1%</td><td>32.032</td><td>&#8212;</td><td></td>
       </tr>
     </tbody>
   </table></div>
@@ -317,9 +323,9 @@ footer{text-align:center;padding:16px;color:#999;font-size:11px}
     </tr></thead>
     <tbody>
       <tr><td class="l" style="font-weight:700;color:#2E75B6">El Parque</td>
-        <td>600</td><td>210.386</td>
-        <td style="color:#276221;font-weight:700">210.386 (10 proc. EP)</td>
-        <td>0</td><td>170.839</td>
+        <td>660</td><td>231.981</td>
+        <td style="color:#276221;font-weight:700">231.981 ✓ (11 proc. EP)</td>
+        <td>0</td><td>189.018</td>
         <td><span class="pill ok">100% bins</span></td></tr>
       <tr><td class="l" style="font-weight:700;color:#70AD47">Crispagold</td>
         <td>617</td><td>218.505</td>
@@ -333,9 +339,9 @@ footer{text-align:center;padding:16px;color:#999;font-size:11px}
         <td>158.765</td>
         <td><span class="pill parcial">85,8%</span></td></tr>
       <tr style="background:#e8f0fb;font-weight:700">
-        <td class="l">TOTAL proceso</td><td>1.801</td><td>585.324+</td>
-        <td>585.324</td><td>133 bins (Monte Alto)</td>
-        <td>461.552</td>
+        <td class="l">TOTAL proceso</td><td>1.861</td><td>606.919+</td>
+        <td>606.919</td><td>133 bins (Monte Alto)</td>
+        <td>479.731</td>
         <td><span class="pill parcial">92,6% bins</span></td></tr>
     </tbody>
   </table></div>
@@ -393,8 +399,8 @@ footer{text-align:center;padding:16px;color:#999;font-size:11px}
   </div></div>
 
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px" id="guiaFiltBtns">
-    <button class="exp-tab active" onclick="filterGuiaTable('todas',this)">Todas (35)</button>
-    <button class="exp-tab" style="border-color:#F4B400;color:#7a5800" onclick="filterGuiaTable('pend',this)">Pendientes (5)</button>
+    <button class="exp-tab active" onclick="filterGuiaTable('todas',this)">Todas (36)</button>
+    <button class="exp-tab" style="border-color:#F4B400;color:#7a5800" onclick="filterGuiaTable('pend',this)">Pendientes (6)</button>
     <button class="exp-tab" style="border-color:#276221;color:#276221" onclick="filterGuiaTable('proc',this)">Procesadas (28)</button>
     <button class="exp-tab" style="border-color:#2E75B6;color:#2E75B6" onclick="filterGuiaTable('parcial',this)">Parcial (1)</button>
     <button class="exp-tab" style="border-color:#999;color:#666" onclick="filterGuiaTable('com',this)">Comercial (3)</button>
@@ -527,6 +533,13 @@ const EP10 = {
   rdto:67.62, cajas:899, kgcj:16.17,
   cals:{36:0,40:623.20,48:425.60,56:3617.60,64:1037.00,72:1513.00,88:4419.20,105:0,113:2331.20,138:567.60},
   pct:{36:0,40:4.56,48:3.11,56:26.47,64:6.79,72:18.35,88:26.59,105:0,113:10.46,138:3.67}
+};
+const EP11 = {
+  label:'El Parque (G-2381 Cara Cara · P346)', color:'#0d47a1',
+  kg_env:21595.0, kg_exp:18179.20, kg_com:3185.00, pre:0, merma:230.80,
+  rdto:84.18, cajas:1196, kgcj:15.20,
+  cals:{36:0,40:243.2,48:212.8,56:3450.4,64:1124.8,72:6019.2,88:5563.2,105:0,113:1444.0,138:121.6},
+  pct:{36:0,40:1.13,48:0.99,56:15.98,64:5.21,72:27.87,88:25.76,105:0,113:6.69,138:0.56}
 };
 const MA = {
   label:'Monte Alto (P301)', color:'#F4B400',
@@ -662,14 +675,15 @@ const GUIAS=[
   {g:2378,var:'Cara Cara',exp:'Crispagold',cuar:'Rinconada',bins:51,kg:18385.0,status:'proc',rdto:83.1,kg_exp:15283.0,proceso:'P1637',kg_com:2496.0,pre:0,merma:606.0,cajas:955,kgcj:16.0},
   {g:2379,var:'Cara Cara',exp:'Monte Alto',cuar:'Rinconada',bins:63,kg:null,status:'pend'},
   {g:2380,var:'Cara Cara Comercial',exp:'Monte Alto',cuar:'Rinconada',bins:3,kg:null,status:'com'},
-  {g:2381,var:'Cara Cara',exp:'El Parque',cuar:'Rinconada',bins:60,kg:null,status:'pend'},
+  {g:2381,var:'Cara Cara',exp:'El Parque',cuar:'Rinconada',bins:60,kg:21595.0,status:'proc',rdto:84.18,kg_exp:18179.20,proceso:'P346',kg_com:3185.0,pre:0,merma:230.8,cajas:1196,kgcj:15.20},
   {g:2382,var:'Cara Cara',exp:'Crispagold',cuar:'Rinconada',bins:66,kg:null,status:'pend'},
   {g:2383,var:'Cara Cara',exp:'Monte Alto',cuar:'Rinconada',bins:66,kg:null,status:'pend'},
+  {g:2384,var:'Cara Cara',exp:'El Parque',cuar:'Rinconada',bins:60,kg:null,status:'pend'},
 ];
 
 // ── CALIBRES — kg y cajas confirmadas ────────────────────────────────────────
 const CAJAS_EP={},CAJAS_MA={},CAJAS_CR={};
-const EP_OBJS=[EP,EP2,EP3,EP4,EP5,EP6,EP7,EP8,EP9,EP10];
+const EP_OBJS=[EP,EP2,EP3,EP4,EP5,EP6,EP7,EP8,EP9,EP10,EP11];
 const MA4 = { // Monte Alto G-2363 (P305)
   label:'Monte Alto (G-2363 · P305)', color:'#F4B400',
   kg_env:17004.00, kg_exp:14602.51, kg_com:2100.66, pre:0, merma:300.83,
@@ -738,13 +752,25 @@ CALS.forEach(c=>{
 const KG_CR_CC={},KG_CR_FK={},CAJAS_CR_CC={},CAJAS_CR_FK={},KG_TOT_FK={},CAJAS_TOT_FK={};
 const CR_CC_OBJS=CR_OBJS.filter(o=>o.label.includes('Cara Cara'));
 const CR_FK_OBJS=CR_OBJS.filter(o=>!o.label.includes('Cara Cara'));
+const EP_CC_OBJS=EP_OBJS.filter(o=>o.label.includes('Cara Cara'));
+const EP_FK_OBJS=EP_OBJS.filter(o=>!o.label.includes('Cara Cara'));
+const KG_EP_CC={},KG_EP_FK={},CAJAS_EP_CC={},CAJAS_EP_FK={};
 CALS.forEach(c=>{
   KG_CR_CC[c]=CR_CC_OBJS.reduce((a,o)=>a+(o.cals[c]||0),0);
   KG_CR_FK[c]=CR_FK_OBJS.reduce((a,o)=>a+(o.cals[c]||0),0);
+  KG_EP_CC[c]=EP_CC_OBJS.reduce((a,o)=>a+(o.cals[c]||0),0);
+  KG_EP_FK[c]=EP_FK_OBJS.reduce((a,o)=>a+(o.cals[c]||0),0);
+  CAJAS_EP_CC[c]=Math.round(EP_CC_OBJS.reduce((a,o)=>a+(o.kgcj?(o.cals[c]||0)/o.kgcj:0),0));
+  CAJAS_EP_FK[c]=Math.round(EP_FK_OBJS.reduce((a,o)=>a+(o.kgcj?(o.cals[c]||0)/o.kgcj:0),0));
   CAJAS_CR_CC[c]=Math.round(CR_CC_OBJS.reduce((a,o)=>a+(o.kgcj?(o.cals[c]||0)/o.kgcj:0),0));
   CAJAS_CR_FK[c]=Math.round(CR_FK_OBJS.reduce((a,o)=>a+(o.kgcj?(o.cals[c]||0)/o.kgcj:0),0));
-  KG_TOT_FK[c]=KG_EP[c]+KG_MA[c]+KG_CR_FK[c];
-  CAJAS_TOT_FK[c]=(CAJAS_EP[c]||0)+(CAJAS_MA[c]||0)+CAJAS_CR_FK[c];
+  KG_TOT_FK[c]=KG_EP_FK[c]+KG_MA[c]+KG_CR_FK[c];
+  CAJAS_TOT_FK[c]=(CAJAS_EP_FK[c]||0)+(CAJAS_MA[c]||0)+CAJAS_CR_FK[c];
+});
+const KG_TOT_CC={},CAJAS_TOT_CC={};
+CALS.forEach(c=>{
+  KG_TOT_CC[c]=KG_EP_CC[c]+KG_CR_CC[c];
+  CAJAS_TOT_CC[c]=CAJAS_EP_CC[c]+CAJAS_CR_CC[c];
 });
 
 let calChart=null;
@@ -1657,7 +1683,7 @@ function showPage(id,btn){
   </div>
 
   <div style="background:#fdf2f0;border-left:4px solid #c0392b;padding:10px 14px;border-radius:4px;font-size:12px;color:#555;margin-bottom:12px">
-    <strong>&#9432; 2026 en curso:</strong> 1 gu&#237;a procesada (G-2378 Crispagold &middot; 51 bins &middot; P1637). Pendientes: G-2379 MA (63b), G-2381 EP (60b), G-2382 CG (66b), G-2383 MA (66b) = 255 bins. Los n&#250;meros 2026 son parciales.
+    <strong>&#9432; 2026 en curso:</strong> 1 gu&#237;a procesada (G-2378 Crispagold &middot; 51 bins &middot; P1637). Pendientes: G-2379 MA (63b), G-2382 CG (66b), G-2383 MA (66b), G-2384 EP (60b) = 255 bins. Los n&#250;meros 2026 son parciales.
   </div>
 
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:16px">
@@ -1760,7 +1786,7 @@ function showPage(id,btn){
       <tr style="background:#f8f8f8"><td class="l">Kg exp / h&#225;</td><td>43.916</td><td>~31.780 est.</td><td>34.402</td><td>parcial</td><td>40.767</td><td>~22.100 est.</td></tr>
     </tbody>
   </table></div>
-  <div style="font-size:10px;color:#aaa;margin-top:6px">* 2026: datos parciales al 02/07/2026. Fukumoto pendiente 132 bins (G-2374 resto + G-2377). Cara Cara pendiente 255 bins (G-2379 MA 63b + G-2381 EP 60b + G-2382 CG 66b + G-2383 MA 66b).</div>
+  <div style="font-size:10px;color:#aaa;margin-top:6px">* 2026: datos parciales al 02/07/2026. Fukumoto pendiente 132 bins (G-2374 resto + G-2377). Cara Cara pendiente 255 bins (G-2379 MA 63b + G-2382 CG 66b + G-2383 MA 66b + G-2384 EP 60b).</div>
 </div>
 
 </body>

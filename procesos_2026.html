@@ -62,9 +62,8 @@ footer{text-align:center;padding:16px;color:#999;font-size:11px}
     <div><h1>&#127818; Dashboard Procesos &#8212; Naranjas Temporada 2026</h1>
     <div style="margin-top:5px;font-size:12px;opacity:.9" id="ovSubtitle">Agr&#237;cola Yoye SPA &middot; Sem. 24-27 &middot; 35 gu&#237;as enviadas</div></div>
     <div class="meta" style="display:flex;gap:6px;align-items:center;flex-wrap:wrap" id="ovBadges">
-      <span class="badge badge-g">29 procesos completos</span>
-      <span class="badge badge-w">1 parcial</span>
-      <span class="badge badge-a">2 pendientes</span>
+      <span class="badge badge-g">32 procesos completos</span>
+      <span class="badge badge-a">3 pendientes</span>
     </div>
   </div>
 
@@ -404,8 +403,7 @@ footer{text-align:center;padding:16px;color:#999;font-size:11px}
   <div class="hdr"><div><h1>&#128193; Estado de Gu&#237;as</h1>
   <div style="margin-top:5px;font-size:12px;opacity:.9">35 gu&#237;as sem. 24-27 &middot; Seguimiento procesos</div></div>
   <div class="meta">
-    <span class="badge badge-g">27 completas</span>&nbsp;
-    <span class="badge badge-w">1 parcial</span>&nbsp;
+    <span class="badge badge-g">32 completas</span>&nbsp;
     <span class="badge badge-a">1 pendiente</span>&nbsp;
     <span class="badge" style="background:#eee;color:#666">4 comercial</span>
   </div></div>
@@ -731,8 +729,8 @@ const MA8 = { // Monte Alto G-2373 (P309)
   cals:{36:58.53,40:282.89,48:858.43,56:1560.78,64:1034.01,72:5570.02,88:4711.59,105:2897.19,113:848.67,128:1131.56,138:0},
   pct:{36:0.31,40:1.49,48:4.53,56:8.23,64:5.46,72:29.39,88:24.86,105:15.29,113:4.48,128:5.97,138:0}
 };
-const MA9 = { // Monte Alto G-2374 parcial (P314 — 42/66 bins procesados)
-  label:'Monte Alto (G-2374 parcial · P314)', color:'#e6ac00',
+const MA9 = { // Monte Alto G-2374 (P314 — parte del proceso, completado con P315 en MA11)
+  label:'Monte Alto (G-2374 · P314)', color:'#e6ac00',
   kg_env:14450.52, kg_exp:12906.72, kg_com:1266.99, pre:0, merma:276.81,
   rdto:89.32, cajas:851, kgcj:15.16,
   cals:{36:82.28,40:999.15,48:1445.83,56:2092.35,64:1057.93,72:3879.07,88:2027.70,105:775.81,113:305.62,128:240.97,138:0},
@@ -832,7 +830,7 @@ function buildCalibresTab(){
     else{kgs=KG_EP;cajas=CAJAS_EP;label='El Parque (9 procesos)';}
   } else if(key==='MA'){
     color='#F4B400';
-    nota='G-2374: proceso parcial (42/66 bins). G-2369: combina 3 procesos parciales (P305+P308+P309).';
+    nota='G-2374: completado con P314+P315. G-2369: combina P305+P308+P309.';
     if(vf==='Cara Cara'){kgs=KG_MA_CC;cajas=CAJAS_MA_CC;label='Monte Alto · Cara Cara (1 proceso · P326)';}
     else if(vf==='Fukumoto'){kgs=KG_MA_FK;cajas=CAJAS_MA_FK;label='Monte Alto · Fukumoto (8 procesos · 10 guías)';}
     else{kgs=KG_MA;cajas=CAJAS_MA;label='Monte Alto (9 procesos · 11 guías)';}
@@ -843,7 +841,7 @@ function buildCalibresTab(){
     else{kgs=KG_CR;cajas=CAJAS_CR;label='Crispagold (todas las variedades)';}
   } else {
     color='#1c3f64';
-    nota='G-2353 (P143): kg oficiales, calibres estimados desde % de recepción. G-2355 y G-2374: procesos parciales (23/66 y 42/66 bins).';
+    nota='G-2353 (P143): kg oficiales, calibres estimados desde % de recepción. G-2355: proceso parcial (23/66 bins, P302+P304)';
     if(vf==='Cara Cara'){kgs=KG_CR_CC;cajas=CAJAS_CR_CC;label='Cara Cara — Todas las exportadoras';nota='';}
     else if(vf==='Fukumoto'){kgs=KG_TOT_FK;cajas=CAJAS_TOT_FK;label='Fukumoto — Todas las exportadoras';}
     else{kgs=KG_TOT;cajas=CAJAS_TOT;label='Todas las exportadoras';}
@@ -1560,7 +1558,7 @@ function showPage(id,btn){
   <div class="meta">2025 completo &middot; 2026 en curso</div></div>
 
   <div style="background:#fff8e1;border-left:4px solid #F4B400;padding:10px 14px;border-radius:4px;font-size:12px;color:#555;margin-bottom:18px">
-    <strong>&#9432; Nota:</strong> 2026 Fukumoto incluye 27 gu&#237;as procesadas (1.669 bins) m&#225;s 2 pendientes (132 bins).
+    <strong>&#9432; Nota:</strong> 2026 Fukumoto incluye 29 gu&#237;as procesadas (1.735 bins), todas completadas.
     2026 Cara Cara lleva 1 gu&#237;a procesada de 2 enviadas &mdash; temporada a&#250;n en curso.
   </div>
 
@@ -1715,7 +1713,7 @@ function showPage(id,btn){
   </div>
 
   <div style="background:#fdf2f0;border-left:4px solid #c0392b;padding:10px 14px;border-radius:4px;font-size:12px;color:#555;margin-bottom:12px">
-    <strong>&#9432; 2026 en curso:</strong> 1 gu&#237;a procesada (G-2378 Crispagold &middot; 51 bins &middot; P1637). Pendientes: G-2379 MA (63b), G-2382 CG (66b), G-2383 MA (66b), G-2384 EP (60b) = 255 bins. Los n&#250;meros 2026 son parciales.
+    <strong>&#9432; 2026 en curso:</strong> 3 gu&#237;as procesadas (G-2378 CR 51b · G-2379 MA 63b · G-2381 EP 60b). Pendientes: G-2382 CG (66b), G-2383 MA (66b), G-2384 EP (60b) = 192 bins. Los n&#250;meros 2026 son parciales.
   </div>
 
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:16px">
@@ -1818,7 +1816,7 @@ function showPage(id,btn){
       <tr style="background:#f8f8f8"><td class="l">Kg exp / h&#225;</td><td>43.916</td><td>~31.780 est.</td><td>34.402</td><td>parcial</td><td>40.767</td><td>~22.100 est.</td></tr>
     </tbody>
   </table></div>
-  <div style="font-size:10px;color:#aaa;margin-top:6px">* 2026: datos parciales al 02/07/2026. Fukumoto pendiente 132 bins (G-2374 resto + G-2377). Cara Cara pendiente 255 bins (G-2379 MA 63b + G-2382 CG 66b + G-2383 MA 66b + G-2384 EP 60b).</div>
+  <div style="font-size:10px;color:#aaa;margin-top:6px">* 2026: datos parciales al 06/07/2026. Fukumoto completo (29 guías). Cara Cara pendiente 192 bins (G-2382 CG 66b + G-2383 MA 66b + G-2384 EP 60b).</div>
 </div>
 
 </body>

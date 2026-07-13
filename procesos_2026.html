@@ -863,23 +863,27 @@ function buildCalibresTab(){
     color='#2E75B6';
     nota='G-2353 (P143): kg oficiales, calibres estimados desde % de recepción.';
     if(vf==='Cara Cara'){kgs=emptyKG;cajas=emptyKG;label='El Parque · Cara Cara (2 procesos · P346+P391)';}
+    else if(vf==='Lane Late'){kgs=emptyKG;cajas=emptyKG;label='El Parque · Lane Late (sin procesos aún)';nota='';}
     else{kgs=KG_EP;cajas=CAJAS_EP;label='El Parque (9 procesos)';}
   } else if(key==='MA'){
     color='#F4B400';
     nota='G-2374: completado con P314+P315. G-2369: combina P305+P308+P309.';
     if(vf==='Cara Cara'){kgs=KG_MA_CC;cajas=CAJAS_MA_CC;label='Monte Alto · Cara Cara (1 proceso · P326)';}
     else if(vf==='Fukumoto'){kgs=KG_MA_FK;cajas=CAJAS_MA_FK;label='Monte Alto · Fukumoto (8 procesos · 10 guías)';}
+    else if(vf==='Lane Late'){kgs=emptyKG;cajas=emptyKG;label='Monte Alto · Lane Late (sin procesos aún)';nota='';}
     else{kgs=KG_MA;cajas=CAJAS_MA;label='Monte Alto (9 procesos · 11 guías)';}
   } else if(key==='CR'){
     color='#70AD47';
     if(vf==='Cara Cara'){kgs=KG_CR_CC;cajas=CAJAS_CR_CC;label='Crispagold · Cara Cara (2 procesos · P1637+P1679)';}
     else if(vf==='Fukumoto'){kgs=KG_CR_FK;cajas=CAJAS_CR_FK;label='Crispagold · Fukumoto (6 procesos · 9 guías)';}
+    else if(vf==='Lane Late'){kgs=emptyKG;cajas=emptyKG;label='Crispagold · Lane Late (sin procesos aún)';nota='';}
     else{kgs=KG_CR;cajas=CAJAS_CR;label='Crispagold (todas las variedades)';}
   } else {
     color='#1c3f64';
     nota='G-2353 (P143): kg oficiales, calibres estimados desde % de recepción. G-2355: proceso parcial (23/66 bins, P302+P304)';
     if(vf==='Cara Cara'){kgs=KG_CR_CC;cajas=CAJAS_CR_CC;label='Cara Cara — Todas las exportadoras';nota='';}
     else if(vf==='Fukumoto'){kgs=KG_TOT_FK;cajas=CAJAS_TOT_FK;label='Fukumoto — Todas las exportadoras';}
+    else if(vf==='Lane Late'){kgs=emptyKG;cajas=emptyKG;label='Lane Late — Todas las exportadoras (sin procesos aún)';nota='';}
     else{kgs=KG_TOT;cajas=CAJAS_TOT;label='Todas las exportadoras';}
   }
   const totKg=CALS.reduce((a,c)=>a+(kgs[c]||0),0);

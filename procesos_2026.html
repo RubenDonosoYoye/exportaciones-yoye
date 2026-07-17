@@ -111,7 +111,7 @@ footer{text-align:center;padding:16px;color:#999;font-size:11px}
 <div id="detalle" class="page">
   <div class="hdr"><div><h1>&#128203; Detalle de Procesos</h1>
   <div style="margin-top:5px;font-size:12px;opacity:.9">Resultados por proceso recibido</div></div>
-  <div class="meta">36 procesos &middot; Sem. 24-29</div></div>
+  <div class="meta">37 procesos &middot; Sem. 24-29</div></div>
 
   <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px" id="detalleVarBtns">
     <span style="font-size:11px;color:#888;font-weight:700;text-transform:uppercase;letter-spacing:.5px">Variedad:</span>
@@ -331,10 +331,16 @@ footer{text-align:center;padding:16px;color:#999;font-size:11px}
         <td style="font-weight:700;color:#c0392b">66,3%</td><td>977</td><td>15,9</td>
         <td><span class="ok pill">P1679 &#10003;</span></td>
       </tr>
+      <tr data-var="Lane Late" style="background:#f0fff4">
+        <td class="l" style="font-weight:700">G-2392</td><td>El Parque</td><td>Rinconada</td><td>61</td>
+        <td>21.784</td><td>18.596</td><td>3.097</td><td>0</td><td>91</td>
+        <td style="font-weight:700;color:#276221">85,4%</td><td>1.223</td><td>15,2</td>
+        <td><span class="ok pill">P488 &#10003;</span></td>
+      </tr>
       <tr style="background:#e8f0fb;font-weight:700">
-        <td class="l">TOTAL proceso</td><td colspan="2"></td><td id="det-tot-bins">2.101</td>
-        <td id="det-tot-env">738.642</td><td id="det-tot-exp">584.463</td><td id="det-tot-com">139.330</td><td id="det-tot-pre">1.528</td><td id="det-tot-merma">13.321</td>
-        <td id="det-tot-rdto">79,1%</td><td id="det-tot-cajas">37.135</td><td>&#8212;</td><td></td>
+        <td class="l">TOTAL proceso</td><td colspan="2"></td><td id="det-tot-bins">2.162</td>
+        <td id="det-tot-env">760.426</td><td id="det-tot-exp">603.059</td><td id="det-tot-com">142.427</td><td id="det-tot-pre">1.528</td><td id="det-tot-merma">13.412</td>
+        <td id="det-tot-rdto">79,3%</td><td id="det-tot-cajas">38.358</td><td>&#8212;</td><td></td>
       </tr>
     </tbody>
   </table></div>
@@ -823,10 +829,14 @@ CALS.forEach(c=>{
   KG_TOT[c]=KG_EP[c]+KG_MA[c]+KG_CR[c];
 });
 const KG_CR_CC={},KG_CR_FK={},CAJAS_CR_CC={},CAJAS_CR_FK={},KG_TOT_FK={},CAJAS_TOT_FK={};
+const KG_EP_LL={},CAJAS_EP_LL={},KG_TOT_LL={},CAJAS_TOT_LL={};
 const CR_CC_OBJS=CR_OBJS.filter(o=>o.label.includes('Cara Cara'));
 const CR_FK_OBJS=CR_OBJS.filter(o=>!o.label.includes('Cara Cara'));
 const EP_CC_OBJS=EP_OBJS.filter(o=>o.label.includes('Cara Cara'));
-const EP_FK_OBJS=EP_OBJS.filter(o=>!o.label.includes('Cara Cara'));
+const EP_FK_OBJS=EP_OBJS.filter(o=>!o.label.includes('Cara Cara')&&!o.label.includes('Lane Late'));
+const EP_LL_OBJS=EP_OBJS.filter(o=>o.label.includes('Lane Late'));
+const MA_LL_OBJS=MA_OBJS.filter(o=>o.label.includes('Lane Late'));
+const CR_LL_OBJS=CR_OBJS.filter(o=>o.label.includes('Lane Late'));
 const KG_EP_CC={},KG_EP_FK={},CAJAS_EP_CC={},CAJAS_EP_FK={};
 const MA_CC_OBJS=MA_OBJS.filter(o=>o.label.includes('Cara Cara'));
 const MA_FK_OBJS=MA_OBJS.filter(o=>!o.label.includes('Cara Cara'));
@@ -846,6 +856,10 @@ CALS.forEach(c=>{
   CAJAS_CR_FK[c]=Math.round(CR_FK_OBJS.reduce((a,o)=>a+(o.kgcj?(o.cals[c]||0)/o.kgcj:0),0));
   KG_TOT_FK[c]=KG_EP_FK[c]+KG_MA_FK[c]+KG_CR_FK[c];
   CAJAS_TOT_FK[c]=(CAJAS_EP_FK[c]||0)+(CAJAS_MA_FK[c]||0)+CAJAS_CR_FK[c];
+  KG_EP_LL[c]=EP_LL_OBJS.reduce((a,o)=>a+(o.cals[c]||0),0);
+  CAJAS_EP_LL[c]=Math.round(EP_LL_OBJS.reduce((a,o)=>a+(o.kgcj?(o.cals[c]||0)/o.kgcj:0),0));
+  KG_TOT_LL[c]=KG_EP_LL[c]+MA_LL_OBJS.reduce((a,o)=>a+(o.cals[c]||0),0)+CR_LL_OBJS.reduce((a,o)=>a+(o.cals[c]||0),0);
+  CAJAS_TOT_LL[c]=CAJAS_EP_LL[c]+Math.round(MA_LL_OBJS.reduce((a,o)=>a+(o.kgcj?(o.cals[c]||0)/o.kgcj:0),0))+Math.round(CR_LL_OBJS.reduce((a,o)=>a+(o.kgcj?(o.cals[c]||0)/o.kgcj:0),0));
 });
 const KG_TOT_CC={},CAJAS_TOT_CC={};
 CALS.forEach(c=>{
@@ -877,8 +891,8 @@ function buildCalibresTab(){
   if(key==='EP'){
     color='#2E75B6';
     nota='G-2353 (P143): kg oficiales, calibres estimados desde % de recepción.';
-    if(vf==='Cara Cara'){kgs=emptyKG;cajas=emptyKG;label='El Parque · Cara Cara (2 procesos · P346+P391)';}
-    else if(vf==='Lane Late'){kgs=emptyKG;cajas=emptyKG;label='El Parque · Lane Late (sin procesos aún)';nota='';}
+    if(vf==='Cara Cara'){kgs=KG_EP_CC;cajas=CAJAS_EP_CC;label='El Parque · Cara Cara (2 procesos · P346+P391)';}
+    else if(vf==='Lane Late'){kgs=KG_EP_LL;cajas=CAJAS_EP_LL;label='El Parque · Lane Late (1 proceso · P488)';nota='';}
     else{kgs=KG_EP;cajas=CAJAS_EP;label='El Parque (9 procesos)';}
   } else if(key==='MA'){
     color='#F4B400';
@@ -898,7 +912,7 @@ function buildCalibresTab(){
     nota='G-2353 (P143): kg oficiales, calibres estimados desde % de recepción. G-2355: proceso parcial (23/66 bins, P302+P304)';
     if(vf==='Cara Cara'){kgs=KG_CR_CC;cajas=CAJAS_CR_CC;label='Cara Cara — Todas las exportadoras';nota='';}
     else if(vf==='Fukumoto'){kgs=KG_TOT_FK;cajas=CAJAS_TOT_FK;label='Fukumoto — Todas las exportadoras';}
-    else if(vf==='Lane Late'){kgs=emptyKG;cajas=emptyKG;label='Lane Late — Todas las exportadoras (sin procesos aún)';nota='';}
+    else if(vf==='Lane Late'){kgs=KG_TOT_LL;cajas=CAJAS_TOT_LL;label='Lane Late — Todas las exportadoras (1 proceso · P488)';nota='';}
     else{kgs=KG_TOT;cajas=CAJAS_TOT;label='Todas las exportadoras';}
   }
   const totKg=CALS.reduce((a,c)=>a+(kgs[c]||0),0);

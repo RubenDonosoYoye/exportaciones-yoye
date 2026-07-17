@@ -63,7 +63,7 @@ footer{text-align:center;padding:16px;color:#999;font-size:11px}
     <div style="margin-top:5px;font-size:12px;opacity:.9" id="ovSubtitle">Agr&#237;cola Yoye SPA &middot; Sem. 24-29 &middot; 39 gu&#237;as enviadas</div></div>
     <div class="meta" style="display:flex;gap:6px;align-items:center;flex-wrap:wrap" id="ovBadges">
       <span class="badge badge-g">36 procesos completos</span>
-      <span class="badge badge-a">4 pendientes</span>
+      <span class="badge badge-a">8 pendientes</span>
     </div>
   </div>
 
@@ -111,7 +111,7 @@ footer{text-align:center;padding:16px;color:#999;font-size:11px}
 <div id="detalle" class="page">
   <div class="hdr"><div><h1>&#128203; Detalle de Procesos</h1>
   <div style="margin-top:5px;font-size:12px;opacity:.9">Resultados por proceso recibido</div></div>
-  <div class="meta">29 procesos &middot; Sem. 24-27</div></div>
+  <div class="meta">36 procesos &middot; Sem. 24-29</div></div>
 
   <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px" id="detalleVarBtns">
     <span style="font-size:11px;color:#888;font-weight:700;text-transform:uppercase;letter-spacing:.5px">Variedad:</span>
@@ -442,12 +442,12 @@ footer{text-align:center;padding:16px;color:#999;font-size:11px}
 
   <div class="tw"><table id="guiaTable">
     <thead><tr>
-      <th>Gu&#237;a</th><th>Exportadora</th><th>Cuartel</th><th>Bins</th>
+      <th>Gu&#237;a</th><th>Variedad</th><th>Exportadora</th><th>Cuartel</th><th>Bins</th>
       <th>Kg Env.</th><th>Estado</th><th>Proceso / Rdto</th>
     </tr></thead>
     <tbody id="guia-tbody"></tbody>
     <tfoot><tr style="background:#e8f0fb;font-weight:700">
-      <td class="l" colspan="2">TOTAL (<span id="guia-tot-n">0</span> gu&#237;as)</td>
+      <td class="l" colspan="3">TOTAL (<span id="guia-tot-n">0</span> gu&#237;as)</td>
       <td></td>
       <td id="guia-tot-bins">0</td>
       <td id="guia-tot-kg">0</td>
@@ -462,7 +462,7 @@ footer{text-align:center;padding:16px;color:#999;font-size:11px}
   <div class="hdr">
     <div><h1>&#127981; Control por Exportadora</h1>
     <div style="margin-top:5px;font-size:12px;opacity:.9">Seguimiento de gu&#237;as, bins y rendimiento por exportadora</div></div>
-    <div class="meta">Temporada 2026 &middot; Sem. 24-25</div>
+    <div class="meta">Temporada 2026 &middot; Sem. 24-29</div>
   </div>
 
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px" id="procExpBtns">
@@ -574,6 +574,13 @@ const EP12 = {
   rdto:85.85, cajas:1189, kgcj:15.21,
   cals:{36:0,40:942.4,48:547.2,56:4043.2,64:1824.0,72:5304.8,88:4377.6,105:0,113:942.4,128:0,138:103.2},
   pct:{36:0,40:4.47,48:2.60,56:19.19,64:8.66,72:25.18,88:20.78,105:0,113:4.47,128:0,138:0.49}
+};
+const EP13 = {
+  label:'El Parque (G-2392 Lane Late · P488)', color:'#27ae60',
+  kg_env:21784.0, kg_exp:18595.60, kg_com:3096.50, pre:0, merma:91.40,
+  rdto:85.37, cajas:1223, kgcj:15.20,
+  cals:{36:0,40:592.8,48:410.4,56:4924.8,64:1717.6,72:6536.0,88:3648.0,105:0,113:714.4,138:51.6},
+  pct:{36:0,40:3.19,48:2.21,56:26.48,64:9.24,72:35.15,88:19.62,105:0,113:3.84,138:0.28}
 };
 const MA = {
   label:'Monte Alto (P301)', color:'#F4B400',
@@ -725,14 +732,19 @@ const GUIAS=[
   {g:2387,var:'Cara Cara',exp:'Monte Alto',cuar:'Rinconada',bins:46,kg:16518.14,status:'proc',rdto:88.7,kg_exp:14652.32,proceso:'P336',kg_com:1281.58,pre:71.55,merma:512.69,cajas:927,kgcj:15.81},
   {g:2390,var:'Lane Late',exp:'Monte Alto',cuar:'Rinconada',bins:60,kg:null,status:'pend'},
   {g:2391,var:'Cara Cara',exp:'Monte Alto',cuar:'Rinconada',bins:32,kg:11876.16,status:'proc',rdto:88.7,kg_exp:10534.68,proceso:'P336',kg_com:921.42,pre:51.45,merma:368.61,cajas:667,kgcj:15.79},
-  {g:2392,var:'Lane Late',exp:'El Parque',cuar:'Rinconada',bins:61,kg:null,status:'pend'},
+  {g:2392,var:'Lane Late',exp:'El Parque',cuar:'Rinconada',bins:61,kg:21784,status:'proc',rdto:85.37,kg_exp:18595.60,proceso:'P488',kg_com:3096.50,pre:0,merma:91.40,cajas:1223,kgcj:15.20},
   {g:2393,var:'Lane Late',exp:'Monte Alto',cuar:'Rinconada',bins:24,kg:null,status:'pend'},
   {g:2393,var:'Cara Cara',exp:'Monte Alto',cuar:'Rinconada',bins:42,kg:null,status:'pend'},
+  {g:2395,var:'Lane Late',exp:'Monte Alto',cuar:'Rinconada',bins:57,kg:null,status:'pend'},
+  {g:2395,var:'Cara Cara',exp:'Monte Alto',cuar:'Rinconada',bins:9,kg:null,status:'pend'},
+  {g:2396,var:'Cara Cara',exp:'Monte Alto',cuar:'Rinconada',bins:66,kg:null,status:'pend'},
+  {g:2397,var:'Cara Cara',exp:'Monte Alto',cuar:'Rinconada',bins:66,kg:null,status:'pend'},
+  {g:2398,var:'Cara Cara',exp:'El Parque',cuar:'Rinconada',bins:61,kg:null,status:'pend'},
 ];
 
 // ── CALIBRES — kg y cajas confirmadas ────────────────────────────────────────
 const CAJAS_EP={},CAJAS_MA={},CAJAS_CR={};
-const EP_OBJS=[EP,EP2,EP3,EP4,EP5,EP6,EP7,EP8,EP9,EP10,EP11,EP12];
+const EP_OBJS=[EP,EP2,EP3,EP4,EP5,EP6,EP7,EP8,EP9,EP10,EP11,EP12,EP13];
 const MA4 = { // Monte Alto G-2363 (P305)
   label:'Monte Alto (G-2363 · P305)', color:'#F4B400',
   kg_env:17004.00, kg_exp:14602.51, kg_com:2100.66, pre:0, merma:300.83,
@@ -960,6 +972,7 @@ function buildGuiaTable(){
                     '<span style="color:#bbb">&#8212;</span>';
     tbody.innerHTML+=`<tr data-status="${r.status}" data-var="${r.var||'Fukumoto'}" data-bins="${r.bins}" data-kg="${r.kg||0}" style="background:${bg}">
       <td class="l" style="font-weight:700">G-${r.g}</td>
+      <td style="font-size:11px;color:#555">${r.var||'Fukumoto'}</td>
       <td>${r.exp}</td>
       <td>${r.cuar}</td>
       <td>${r.bins}</td>
@@ -1216,8 +1229,8 @@ function renderOverview(filterExp){
   const {gs,procGs,parGs,pendGs,doneGs,kgProcesado,kgExportable,kgComercial,kgTotal}=agg;
 
   document.getElementById('ovSubtitle').textContent = filterExp==='todas'
-    ? 'Agrícola Yoye SPA · Sem. 24-27 · '+GUIAS.length+' guías enviadas'
-    : 'Agrícola Yoye SPA · Sem. 24-27 · '+gs.length+' guías · '+filterExp;
+    ? 'Agrícola Yoye SPA · Sem. 24-29 · '+GUIAS.length+' guías enviadas'
+    : 'Agrícola Yoye SPA · Sem. 24-29 · '+gs.length+' guías · '+filterExp;
 
   document.getElementById('ovBadges').innerHTML =
     `<span class="badge badge-g">${procGs.length} procesos completos</span>`+
@@ -1623,7 +1636,7 @@ function showPage(id,btn){
 
   <div style="background:#fff8e1;border-left:4px solid #F4B400;padding:10px 14px;border-radius:4px;font-size:12px;color:#555;margin-bottom:18px">
     <strong>&#9432; Nota:</strong> 2026 Fukumoto incluye 29 gu&#237;as procesadas (1.735 bins), todas completadas.
-    2026 Cara Cara: 10 gu&#237;as procesadas. Pendiente: G-2393 MA (42b CC) + Lane Late: G-2390 (60b) + G-2392 EP (61b) + G-2393 MA (24b).
+    2026 Cara Cara: 10 gu&#237;as procesadas. Pendiente CC: G-2393 MA (42b) + G-2395 MA (9b) + G-2396 MA (66b) + G-2397 MA (66b) + G-2398 EP (61b) = 244b. Lane Late: G-2390 MA (60b) + G-2393 MA (24b) + G-2395 MA (57b) = 141b. Total pendiente: 385 bins.
   </div>
 
   <!-- ══ FUKUMOTO ══ -->
